@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Widget App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <main class="m-container">
+        <div class="app">
+            <section class="search-container">
+                <i class="fa-solid fa-location-dot"></i>
+                <input type="text" placeholder="Enter a location" class="location-search">
+                <button class="search-btn fa-solid fa-search-location"></button>
+            </section>
+
+            <section class="not-found-container">
+                <img src="images/404-error.png" alt="">
+                <p>Location Not Found!</p>
+            </section>
+
+            <section class="weather-container">
+                <img src="images/rainbow.png" alt="">
+                <p class="temperature">0</p>
+                <p class="w-description">-</p>
+            </section>
+
+            <section class="weather-dtls">
+                <div class="humidity">
+                    <i class="fa-solid fa-water dtls-icon"></i>
+                    <div class="text">
+                        <span>0</span>
+                        <p>Humidity</p>
+                    </div>
+                </div>
+
+                <div class="wind">
+                    <i class="fa-solid fa-wind dtls-icon"></i>
+                    <div class="text">
+                        <span>0</span>
+                        <p>Wind Speed</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    <a href="https://www.flaticon.com/packs/weather-220" title="sun icons"> weather icons created by Good Ware -
+        Flaticon</a>
+    <script src="https://kit.fontawesome.com/b466eb05ed.js" crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

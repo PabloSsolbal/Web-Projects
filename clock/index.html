@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clock App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <main class="app">
+
+        <section class="stopwatch-container container">
+            <div class="stopwatch-title">
+                <h1>STOPWATCH</h1>
+            </div>
+            <div class="stopwatch">
+                <div class="stopwatch-time-container">
+                    <div class="stopwatch-time time">00:00:00</div>
+                </div>
+                <div class="stopwatch-lap-container">
+                    <button class="stopwatch-lap-btn">Lap</button>
+                    <div class="laps">Laps: 0 | Last Lap: 00:00:00</div>
+                </div>
+                <div class="stopwatch-btns">
+                    <button class="stopwatch-start-btn btn">Start</button>
+                    <button class="stopwatch-stop-btn btn">Stop</button>
+                    <button class="stopwatch-restart-btn btn">Restart</button>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="clock-container container">
+            <div class="clock-title">
+                <h1>CLOCK</h1>
+            </div>
+            <div class="clock">
+                <div class="clock-time-container">
+                    <div class="clock-time time">00:00:00</div>
+                </div>
+                <div class="alarm-set-title">-SET YOUR ALARM-</div>
+                <div class="alarm-time-input">
+                    <input type="number" min="0" max="59" id="timer-input-minutes" placeholder="minutes">
+                    <input type="number" min="0" max="23" id="timer-input-hours" placeholder="hours">
+                </div>
+                <div class="alarm-set-container">
+                    <button class="delete-alarm-btn btn">Delete Alarm</button>
+                    <button class="alarm-set-btn btn">Set Alarm</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="timer-container container">
+            <div class="timer-title">
+                <h1>TIMER</h1>
+            </div>
+            <div class="timer">
+                <div class="timer-time-container">
+                    <div class="timer-time time">00:00:00</div>
+                </div>
+                <div class="time-options-title">-MINUTES-</div>
+                <div class="timer-time-options">
+                    <button class="timer-option">1</button>
+                    <button class="timer-option">5</button>
+                    <button class="timer-option">10</button>
+                    <button class="timer-option">15</button>
+                    <button class="timer-option">30</button>
+                    <button class="timer-option">60</button>
+                </div>
+                <div class="timer-btns">
+                    <button class="timer-start-btn btn">Start</button>
+                    <button class="timer-stop-btn btn">Stop</button>
+                    <button class="timer-restart-btn btn">Reset</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

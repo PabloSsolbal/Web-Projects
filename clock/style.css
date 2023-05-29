@@ -1,0 +1,281 @@
+@import url('https://fonts.googleapis.com/css2?family=Nova+Square&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    height: 100vh;
+    font-family: 'Nova Square',cursive;
+    background:#000 no-repeat;
+}
+
+.app{
+    width: 1300px;
+    height: auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0 auto;
+    margin-top: 50px;
+}
+.container{
+    width: 350px;
+    height: 450px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    margin: 10px;
+}
+.time{
+    font-family: "Nova Square",cursive;
+}
+.btn{
+    border: none;
+    height: 25px;
+    width: 70px;
+    border-radius: 10px;
+    font-family: 'Nova Square',cursive;
+    font-size: 14px;
+    font-weight: lighter;
+    color: #444;
+    background-color: #000;
+}
+input{
+    border-radius: 10px;
+    width: 130px;
+    padding: 5px;
+    margin: 5px;
+    outline: none;
+    background-color: #000000;
+    color: #fff;
+    border: 1px solid #444;
+}
+.stopwatch-container{
+    background-color: #000;
+    border-radius: 30px;
+    border: 1px solid #ffffff;
+    box-shadow: 0px 0px 5px 5px #ff0000;
+}
+.stopwatch-container .stopwatch-title{
+    margin: 10px;
+    color: rgb(248, 95, 68);
+    font-size: 15px;
+    font-weight: lighter;
+}
+.stopwatch-container .stopwatch{
+    width: 300px;
+    height: 375px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    border: 3px solid #ff0000;
+    border-radius: 25px;
+    box-shadow: 0px 0px 15px 1px #fd8686a6;
+    background-color: #000;
+}
+
+.stopwatch-container .stopwatch .stopwatch-time-container{
+    width: 185px;
+    height: 185px;
+    border: 3px solid rgb(255, 0, 0);
+    border-radius: 50%;
+    box-shadow: 0px 0px 10px 3px rgba(253, 122, 122, 0.685);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.stopwatch-container .stopwatch .stopwatch-time-container .stopwatch-time{
+    font-size: 35px;
+    color: #fff;
+}
+.stopwatch-btns, .timer-btns, .alarm-set-container{
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    padding: 5px;
+}
+.stopwatch-btns .btn{
+    border: 2px solid #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 1px #ff0000;
+}
+.stopwatch-lap-container{
+    margin: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.stopwatch-lap-container .stopwatch-lap-btn{
+    width: 60px;
+    height: 25px;
+    font-family: 'Nova Square';
+    font-weight: lighter;
+    background-color: #000;
+    color: #444;
+    border: 2px solid #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 1px #ff0000;
+}
+.stopwatch-lap-container .laps{
+    width: 200px;
+    font-family: 'Nova Square';
+    font-size: 13px;
+    font-weight: lighter;
+    background-color: #000;
+    color: #444;
+    border: 2px solid #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 1px #ff0000;
+    padding: 3px;
+    text-align: center;
+
+}
+.clock-container{
+    height: 500px;
+    margin: auto 0;
+    border-radius: 30px;
+    border: 1px solid #ffffff;
+    border-radius: 25px;
+    box-shadow: 0px 0px 5px 5px rgb(0, 255, 255);
+    background-color: #000;
+}
+
+.clock-container .clock-title{
+    margin: 10px;
+    color: rgb(0, 255, 255);
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.clock-container .clock{
+    width: 300px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    border: 3px solid rgb(0, 255, 255);
+    border-radius: 25px;
+    box-shadow: 0px 0px 15px 1px #66fcfca6;
+    background-color: #000;
+}
+
+.clock-container .clock .clock-time-container{
+    width: 185px;
+    height: 185px;
+    border: 3px solid rgb(0, 200, 255);
+    border-radius: 50%;
+    box-shadow: 0px 0px 10px 3px #66fcfca6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.clock-container .clock .clock-time-container .clock-time{
+    font-size: 35px;
+    color: #fff;
+}
+.alarm-time-input{
+    width: 90%;
+    display: flex;
+    justify-content: center;
+}
+.alarm-time-input input{
+    font-family: "Nova Square",cursive;
+    font-weight: lighter;
+    color: #444;
+    border: 2px solid #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 1px #00ff9d;
+}
+.alarm-time-input input:focus{
+    color: #00ff9d;
+    font-weight: bolder;
+}
+.alarm-set-container .btn{
+    border: 2px solid #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 1px #00ff9d;
+}
+.alarm-set-container button{
+    width: 100px;
+}
+.timer-container{
+    border-radius: 30px;
+    border: 1px solid #ffffff;
+    border-radius: 25px;
+    box-shadow: 0px 0px 5px 5px rgb(255, 123, 0);
+    background-color: #000;
+}
+
+.timer-container .timer-title{
+    margin: 10px;
+    color: rgb(255, 123, 0);
+    font-size: 15px;
+    font-weight: lighter;
+}
+
+.timer-container .timer{
+    width: 300px;
+    height: 375px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    border: 3px solid rgb(255, 123, 0);
+    border-radius: 25px;
+    box-shadow: 0px 0px 15px 1px #ff7452a6;
+    background-color: #000;
+}
+
+.timer-container .timer .timer-time-container{
+    width: 185px;
+    height: 185px;
+    border: 3px solid rgb(255, 123, 0);
+    border-radius: 50%;
+    box-shadow: 0px 0px 10px 3px #ff7452a6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.timer-container .timer .timer-time-container .timer-time{
+    font-size: 35px;
+    color: #fff;
+}
+
+.timer-btns .btn{
+    border: 2px solid #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 1px #ff7b00;
+}
+.timer-time-options{
+    width: 90%;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-rows: 2;
+    gap: 5px;
+}
+.time-options-title, .alarm-set-title{
+    color: #444;
+}
+.timer-time-options .timer-option{
+    height: 25px;
+    border: 2px solid #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px 1px #ff5e00;
+    background-color: #000;
+    color: #444;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button{
+    appearance: none;
+}

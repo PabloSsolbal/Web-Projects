@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani&display=swap');
+
+body{
+    background: radial-gradient(rgb(70, 243, 243),rgb(81, 98, 255));
+}
+.calc{
+    font-family: 'Rajdhani',sans-serif;
+    font-size: 25px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    margin: 0 auto;
+    margin-top: 70px;
+    width: 300px;
+    height: 500px;
+    border: solid #000000a1 1px;
+    border-radius: 20px;
+    box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.5);
+    background: linear-gradient(to top,rgb(0, 252, 113),rgb(0, 238, 247));
+}
+.wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    height: 125px;
+    color: #333;
+    background-color: #ffffff;
+    border: solid 1px #999;
+    box-shadow: 0px 0px 10px 3px #000000a1;
+    border-radius: 15px;
+    padding: 5px;
+    margin-bottom: 5px;
+    font-weight: 600;
+    font-size: 30px;
+    transition: all 0,3s;
+}
+.wrapper:hover{
+    border: 1px solid #0ad3f7;
+    color: #53e3fc;
+}
+
+.calc-button{
+    border: solid 1px #000000a1;
+    border-radius: 6.5px;
+    font-size: 18px;
+    font-weight: 500;
+    color: #000000bb;
+    box-shadow: 0px 0px 10px 2px #000000a1;
+    height: 60px;
+    width: 60px;
+    transition: all 0.3s;
+}
+.calc-button:hover{
+    cursor: pointer;
+    border: 2px solid #fc5353;
+    color: #ff0505;
+    box-shadow: 0px 0px 6px 2px #000000e1;
+}
+.calc-buttons{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 10px;
+    height: 100%;
+}
+.calc-button-row{
+    display: grid;
+    grid-template-columns: repeat(4,1fr) ;
+    grid-auto-rows: minmax(0,1fr);
+    gap: 10px;
+    padding-top: 5px;
+}
+.calc-button-row:nth-child(-n+4) .calc-button:last-child {
+    background-color: #80fad5;
+    color: #ffffff;
+    font-size: 30px;
+}
+.calc-button-row:nth-child(-n+4) .calc-button:last-child:hover{
+    border: 1px solid #27ff88;
+}
+.calc-button-row:first-child .calc-button:nth-child(2) {
+    background-color: #b1acf8;
+    color: #fff;
+    border: 1px solid #7e76f5;
+    font-size: 30px;
+}
+  
+#result{
+    color: #ff0000;
+    border:1px solid #f52020;
+    grid-column: span 3;
+    width: 204px;
+}
+#result:hover{
+    color: #008cff;
+    border: 2px solid #0077ff;
+}
+#clear{
+    color: #ff5e00;
+    border:1px solid #f1750f;
+    grid-column: span 2;
+    width: 132px;
+}
+#clear:hover{
+    color: #008cff;
+    border: 2px solid #0077ff;
+}
+
+.calc-button:active{
+    border: 1px solid #fff;
+    box-shadow: 0px 0px 10px 3px #ffffffb9;
+}
