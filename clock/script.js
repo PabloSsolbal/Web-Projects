@@ -347,8 +347,15 @@ setAlarmBtn.addEventListener("click", (e) => {
   //convertimos los valores de los inputs a enteros
   const hoursInput = parseInt(alarmHours.value, 10);
   const minutesInput = parseInt(alarmMinutes.value, 10);
-  //validamos los valores de los inputs para que esten dentro del rango de 0 a 23 y de 0 a 59
-  if (hoursInput > 23 || minutesInput > 59) {
+  //validamos los valores de los inputs para que esten dentro del rango de 0 a 23 y de 0 a 59, no sean negativos ni sean valores nulos
+  if (
+    hoursInput > 23 ||
+    hoursInput <= 0 ||
+    minutesInput > 59 ||
+    minutesInput <= 0 ||
+    alarmHours.value == "" ||
+    alarmMinutes.value == ""
+  ) {
     //si lo estan reseteamos los inputs y salimos de la funcion
     alarmHours.value = "";
     alarmMinutes.value = "";

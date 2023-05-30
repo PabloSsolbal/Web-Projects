@@ -4,7 +4,7 @@ const search = document.querySelector(".location-search");
 const searchBtn = document.querySelector(".search-btn");
 //creamos nuestras variables que se usaran como parametros al llamar a la API de openweathermap
 //asiganmos la API key para autenticar la solicitud
-APIKey = "55f91e3d4de8d2cbed6ea17e435045e4";
+APIKey = window.key;
 let city = null;
 //creamos las variables para guardar la informacion relevante de la API; la temperatura, la descripcion del clima, el porcentaje de humedad y la velocidad del tiempo
 let temperature = null;
