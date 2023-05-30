@@ -2,6 +2,13 @@
 
 ¡Bienvenido/a al repositorio de mis proyectos de desarrollo web! Aquí encontrarás una recopilación de proyectos que he desarrollado utilizando tecnologías web. Estos proyectos me han permitido practicar y mejorar mis habilidades en el campo del desarrollo web.
 
+**Tecnologias usadas**
+<p align="center">
+  <a href="https://skillicons.dev">
+    <img src="https://skillicons.dev/icons?i=js,html,css />
+  </a>
+</p>
+
 ## Lista de Proyectos
 
 1. **Calculadora interactiva**
