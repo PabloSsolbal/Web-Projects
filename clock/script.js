@@ -162,7 +162,7 @@ let timerIntervalID = null;
 
 //creamos el audio del temporizador
 const timerSound = new Audio();
-timerSound.src = "/Projects2.0/ProyectosJs/clock/sounds/Temporizador.mp3";
+timerSound.src = "sounds/Temporizador.mp3";
 
 //creamos la funcion para actualizar las horas, minutos y segundos del temporizador
 const updateTimer = () => {
@@ -281,7 +281,7 @@ let isAlarmSet = false;
 
 //creamos el audio de la alarma
 const alarmSound = new Audio();
-alarmSound.src = "/Projects2.0/ProyectosJs/clock/sounds/Alarma.mp3";
+alarmSound.src = "sounds/Alarma.mp3";
 
 //construimos la funcion para crear la alarma que recibe como parametros la hora y minutos
 const setAlarm = (newHour, newMinutes) => {

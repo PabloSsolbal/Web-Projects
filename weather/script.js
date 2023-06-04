@@ -1,4 +1,5 @@
 //este codigo realiza una llamada a la API de openweathermap para crear un widget del clima
+
 //construimos los dos elementos principales para desencadenar los eventos del widget; el boton de buscar y el input para ingresar la localizacion
 const search = document.querySelector(".location-search");
 const searchBtn = document.querySelector(".search-btn");
