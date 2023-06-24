@@ -2,6 +2,12 @@
 
 body{
     background: radial-gradient(rgb(70, 243, 243),rgb(81, 98, 255));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 .calc{
     font-family: 'Rajdhani',sans-serif;
@@ -9,8 +15,7 @@ body{
     display: flex;
     flex-direction: column;
     padding: 20px;
-    margin: 0 auto;
-    margin-top: 70px;
+    margin: 4em auto;
     width: 300px;
     height: 500px;
     border: solid #000000a1 1px;

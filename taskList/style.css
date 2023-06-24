@@ -1,20 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 
 body {
-  height: 100vh;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-family: 'Poppins', sans-serif;
   background: #fc3f3f;
   background-repeat: no-repeat;
 }
 
 .app {
-  width: 500px;
+  width: fit-content;
   padding: 10px;
   padding-bottom: 50px;
-  margin: 50px auto;
+  margin: 50px 0 0px 0;
   background: linear-gradient(#3ffcdc, #fc5436);
   border: 3px solid #fffffff3;
   border-radius: 15px;
@@ -220,3 +222,30 @@ body {
     border:1px solid #d6fdf1;
     margin: 0;
 }
+
+@media (max-width: 768px) {
+    .app {
+      margin: 30px 0;
+      padding: 5px;
+    }
+  
+    .todolist .head .input-container .todo-input {
+      width: 200px;
+    }
+  
+    .todolist .head .input-container .set-task-btn,
+    .todolist .head .input-container .delete-btn {
+      height: 25px;
+      width: 40px;
+      font-size: 15px;
+    }
+  
+    .todolist .uncompleted-tasks,
+    .todolist .completed-tasks {
+      width: 300px;
+    }
+  
+    .divisor {
+      width: 200px;
+    }
+  }
