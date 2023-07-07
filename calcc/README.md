@@ -5,7 +5,7 @@ This project is a basic calculator developed in JavaScript. It allows performing
 ## Demo
 
 You can check the [video demo](https://youtu.be/t034DasWAAI) of the calculator.
-Or check the [live demo](https://pablossolbal.github.io/ProyectosJS/calcc/)
+Or check the [live demo](https://pablossolbal.github.io/Web-Projects/calcc/)
 
 ## Features
 

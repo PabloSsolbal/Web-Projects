@@ -4,7 +4,7 @@ This project is a memory game developed in JavaScript. The goal of the game is t
 
 ## Demo
 
-You can check the [video demo](https://youtu.be/t2-Jd6O2mZ0) of the memory game. Or you can try the [live demo](https://pablossolbal.github.io/ProyectosJS/memory/) to play the game.
+You can check the [video demo](https://youtu.be/t2-Jd6O2mZ0) of the memory game. Or you can try the [live demo](https://pablossolbal.github.io/Web-Projects/memory/) to play the game.
 
 ## Features
 

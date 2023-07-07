@@ -17,7 +17,7 @@ The timer component enables users to set a countdown timer. Users can start, sto
 ## Demo
 
 You can check the [video demo](https://youtu.be/ufqVnyKOfaw) of the calculator.
-Or check the [live demo](https://pablossolbal.github.io/ProyectosJS/clock/)
+Or check the [live demo](https://pablossolbal.github.io/Web-Projects/clock/)
 
 ## Features
 

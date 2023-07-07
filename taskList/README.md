@@ -4,7 +4,7 @@ This project is a simple to-do list application developed in JavaScript. It allo
 
 ## Demo
 
-You can check the [video demo](https://youtu.be/JaoUGuMLsh4) of the to-do list application. Or you can try the [live demo](https://pablossolbal.github.io/ProyectosJS/taskList/) to use the application.
+You can check the [video demo](https://youtu.be/JaoUGuMLsh4) of the to-do list application. Or you can try the [live demo](https://pablossolbal.github.io/Web-Projects/taskList/) to use the application.
 
 ## Features
 
