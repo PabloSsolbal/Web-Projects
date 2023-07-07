@@ -1,49 +1,54 @@
-# Proyectos de Desarrollo Web
+# Web Development Projects
 
-¡Bienvenido/a al repositorio de mis proyectos de desarrollo web! Aquí encontrarás una recopilación de proyectos que he desarrollado utilizando tecnologías web. Estos proyectos me han permitido practicar y mejorar mis habilidades en el campo del desarrollo web.
+Welcome to the repository of my front-end web development projects! Here you will find a collection of projects I have developed using web technologies. These projects have allowed me to practice and improve my skills in the field of web development.
 
-**Tecnologias usadas**
+**Technologies Used**
 <p align="center">
   <a href="https://skillicons.dev">
     <img src="https://skillicons.dev/icons?i=js,html,css" />
   </a>
 </p>
 
-## Lista de Proyectos
+## Project List
 
-1. **Calculadora interactiva**
-   - **Descripción:** Una calculadora interactiva que realiza operaciones matemáticas básicas con enteros.
-   - **Estado:** Completado
-   - **Tecnologías utilizadas:** HTML, CSS, JavaScript
+1. **Interactive Calculator**
+   - **Description:** An interactive calculator that performs basic mathematical operations with integers.
+   - **Status:** Completed
+   - **Technologies Used:** HTML, CSS, JavaScript
 
-2. **Lista de tareas**
-   - **Descripción:** Una lista de tareas interactiva donde los usuarios pueden agregar, eliminar y marcar como completadas las tareas.
-   - **Estado:** Completado
-   - **Tecnologías utilizadas:** HTML, CSS, JavaScript
+2. **Task List**
+   - **Description:** An interactive task list where users can add, delete, and mark tasks as completed.
+   - **Status:** Completed
+   - **Technologies Used:** HTML, CSS, JavaScript
 
-3. **Widget del clima**
-   - **Descripción:** Un widget que muestra la información meteorológica actual de una ubicación específica, incluyendo la descripción del clima, temperatura, humedad y velocidad del viento.
-   - **Estado:** Completado
-   - **Tecnologías utilizadas:** HTML, CSS, JavaScript
+3. **Weather Widget**
+   - **Description:** A widget that displays the current weather information for a specific location, including weather description, temperature, humidity, and wind speed.
+   - **Status:** Completed
+   - **Technologies Used:** HTML, CSS, JavaScript
 
-4. **Memoria de las Emociones**
-   - **Descripción:** Un juego de memoria que ayuda a identificar y asociar diferentes emociones mediante tarjetas o imágenes relacionadas.
-   - **Estado:** En progreso
-   - **Tecnologías utilizadas:** HTML, CSS, JavaScript
+4. **Emotion Memory Game**
+   - **Description:** A memory game that helps identify and associate different emotions through cards or related images.
+   - **Status:** Completed
+   - **Technologies Used:** HTML, CSS, JavaScript
 
-5. **Triple aplicación de reloj**
-   - **Descripción:** Una aplicación de reloj con funcionalidades de cronómetro, reloj con alarma y temporizador con sonidos.
-   - **Estado:** Completado
-   - **Tecnologías utilizadas:** HTML, CSS, JavaScript
+5. **Triple Clock Application**
+   - **Description:** A clock application with stopwatch, alarm clock, and timer functionalities.
+   - **Status:** Completed
+   - **Technologies Used:** HTML, CSS, JavaScript
 
-## Cómo ejecutar los proyectos
+6. **Music Pad**
+   - **Description:** A music pad project with functions to change sounds and visual effects, with a colorfull design.
+   - **Status:** In Progress
+   - **Technologies Used:** HTML, CSS, JavaScript.
 
-Cada proyecto está contenido en su carpeta respectiva, y para ejecutarlos solo necesitas abrir el archivo `index.html` en tu navegador web. Asegúrate de tener una conexión a Internet activa para los proyectos que requieran información en tiempo real, como el widget del clima. Ademas de revisar la respectiva documentacion de cada uno.
+## How to Run the Projects
 
-## Contribuciones
+Each project is deployed so you can check them in your browser. Make sure you have an active internet connection for projects that require real-time information, such as the weather widget. Also, please review the respective documentation for each project.
 
-Si te interesa colaborar o tienes sugerencias para mejorar alguno de los proyectos, ¡estoy abierto a recibir contribuciones! Siéntete libre de hacer un fork del repositorio, realizar tus modificaciones y enviar un pull request.
+## Contributions
 
-Espero que disfrutes explorando los proyectos y que puedan servirte de inspiración o aprendizaje en tu propio camino en el desarrollo web. Si tienes alguna pregunta o comentario, no dudes en contactarme.
+If you are interested in contributing or have suggestions to improve any of the projects, I am open to receiving contributions! Feel free to fork the repository, make your modifications, and send a pull request.
 
-¡Gracias por visitar mi repositorio!
+I hope you enjoy exploring the projects and find inspiration or learning in your own web development journey. If you have any questions or comments, feel free to contact me.
+
+Thank you for visiting my repository!

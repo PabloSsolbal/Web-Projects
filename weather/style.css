@@ -121,7 +121,7 @@ body {
 
 .not-found-container p {
   color: #2e73f1;
-  font-size: 25px;
+  font-size: 20px;
   font-weight: bold;
 }
 
@@ -168,12 +168,22 @@ body {
   color: #1e6cfc;
 }
 
+.links{
+  display: flex;
+
+}
+
 a {
   font-size: 12px;
   font-weight: bold;
   text-decoration: none;
   color: #7060fa;
+  margin: 0px 10px;
   /* margin-left: 5px; */
+}
+.openimg{
+  width: 50px;
+  height: 50px;
 }
 
 @media (max-width: 768px) {
