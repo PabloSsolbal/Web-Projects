@@ -1,6 +1,6 @@
 # Web Development Projects
 
-Welcome to the repository of my front-end web development projects! Here you will find a collection of projects I have developed using web technologies. These projects have allowed me to practice and improve my skills in the field of web development.
+Welcome to the repository of my front-end web development projects. Here you will find a collection of projects I have developed using web technologies. These projects have allowed me to practice and improve my skills in the field of web development.
 
 **Technologies Used**
 <p align="center">
@@ -52,3 +52,7 @@ If you are interested in contributing or have suggestions to improve any of the 
 I hope you enjoy exploring the projects and find inspiration or learning in your own web development journey. If you have any questions or comments, feel free to contact me.
 
 Thank you for visiting my repository!
+
+## License
+
+This project is licensed under the [MIT License](https://www.mit.edu/~amini/LICENSE.md).

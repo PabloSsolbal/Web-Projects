@@ -34,7 +34,7 @@ Contributions to this project are welcome. Please fork the repository, make your
 
 ## Author
 
-- [Your Name](https://github.com/pablossolbal)
+- [Pablo Solbal](https://github.com/pablossolbal)
 
 ## Credits
 
