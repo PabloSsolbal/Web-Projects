@@ -9,11 +9,22 @@
 </head>
 
 <body>
+    <!-- * app as main content -->
+
     <main class="app">
         <p>Hybrid Sounds</p>
+
+        <!-- ? toggler button for the instruments menu -->
+
         <button class="instruments-toggle">Show Instruments</button>
+
+        <!-- ? instruments container/ instruments menu -->
         <section class="instruments container">
+
+            <!-- ? drums sets container -->
             <div class="instrument" id="drums">Drums<img src="images/tambor.png" alt="">
+
+                <!-- ! sounds sets btns -->
                 <div class="sets">
                     <button class="drums">1</button>
                     <button class="drums">2</button>
@@ -21,7 +32,10 @@
                     <button class="drums">4</button>
                 </div>
             </div>
+
+            <!-- ? guitar sets container -->
             <div class="instrument" id="guitar">Guitar<img src="images/guitarra-electrica.png" alt="">
+
                 <div class="sets">
                     <button class="guitars">1</button>
                     <button class="guitars">2</button>
@@ -29,7 +43,10 @@
                     <button class="guitars">4</button>
                 </div>
             </div>
+
+            <!-- ? piano sets container -->
             <div class="instrument" id="piano">Piano<img src="images/piano.png" alt="">
+
                 <div class="sets">
                     <button class="piano">1</button>
                     <button class="piano">2</button>
@@ -37,7 +54,10 @@
                     <button class="piano">4</button>
                 </div>
             </div>
+
+            <!-- ? synth sets container -->
             <div class="instrument" id="synth">Synth<img src="images/sintetizador.png" alt="">
+
                 <div class="sets">
                     <button class="synth">1</button>
                     <button class="synth">2</button>
@@ -47,13 +67,26 @@
             </div>
         </section>
 
+        <!-- ? music pad container -->
         <section class="music-pad-c container">
+
+            <!-- ? decoration btns / effect btns -->
             <div class="decorations">
                 <div class="deco effect"></div>
                 <div class="deco effect"></div>
                 <div class="deco effect"></div>
             </div>
+
+            <!-- ? pads container -->
             <div class="music-pad container">
+
+                <!-- 
+                    ? pads
+                    * -blue: drum
+                    * -red: guitar
+                    * -yellow: piano
+                    * -green: synth
+                 -->
                 <button class="pad blue"></button>
                 <button class="pad green"></button>
                 <button class="pad red"></button>

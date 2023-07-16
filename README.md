@@ -38,7 +38,7 @@ Welcome to the repository of my front-end web development projects. Here you wil
 
 6. **Music Pad**
    - **Description:** A music pad project with functions to change sounds and visual effects, with a colorfull design.
-   - **Status:** In Progress
+   - **Status:** Completed
    - **Technologies Used:** HTML, CSS, JavaScript.
 
 ## How to Run the Projects
