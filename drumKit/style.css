@@ -41,6 +41,7 @@
    align-items: center;
    justify-items: center;
    filter: hue-rotate(-20deg);
+   color: #fff;
  }
  
  /*
@@ -83,6 +84,12 @@
    justify-content: center;
    margin: 10px;
    perspective: 1000px;
+ }
+
+ .app p{
+  font-weight: bold;
+  font-size: 23px;
+  text-shadow: 0px 5px 8px #000000a8;
  }
  
  .container {
@@ -168,6 +175,8 @@
  }
  
  .instrument img {
+  width: 100px;
+  height: 100px;
    margin: 5px;
    image-rendering: pixelated;
    opacity: 1 !important;
@@ -228,9 +237,7 @@
  
  .deco:last-child {
    background-color: #ffae00;
-   box-shadow: 0
- 
- px 0px 5px 2px #ffae00;
+   box-shadow: 0px 0px 5px 2px #ffae00;
  }
  
  .deco:active {
