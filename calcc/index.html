@@ -1,5 +1,12 @@
+<!--
+    ! HTML structure for a calculator
+? Introduction:
+* The following HTML code represents a simple calculator app. It includes the necessary elements for a calculator interface, such as the viewer, calculator buttons, and JavaScript script reference.
+-->
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,41 +14,62 @@
     <link rel="stylesheet" href="style.css">
     <title>Simple Calculator App</title>
 </head>
+
 <body>
     <main class="calc">
+        <!--
+        ? Calculator Viewer:
+        * The div with the 'viewer' class represents the area where the calculator displays the numbers and results.
+        -->
         <section class="wrapper">
             <div class="viewer">0</div>
         </section>
+        <!--
+        ? Calculator Buttons:
+        * The section with the 'calc-buttons' class contains the calculator buttons.
+        -->
         <section class="calc-buttons">
             <div class="calc-button-row">
+                <!-- ? Clear Button -->
                 <button class="calc-button" id="clear">C</button>
+                <!-- ? Backspace Button -->
                 <button class="calc-button" id="backspace">&larr;</button>
+                <!-- ? Divide Button -->
                 <button class="calc-button op-button">&divide;</button>
             </div>
             <div class="calc-button-row">
+                <!-- ? Number Buttons 7, 8, 9 -->
                 <button class="calc-button n-button">7</button>
                 <button class="calc-button n-button">8</button>
                 <button class="calc-button n-button">9</button>
+                <!-- ? Multiply Button -->
                 <button class="calc-button op-button">&times;</button>
             </div>
             <div class="calc-button-row">
+                <!-- ? Number Buttons 4, 5, 6 -->
                 <button class="calc-button n-button">4</button>
                 <button class="calc-button n-button">5</button>
                 <button class="calc-button n-button">6</button>
+                <!-- ? Minus Button -->
                 <button class="calc-button op-button">&minus;</button>
             </div>
             <div class="calc-button-row">
+                <!-- ? Number Buttons 1, 2, 3 -->
                 <button class="calc-button n-button">1</button>
                 <button class="calc-button n-button">2</button>
                 <button class="calc-button n-button">3</button>
+                <!-- ? Plus Button -->
                 <button class="calc-button op-button">&plus;</button>
             </div>
             <div class="calc-button-row">
+                <!-- ? Number Button 0 -->
                 <button class="calc-button n-button">0</button>
+                <!-- ? Result Button -->
                 <button class="calc-button" id="result">&equals;</button>
             </div>
         </section>
     </main>
     <script src="script.js"></script>
 </body>
+
 </html>

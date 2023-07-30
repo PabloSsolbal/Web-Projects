@@ -1,3 +1,9 @@
+<!--
+    ! HTML structure for a Clock App
+? Introduction:
+* The following HTML code represents a Clock App, which consists of three main sections: Stopwatch, Clock, and Timer. Each section has specific elements and functionalities for time-related features.
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,26 +18,43 @@
 <body>
     <main class="app">
 
+        <!--
+        ? Stopwatch Section:
+        * The section with the 'stopwatch-container' class represents the stopwatch feature.
+        * It includes elements for displaying stopwatch time, lap controls, and buttons for start, stop, and restart.
+        -->
+
         <section class="stopwatch-container container">
             <div class="stopwatch-title">
                 <h1>STOPWATCH</h1>
             </div>
             <div class="stopwatch">
                 <div class="stopwatch-time-container">
+                    <!-- ? Stopwatch Time Display -->
                     <div class="stopwatch-time time">00:00:00</div>
                 </div>
                 <div class="stopwatch-lap-container">
+                    <!-- ? Lap Button -->
                     <button class="stopwatch-lap-btn">Lap</button>
+                    <!-- ? Laps Information -->
                     <div class="laps">Laps: 0 | Last Lap: 00:00:00</div>
                 </div>
                 <div class="stopwatch-btns">
+                    <!-- ? Start Button -->
                     <button class="stopwatch-start-btn btn">Start</button>
+                    <!-- ? Stop Button -->
                     <button class="stopwatch-stop-btn btn">Stop</button>
+                    <!-- ? Restart Button -->
                     <button class="stopwatch-restart-btn btn">Restart</button>
                 </div>
-
             </div>
         </section>
+
+        <!--
+        ? Clock Section:
+        * The section with the 'clock-container' class represents the clock feature.
+        * It includes elements for displaying current time, setting an alarm, and buttons for deleting the alarm and setting a new alarm.
+        -->
 
         <section class="clock-container container">
             <div class="clock-title">
@@ -39,19 +62,29 @@
             </div>
             <div class="clock">
                 <div class="clock-time-container">
+                    <!-- ? Clock Time Display -->
                     <div class="clock-time time">00:00:00</div>
                 </div>
                 <div class="alarm-set-title">-SET YOUR ALARM-</div>
                 <div class="alarm-time-input">
+                    <!-- ? Alarm Time Input Fields -->
                     <input type="number" min="0" max="59" id="timer-input-minutes" placeholder="minutes">
                     <input type="number" min="0" max="23" id="timer-input-hours" placeholder="hours">
                 </div>
                 <div class="alarm-set-container">
+                    <!-- ? Delete Alarm Button -->
                     <button class="delete-alarm-btn btn">Delete Alarm</button>
+                    <!-- ? Set Alarm Button -->
                     <button class="alarm-set-btn btn">Set Alarm</button>
                 </div>
             </div>
         </section>
+
+        <!--
+        ? Timer Section:
+        * The section with the 'timer-container' class represents the timer feature.
+        * It includes elements for displaying timer time, selecting timer duration, and buttons for start, stop, and reset.
+        -->
 
         <section class="timer-container container">
             <div class="timer-title">
@@ -59,10 +92,12 @@
             </div>
             <div class="timer">
                 <div class="timer-time-container">
+                    <!-- ? Timer Time Display -->
                     <div class="timer-time time">00:00:00</div>
                 </div>
                 <div class="time-options-title">-MINUTES-</div>
                 <div class="timer-time-options">
+                    <!-- ? Timer Duration Options -->
                     <button class="timer-option">1</button>
                     <button class="timer-option">5</button>
                     <button class="timer-option">10</button>
@@ -71,8 +106,11 @@
                     <button class="timer-option">60</button>
                 </div>
                 <div class="timer-btns">
+                    <!-- ? Start Button -->
                     <button class="timer-start-btn btn">Start</button>
+                    <!-- ? Stop Button -->
                     <button class="timer-stop-btn btn">Stop</button>
+                    <!-- ? Reset Button -->
                     <button class="timer-restart-btn btn">Reset</button>
                 </div>
             </div>

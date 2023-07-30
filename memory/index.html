@@ -1,3 +1,9 @@
+<!--
+    ! HTML structure for a Memeory game
+? Introduction:
+* The following HTML code represents a Memory Game. It includes sections for the game title, game board, game results, and attribution. The game board is initially hidden, and the user can start and stop the game.
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,25 +16,37 @@
 </head>
 
 <body>
+    <!-- ? Game Title Section -->
     <section class="game-title-container">
         <img src="images/banner-title.png" alt="" class="game-title">
     </section>
+
     <main class="app before">
-        <section class="board hiden">
+        <!--! Game Board Section -->
+        <section class="board hidden">
+            <!-- ? Move Count -->
             <div class="move-count"><span>Moves:</span> 00</div>
+            <!-- ? Time Count -->
             <div class="time-count"><span>Time:</span> 00:00</div>
-            <div class="cards-container">
-            </div>
-            <button class="hiden" id="stop">Stop Game</button>
+            <!-- ? Cards Container -->
+            <div class="cards-container"></div>
+            <!-- ? Stop Game Button -->
+            <button class="hidden" id="stop">Stop Game</button>
         </section>
+
+        <!-- ! Game Results Section -->
         <div class="results-container">
-            <p id="result" class="hiden"><span>Time: </span>00 <span>Moves: </span>00</p>
+            <!-- ? Result Display -->
+            <p id="result" class="hidden"><span>Time: </span>00 <span>Moves: </span>00</p>
+            <!-- ? Start Game Button -->
             <button id="start">Start Game</button>
         </div>
     </main>
+
+    <!-- ? Attribution -->
     <a href="https://www.flaticon.es/packs/human-emotions-6?word=emotions" title="human emotions icons">Human Emotions
-        icons created by
-        Freepik - Flaticon</a>
+        icons created by Freepik - Flaticon</a>
+
     <script src="script.js"></script>
 </body>
 

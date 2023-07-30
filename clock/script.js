@@ -1,293 +1,399 @@
-// este codigo crea una aplicacion de reloj que incluye un cronometro con marcado de vueltas, un reloj en tiempo real con funcion de alarma y un temporizador funcional
+/**
+ * ? This code implements a clock application with features like a stopwatch, timer, and alarm.
+ * * The clock displays the current time and updates every second.
+ * * The stopwatch allows users to start, stop, and reset the elapsed time. It also supports lap functionality.
+ * * The timer enables users to set a countdown time and start or stop the countdown.
+ * * The alarm feature allows users to set an alarm for a specific hour and minutes, triggering an audio notification.
+ * TODO: Implement UI styling and improve user experience
+ * TODO: Add additional features such as multiple alarms and customization options
+ * TODO: Enhance the timer functionality by adding preset time options
+ * TODO: Refactor and optimize the code for better performance
+ */
 
-//reloj
-//para empezar a crear el reloj primero construimos el contenedor de este
+// ? get clock container
 const clock = document.querySelector(".clock-time-container");
-//creamos las variables que vamos a utilizar para almacenar las horas, minutos y segundos del reloj
+
+// ? set the hours, minutes and seconds for the clock
 let hour = null;
 let minutes = null;
 let seconds = null;
-//construimos la funcion para obtener y formatear las horas, minutos y segundos
+
+// ? Function to retrieve the current hour, minutes, and seconds from the system clock
+/**
+ * @description - Retrieves the current hour, minutes, and seconds from the system clock
+ * * Creates a new Date object representing the current date and time
+ * * Extracts the hour, minutes, and seconds from the current time
+ * * Formats the seconds with leading zeros if it's less than 10
+ * * Formats the minutes and hour with leading zeros if necessary
+ */
+
 const getHour = () => {
-  //obtenemos la fecha actual y la guardamos en una variable
   let today = new Date();
 
-  //obtenemos las horas, minutos y segundos de la fecha actual y las guardamos en las variables correspondientes
   hour = today.getHours();
   minutes = today.getMinutes();
   seconds = today.getSeconds();
-  //formateamos las horas, minutos y segundos para que sean de dos digitos y que sean de tipo string
+
   seconds = seconds < 10 ? `0${seconds}` : seconds;
   minutes = String(minutes).padStart(2, "0");
   hour = String(hour).padStart(2, "0");
 };
 
-//construimos la funcion para actualizar el reloj
+// ? Updates the clock display
+/**
+ * * Updates the clock display with the current time
+ * * Calls the getHour function to retrieve the current hour, minutes, and seconds
+ * * Updates the clock's HTML content with the formatted time
+ */
 const updateClock = () => {
-  //llamamos a la funcion para obtener las horas, minutos y segundos
   getHour();
-  //actualizamos el reloj con las horas, minutos y segundos
+
   clock.innerHTML = `<div class="clock-time time">${hour}:${minutes}:${seconds}</div>`;
 };
 
-//creamos un intervalo para actualizar el reloj cada segundo
+// ? call the updateClock function every second
 const clockInterval = setInterval(updateClock, 1000);
 
-//cronometro
-//construimos los elementos del cronometro
-//el contenedor
+// ? get the stopwatch elements
+/**
+ * * stopwatch container
+ * * stopwatch start btn
+ * * stopwatch stop btn
+ * * stopwatch start btn
+ * * stopwatch lap btn
+ * * stopwatch lap container
+ * * stopwatch time container
+ */
 const stopWatch = document.querySelector(".stopwatch-time-container");
-//el boton de inicio
 const stopWatchStart = document.querySelector(".stopwatch-start-btn");
-//el boton de pausa
 const stopWatchStop = document.querySelector(".stopwatch-stop-btn");
-//el boton de reinicio
 const stopwatchRestart = document.querySelector(".stopwatch-restart-btn");
-//el boton de vueltas
 const stopWatchLap = document.querySelector(".stopwatch-lap-btn");
-//el contenedor de las vueltas
 const stopWatchLapSet = document.querySelector(".laps");
-//el contenedor del tiempo
 const stopWatchTime = document.querySelector(".stopwatch-time");
 
-//creamos las variables a utilizar para almacenar las horas, minutos y segundos del cronometro
+// ? set the stopwatch variables
 let swHour = 0;
 let swMinutes = 0;
 let swSeconds = 0;
-//creamos una variable para el intervalo del cronometro
-let stopWatchIntervalID = null;
-//una para verificar si esta corriendo
-let isRunning = false;
-//y un contador de vueltas
 let lapCounter = 0;
 
-//creamos la funcion para actualizar las horas, minutos y segundos del cronometro
+// ? set the stopwatch interval ID
+let stopWatchIntervalID = null;
+
+// ? set running as false
+let isRunning = false;
+
+// ? Updates the stopwatch display
+/**
+ * @description - Updates the stopwatch display with the elapsed time
+ * * Increments the stopwatch seconds by 1
+ * * Checks if the stopwatch seconds reach 60, and resets them to 0 while incrementing the minutes
+ * * Checks if the stopwatch minutes reach 60, and resets them to 0 while incrementing the hours
+ * * Checks if the stopwatch hours reach 24 and resets them to 0
+ * * Formats the stopwatch time components with leading zeros if necessary
+ * * Updates the stopwatch's HTML content with the formatted time
+ */
+
 const updateStopWatch = () => {
-  //primero aumentamos los segundos
   swSeconds += 1;
-  //hacemos un if para que si los segundos llegan a 60, los minutos sean aumentados y los segundos sean 0
+
   if (swSeconds == 60) {
     swSeconds = 0;
     swMinutes += 1;
   }
-  //hacemos otro if para que si los minutos llegan a 60, las horas sean aumentadas y los minutos sean 0
+
   if (swMinutes == 60) {
     swMinutes = 0;
     swHour += 1;
   }
-  //hacemos un if para que si las horas llegan a 24, las horas sean 0
+
   if (swHour == 24) {
     swHour = 0;
   }
-  //formateamos las horas, minutos y segundos para que sean de dos digitos y que sean de tipo string
+
   const fSwSeconds = String(swSeconds).padStart(2, "0");
   const fSwMinutes = String(swMinutes).padStart(2, "0");
   const fSwHours = String(swHour).padStart(2, "0");
-  //actualizamos el cronometro con las horas, minutos y segundo
+
   stopWatch.innerHTML = `<div class="stopwatch-time time">${fSwHours}:${fSwMinutes}:${fSwSeconds}</div>`;
 };
-//construimos la funcion para iniciar el cronometro
+
+// ? Starts the stopwatch
+/**
+ * @description - Starts the stopwatch if it is not already running
+ * * Sets an interval to call the updateStopWatch function every 1000 milliseconds (1 second)
+ * * Updates the isRunning flag to true
+ * * Updates the start button text content to "Start"
+ */
+
 const startStopWatch = () => {
-  //primero comprobamos que el cronometro no este corriendo
   if (!isRunning) {
-    //si no lo esta, iniciamos el intervalo del cronometro
     stopWatchIntervalID = setInterval(updateStopWatch, 1000);
-    //actualizamos el cronometro a 'corriendo'
+
     isRunning = true;
     stopWatchStart.textContent = `Start`;
   }
 };
-//construimos la funcion para pausar el cronometro
+
+// ? Stops the stopwatch
+/**
+ * @description - Stops the stopwatch if it is currently running
+ * * Clears the interval set by startStopWatch function using clearInterval
+ * * Updates the isRunning flag to false
+ * * Updates the start button text content to "Continue"
+ */
+
 const stopStopWatch = () => {
-  //comprobamos que este corriendo
   if (isRunning) {
-    //si lo esta, detenemos el intervalo del cronometro
     clearInterval(stopWatchIntervalID);
-    //actualizamos el cronometro a 'parado'
+
     isRunning = false;
-    //cambiamos el boton start a continue por si quieren reanudar la cuenta
+
     stopWatchStart.textContent = `Continue`;
   }
 };
-//construimos la funcion para reiniciar el cronometro
+
+// ? Restarts the stopwatch
+/**
+ * @description - Restarts the stopwatch by resetting all the values
+ * * Calls stopStopWatch function to stop the stopwatch if it is running
+ * * Resets the stopwatch hour, minutes, seconds, and lap counter to 0
+ * * Updates the stopwatch HTML content with the initial time value
+ * * Updates the start button text content to "Start"
+ * * Updates the lap set text content to the initial lap counter value
+ */
+
 const restartStopWatch = () => {
-  //llamamos a la funcion para parar el cronometro
   stopStopWatch();
-  //reiniciamos las variables de las horas, minutos y segundo
+
   swHour = 0;
   swMinutes = 0;
   swSeconds = 0;
   lapCounter = 0;
-  //cambiamos el contenido del contenedor del cronometro a 0:00:00
+
   stopWatch.innerHTML = `<div class="stopwatch-time time">0${swHour}:0${swMinutes}:0${swSeconds}</div>`;
-  //cambiamos el contenido del boton start
+
   stopWatchStart.textContent = `Start`;
-  //cambiamos el contenido del contenedor de las vueltas a 0
+
   stopWatchLapSet.textContent = `Laps: ${lapCounter} | Last Lap: 00:00:00`;
 };
-//creamos las llamadas a las funciones para iniciar, pausar y reiniciar el cronometro en sus respectivos botones
+
+// ? add the listeners to the stopwatch btns
 stopWatchStart.addEventListener("click", startStopWatch);
 stopWatchStop.addEventListener("click", stopStopWatch);
 stopwatchRestart.addEventListener("click", restartStopWatch);
-//creamos la funcion para guardar las vueltas del cronometro
+
+// ? Event listener for the lap button
+/**
+ * @description - Handles the click event on the lap button
+ * * Checks if the stopwatch is currently running
+ * * If running, increments the lap counter by 1
+ * * Updates the lap set text content with the updated lap counter value and the last lap time from the stopwatch
+ */
+
 stopWatchLap.addEventListener("click", () => {
-  //comprobamos que este corriendo
   if (isRunning) {
-    //si lo esta sumamos una vuelta al contador de vueltas
     lapCounter += 1;
-    //actualizamos el contenido del contenedor de las vuelta
+
     stopWatchLapSet.textContent = `Laps: ${lapCounter} | Last Lap: ${stopWatch.textContent}`;
   }
 });
 
-//temporizador
-//construimos los elementos del temporizador
-//el contenedor
+// ! timer code
+
+/**
+ * ? get the timer elements
+ * * timer container
+ * * timer time options -btns-
+ * * timer start btn
+ * * timer stop btn
+ * * timer restart btn
+ */
 const timer = document.querySelector(".timer-time-container");
-//el contenedor de las opciones
 const timerOptions = document.querySelectorAll(".timer-option");
-//el boton de inicio
 const timerStart = document.querySelector(".timer-start-btn");
-//el boton de pausa
 const timerStop = document.querySelector(".timer-stop-btn");
-//el boton de reinicio
 const timerRestart = document.querySelector(".timer-restart-btn");
 
-//creamos las variables a utilizar para almacenar las horas, minutos y segundos del temporizador
+// ? set timer time variables
 let tSeconds = 0;
 let tMinutes = 0;
 let tHours = 0;
-//creamos una variable para el intervalo del temporizador
+
+// ? set the timer interval ID
 let timerIntervalID = null;
 
-//creamos el audio del temporizador
+// ? create the timer audio
 const timerSound = new Audio();
 timerSound.src = "sounds/Temporizador.mp3";
 
-//creamos la funcion para actualizar las horas, minutos y segundos del temporizador
+// ? Function to update the timer
+/**
+ * @description - Updates the timer display with the current time
+ * * Checks if the timer has reached zero (tHours, tMinutes, tSeconds all equal to 0)
+ * * If so, clears the timer interval
+ * * Decrements the timer by 1 second
+ * * If tSeconds becomes negative, adjusts tMinutes and tHours accordingly
+ * * Formats the timer values with leading zeros if necessary
+ * * Updates the timer HTML content with the formatted time
+ */
+
 const updateTimer = () => {
-  //comprobamos si las horas, minutos y segundos son iguales a 0, si lo son, borramos el intervalo
   if (tHours === 0 && tMinutes === 0 && tSeconds === 0) {
     clearInterval(timerIntervalID);
   }
-  //vamos reduciendo los segundos en 1
+
   tSeconds -= 1;
-  //hacemos las comprobaciones para determinar el flujo del temprizador
+
   if (tSeconds < 0) {
     if (tMinutes === 0) {
       if (tHours === 0) {
-        //si las horas, minutos y segundos son iguales a 0, borramos el intervalo y reproducimos el sonido del temporizador
         timerSound.play();
         timerRestartCountdown();
         return;
       } else {
-        //si las horas no son iguales a 0, restamos una hora y los minutos a 59
         tHours -= 1;
         tMinutes = 59;
       }
     } else {
-      //si los minutos no son iguales a 0, restamos un minuto
       tMinutes -= 1;
     }
-    //cambiamos los segundos a 59
+
     tSeconds = 59;
   }
-  //formateamos las horas, minutos y segundos para que sean de dos digitos y que sean de tipo string
+
   const fTSeconds = String(tSeconds).padStart(2, "0");
   const fTMinutes = String(tMinutes).padStart(2, "0");
   const fTHours = String(tHours).padStart(2, "0");
-  //cambiamos el contenido del contenedor del temporizador
+
   timer.innerHTML = `<div class="timer-time time">${fTHours}:${fTMinutes}:${fTSeconds}</div>`;
 };
 
-//creamos las escuchas para cada boton de la opcion del temporizador
+// ? Event listeners for timer options
+/**
+ * @description - Handles the click event on each timer option
+ * * Retrieves the selected timer option's text content
+ * * Parses the content to an integer representing the new time value
+ * * Adds the new time to the current tMinutes
+ * * If tMinutes exceeds 60, calculates the extra hours and adjusts tHours and tMinutes accordingly
+ * * Formats the timer values with leading zeros if necessary
+ * * Updates the timer HTML content with the formatted time
+ */
+
 timerOptions.forEach((timerOption) => {
-  //creamos la funcion para cambiar las horas, minutos y segundos del temporizador segun la opcion seleccionada
   timerOption.addEventListener("click", () => {
-    //obtenemos el contenido de la opcion seleccionada
     const timerOpc = timerOption.textContent;
-    //lo convertimos a un numero y lo almacenamos en una variable
+
     const newTime = parseInt(timerOpc);
-    //almacenamos el tiempo en la variable minutos
+
     tMinutes += newTime;
     if (tMinutes >= 60) {
-      //si minutos mayor o igual a 60, comprobamos cuantas horas hay que sumar
-      //lo hacemos con la funcion floor para redondear el numero dividiendo los minutos entre 60
       const extraHours = Math.floor(tMinutes / 60);
-      //sumamos las horas a las horas que hay que sumar
+
       tHours += extraHours;
-      //establecemos los minutos restantes con el residuo de la division entre 60
+
       tMinutes = tMinutes % 60;
     }
-    //formateamos las horas, minutos y segundos para que sean de dos digitos y que sean de tipo string
     const fTSeconds = String(tSeconds).padStart(2, "0");
     const fTMinutes = String(tMinutes).padStart(2, "0");
     const fTHours = String(tHours).padStart(2, "0");
-    //cambiamos el contenido del contenedor del temporizador
+
     timer.innerHTML = `<div class="timer-time time">${fTHours}:${fTMinutes}:${fTSeconds}</div>`;
   });
 });
 
-//creamos la funcion para iniciar el temporizador
+// ? Timer countdown functions
+
+/**
+ * @description - Starts the timer countdown
+ * * Sets an interval to call the updateTimer function every second
+ * * Updates the timer start button text to "Start"
+ */
+
 const timerStartCountdown = () => {
-  //almacenamos el intervalo en una variable
   timerIntervalID = setInterval(updateTimer, 1000);
+
+  timerStart.textContent = `Start`;
 };
 
-//creamos la funcion para pausar el temporizador
+/**
+ * @description - Stops the timer countdown
+ * * Clears the interval set by timerStartCountdown
+ * * Updates the timer start button text to "Continue"
+ */
+
 const timerStopCountdown = () => {
-  //borramos el intervalo
   clearInterval(timerIntervalID);
-  //cambiamos el texto del boton start a continue
+
   timerStart.textContent = `Continue`;
 };
 
-//creamos la funcion para reiniciar el temporizador
+/**
+ * @description - Restarts the timer countdown
+ * * Calls timerStopCountdown to clear the interval
+ * * Resets the timer values (tSeconds, tMinutes, tHours) to zero
+ * * Updates the timer HTML content with the initial time
+ */
+
 const timerRestartCountdown = () => {
-  //paramos el temporizador
   timerStopCountdown();
-  //reiniciamos las variables
+
   tSeconds = 0;
   tMinutes = 0;
   tHours = 0;
-  //cambiamos el contenido del contenedor del temporizador
+
   timer.innerHTML = `<div class="timer-time time">0${tHours}:0${tMinutes}:0${tSeconds}</div>`;
 };
 
-//agregamos las escuchas a los botones del temporizador
+// ? add the listeners to the timer btns
 timerStart.addEventListener("click", timerStartCountdown);
 timerStop.addEventListener("click", timerStopCountdown);
 timerRestart.addEventListener("click", timerRestartCountdown);
 
-//alarma para reloj
-//creamos los elementos de la alarma
-//el contenedor de la alarma
+// ! alarm code
+
+/**
+ * ? get the alarm elements
+ * * alarm container
+ * * alarm title container
+ * * alarm hours input
+ * * alarm minutes input
+ * * set alarm btn
+ * * delete alarm btn
+ */
 const alarmContainer = document.querySelector(".alarm-time-input");
-//el titulo de la alarma
 const alarmSetTitle = document.querySelector(".alarm-set-title");
-//el input para la hora
 const alarmHours = document.getElementById("timer-input-hours");
-//el input para los minutos
 const alarmMinutes = document.getElementById("timer-input-minutes");
-//el boton para iniciar la alarma
 const setAlarmBtn = document.querySelector(".alarm-set-btn");
-//el boton para borrar la alarma
 const deleteAlarmBtn = document.querySelector(".delete-alarm-btn");
 
-//creamos la variablea para almacenar el timeout de la alarma
+// ? alarm timeout ID
 let alarmTimeoutID = null;
-//y  la variable para saber si la alarma esta activa
+// ? set alarm boolean as false
 let isAlarmSet = false;
 
-//creamos el audio de la alarma
+// ? create the alarm audio
 const alarmSound = new Audio();
 alarmSound.src = "sounds/Alarma.mp3";
 
-//construimos la funcion para crear la alarma que recibe como parametros la hora y minutos
+// ? Set the alarm
+/**
+ * @description - Sets the alarm for the specified hour and minutes
+ * * Retrieves the current date and time using the new Date() constructor
+ * * Creates a new Date object representing the alarm time based on the specified hour and minutes
+ * * Compares the alarm time with the current time to check if the alarm should be canceled
+ * * If the alarm time is in the past, cancels the alarm by calling cancelAlarm function
+ * * Checks if the alarm is already set and returns if it is
+ * * Calculates the time difference between the alarm time and current time
+ * * Sets a timeout to trigger the alarm when the time difference elapses
+ * * Updates the necessary variables and elements to indicate that the alarm is set
+ * * Displays the alarm set time in the UI
+ */
+
 const setAlarm = (newHour, newMinutes) => {
-  //creamos un nueva fecha para establecer el tiempo del timeout
   const now = new Date();
-  //construimos la fecha con los valores de la hora y minutos recibidos
   const alarmTime = new Date(
     now.getFullYear(),
     now.getMonth(),
@@ -296,58 +402,72 @@ const setAlarm = (newHour, newMinutes) => {
     newMinutes,
     0
   );
-  //hacemos comprobaciones para saber si la hora ingresada es menor o igual a la hora actual
+
   if (alarmTime <= now) {
-    //si lo es cancelamos la alarma ya que la hora ya paso
     cancelAlarm();
     return;
   }
-  //tambien comprobamos si la alarma ya esta activa
+
   if (isAlarmSet) {
     return;
   }
-  //construimos la diferencia de tiempo para el timeout
+
   const timeDifference = alarmTime.getTime() - now.getTime();
-  //creamos el timeout y lo almacenamos en su respectiva variable
+
   alarmTimeoutID = setTimeout(() => {
-    //cuando el contador acabe colocamos la alarma como no activa
     isAlarmSet = false;
-    //suena el audio de la alarma
+
     alarmSound.play();
-    //y el contenedor de titulo vuelve a su estado inicial
+
     alarmContainer.style.display = "flex";
     alarmSetTitle.textContent = `-SET YOUR ALARM-`;
   }, timeDifference);
-  //al crear la alarma la activamos
+
   isAlarmSet = true;
-  //formateamos las horas y minutos para que sean de dos digitos y que sean de tipo string
+
   const faMinutes = String(newMinutes).padStart(2, "0");
   const faHours = String(newHour).padStart(2, "0");
-  //cambiamos el contenido del contenedor del titulo de la alarma y escondemos los inputs
+
   alarmContainer.style.display = "none";
   alarmSetTitle.textContent = `-ALARM SET TO ${faHours}:${faMinutes}-`;
 };
-//construimos la funcion para borrar la alarma
+
+// ? Cancel the alarm
+/**
+ * @description - Cancels the currently set alarm
+ * * Checks if the alarm is set
+ * * Clears the alarm timeout using clearTimeout
+ * * Resets the necessary variables and elements to their initial state
+ * * Displays the default alarm set title in the UI
+ */
+
 const cancelAlarm = () => {
-  //comprobamos que la alarma este activa
   if (isAlarmSet) {
-    //si lo esta borramos el timeout y la alarma
     clearTimeout(alarmTimeoutID);
     alarmTimeoutID = null;
     isAlarmSet = false;
-    //devolvemos el titulo a su estado inicial y los inputs a su estado inicial
+
     alarmContainer.style.display = "flex";
     alarmSetTitle.textContent = `-SET YOUR ALARM-`;
   }
 };
-//creamos la escucha para los botones de la alarma
+
+// ? Event listener for setting the alarm
+/**
+ * @description - Handles the click event for setting the alarm
+ * * Prevents the default form submission behavior
+ * * Retrieves the input values for hours and minutes
+ * * Validates the input values for valid hour and minute ranges
+ * * Calls the setAlarm function with the input hour and minutes
+ * * Resets the input fields to their initial state
+ */
+
 setAlarmBtn.addEventListener("click", (e) => {
-  //prevenimos el comportamiento por defecto del boton
   e.preventDefault();
-  //convertimos los valores de los inputs a enteros
+
   const hoursInput = parseInt(alarmHours.value, 10);
   const minutesInput = parseInt(alarmMinutes.value, 10);
-  //validamos los valores de los inputs para que esten dentro del rango de 0 a 23 y de 0 a 59, no sean negativos ni sean valores nulos
+
   if (
     hoursInput > 23 ||
     hoursInput <= 0 ||
@@ -356,16 +476,16 @@ setAlarmBtn.addEventListener("click", (e) => {
     alarmHours.value == "" ||
     alarmMinutes.value == ""
   ) {
-    //si lo estan reseteamos los inputs y salimos de la funcion
     alarmHours.value = "";
     alarmMinutes.value = "";
     return;
   }
-  //si son validos llamamos a la funcion de alarma y le pasamos la hora y minuto ingresado
+
   setAlarm(hoursInput, minutesInput);
-  //posterior reseteamos los inputs
+
   alarmHours.value = "";
   alarmMinutes.value = "";
 });
-//la escucha para el boton de borrar la alarma
+
+// ? add event listener for cancelling the alarm
 deleteAlarmBtn.addEventListener("click", cancelAlarm);

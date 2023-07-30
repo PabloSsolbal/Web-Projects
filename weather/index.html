@@ -1,3 +1,9 @@
+<!--
+    ! HTML structure for a Weather widget
+? Introduction:
+* The following HTML code represents a Weather Widget App. It includes sections for searching a location, displaying weather information, and showing additional weather details.
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,51 +19,81 @@
 <body>
     <main class="m-container">
         <div class="app">
+            <!-- ? Search Container -->
             <section class="search-container">
+                <!-- ? Location Icon -->
                 <i class="fa-solid fa-location-dot"></i>
+
+                <!-- ? Location Search Input -->
                 <input type="text" placeholder="Enter a location" class="location-search">
+
+                <!-- ? Search Button -->
                 <button class="search-btn fa-solid fa-search-location"></button>
+
+                <!-- ! OpenWeather Logo -->
                 <img clas="openimg" src="images/OpenWeather-Master-Logo RGB.png" alt=""
                     style="height: 50px; margin-right: -10px;">
             </section>
 
+            <!-- ? Not Found Container -->
             <section class="not-found-container">
+                <!-- ? Not Found Image -->
                 <img src="images/404-error.png" alt="">
+                <!-- ? Not Found Message -->
                 <p>Location Not Found!</p>
             </section>
 
+            <!-- ? Weather Container -->
             <section class="weather-container">
+                <!-- ? Weather Image -->
                 <img src="images/rainbow.png" alt="">
+                <!-- ? Temperature Display -->
                 <p class="temperature">0</p>
+                <!-- ? Weather Description -->
                 <p class="w-description">-</p>
             </section>
 
+            <!-- ? Weather Details Container -->
             <section class="weather-dtls">
+                <!-- ? Humidity Details -->
                 <div class="humidity">
+                    <!-- ? Humidity Icon -->
                     <i class="fa-solid fa-water dtls-icon"></i>
                     <div class="text">
+                        <!-- ? Humidity Value -->
                         <span>0</span>
+                        <!-- ? Humidity Label -->
                         <p>Humidity</p>
                     </div>
                 </div>
 
+                <!-- ? Wind Details -->
                 <div class="wind">
+                    <!--?  Wind Icon -->
                     <i class="fa-solid fa-wind dtls-icon"></i>
                     <div class="text">
+                        <!-- ? Wind Speed Value -->
                         <span>0</span>
+                        <!-- ? Wind Speed Label -->
                         <p>Wind Speed</p>
                     </div>
                 </div>
             </section>
         </div>
     </main>
+
+    <!-- ? Attribution Links -->
     <div class="links">
+        <!-- ! Attribution for Weather Icons -->
         <a href="https://www.flaticon.com/packs/weather-220" title="sun icons"> weather icons created by Good Ware -
             Flaticon</a>
-        <a href="https://openweathermap.org/">Weather data provides by OpenWeatherMap </a>
+        <!-- ! Attribution for Weather Data -->
+        <a href="https://openweathermap.org/">Weather data provides by OpenWeatherMap</a>
     </div>
 
+    <!-- ! FontAwesome Script -->
     <script src="https://kit.fontawesome.com/b466eb05ed.js" crossorigin="anonymous"></script>
+    \
     <script src="script.js"></script>
 </body>
 

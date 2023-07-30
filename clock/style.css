@@ -1,17 +1,45 @@
+/* ! CSS Documentation
+* 
+? This CSS file contains styles for a drumkit machine interface.
+* * The styles define the layout, colors, effects, and animations used in the interface.
+* * The styles are organized into sections for global styles, containers, instruments, pads, effects buttons, sets buttons, media queries, and more.
+* * The styles are designed to create an interactive and visually appealing user experience.
+* * The file includes comments to describe the purpose and functionality of each style block.
+* * The styles are responsive and optimized for both desktop and mobile devices.
+* 
+TODO: Add comments to explain specific styles and their effects in more detail.
+TODO: Refactor and optimize the CSS code for improved performance.
+TODO: Consider modularizing the CSS code by extracting common styles into separate files.
+*/
+/* ? Import Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Nova+Square&display=swap');
 
-*{
+/* ? Reset Styles */
+/**
+ * * Reset margin, padding, and box-sizing for all elements.
+ */
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-body{
+
+/* ? Body Styles */
+/**
+ * * Set the height, font family, and background color for the body.
+ */
+body {
     height: 100vh;
-    font-family: 'Nova Square',cursive;
-    background:#000 no-repeat;
+    font-family: 'Nova Square', cursive;
+    background: #000 no-repeat;
 }
 
-.app{
+/* ? App Container */
+/**
+ * * Set styles for the main app container.
+ * * Define the width, display, and alignment properties.
+ */
+.app {
     width: 1300px;
     height: auto;
     display: flex;
@@ -20,7 +48,13 @@ body{
     margin: 0 auto;
     margin-top: 50px;
 }
-.container{
+
+/* ? Container Styles */
+/**
+ * * Set styles for the common container element.
+ * * Define the width, height, display, and alignment properties.
+ */
+.container {
     width: 350px;
     height: 450px;
     display: flex;
@@ -29,21 +63,38 @@ body{
     justify-content: space-around;
     margin: 10px;
 }
-.time{
-    font-family: "Nova Square",cursive;
+
+/* ? Time Styles */
+/**
+ * * Set font family for time elements.
+ */
+.time {
+    font-family: "Nova Square", cursive;
 }
-.btn{
+
+/* ? Button Styles */
+/**
+ * * Set common styles for buttons.
+ * * Define border, height, width, border radius, font, and background properties.
+ */
+.btn {
     border: none;
     height: 25px;
     width: 70px;
     border-radius: 10px;
-    font-family: 'Nova Square',cursive;
+    font-family: 'Nova Square', cursive;
     font-size: 14px;
     font-weight: lighter;
     color: #444;
     background-color: #000;
 }
-input{
+
+/* ? Input Styles */
+/**
+ * * Set styles for input elements.
+ * * Define border radius, width, padding, margin, outline, background, color, and border properties.
+ */
+input {
     border-radius: 10px;
     width: 130px;
     padding: 5px;
@@ -53,19 +104,37 @@ input{
     color: #fff;
     border: 1px solid #444;
 }
-.stopwatch-container{
+
+/* ? Stopwatch Container */
+/**
+ * * Set styles for the stopwatch container.
+ * * Define background color, border radius, border, box-shadow, and margin properties.
+ */
+.stopwatch-container {
     background-color: #000;
     border-radius: 30px;
     border: 1px solid #ffffff;
     box-shadow: 0px 0px 5px 5px #ff0000;
 }
-.stopwatch-container .stopwatch-title{
+
+/* ? Stopwatch Title */
+/**
+ * * Set styles for the stopwatch title.
+ * * Define margin and color properties.
+ */
+.stopwatch-container .stopwatch-title {
     margin: 10px;
     color: rgb(248, 95, 68);
     font-size: 15px;
     font-weight: lighter;
 }
-.stopwatch-container .stopwatch{
+
+/* ? Stopwatch */
+/**
+ * * Set styles for the stopwatch element.
+ * * Define width, height, display, border, border radius, box-shadow, and background properties.
+ */
+.stopwatch-container .stopwatch {
     width: 300px;
     height: 375px;
     display: flex;
@@ -78,7 +147,12 @@ input{
     background-color: #000;
 }
 
-.stopwatch-container .stopwatch .stopwatch-time-container{
+/* ? Stopwatch Time Container */
+/**
+ * * Set styles for the stopwatch time container.
+ * * Define width, height, border, border radius, box-shadow, display, and alignment properties.
+ */
+.stopwatch-container .stopwatch .stopwatch-time-container {
     width: 185px;
     height: 185px;
     border: 3px solid rgb(255, 0, 0);
@@ -88,11 +162,25 @@ input{
     align-items: center;
     justify-content: center;
 }
-.stopwatch-container .stopwatch .stopwatch-time-container .stopwatch-time{
+
+/* ? Stopwatch Time */
+/**
+ * * Set styles for the stopwatch time.
+ * * Define font size and color properties.
+ */
+.stopwatch-container .stopwatch .stopwatch-time-container .stopwatch-time {
     font-size: 35px;
     color: #fff;
 }
-.stopwatch-btns, .timer-btns, .alarm-set-container{
+
+/* ? Stopwatch Buttons, Timer Buttons, Alarm Set Container */
+/**
+ * * Set styles for the button containers.
+ * * Define width, display, alignment, margin, and padding properties.
+ */
+.stopwatch-btns,
+.timer-btns,
+.alarm-set-container {
     width: 80%;
     display: flex;
     align-items: center;
@@ -100,19 +188,37 @@ input{
     margin-bottom: 15px;
     padding: 5px;
 }
-.stopwatch-btns .btn{
+
+/* ? Stopwatch Button Styles */
+/**
+ * * Set styles for the stopwatch buttons.
+ * * Define border, border radius, and box-shadow properties.
+ */
+.stopwatch-btns .btn {
     border: 2px solid #fff;
     border-radius: 10px;
     box-shadow: 0px 0px 10px 1px #ff0000;
 }
-.stopwatch-lap-container{
+
+/* ? Stopwatch Lap Container */
+/**
+ * * Set styles for the stopwatch lap container.
+ * * Define margin and width properties.
+ */
+.stopwatch-lap-container {
     margin: 10px;
     width: 100%;
     display: flex;
     justify-content: space-around;
     align-items: center;
 }
-.stopwatch-lap-container .stopwatch-lap-btn{
+
+/* ? Stopwatch Lap Button */
+/**
+ * * Set styles for the stopwatch lap button.
+ * * Define width, height, font family, background color, color, border, and box-shadow properties.
+ */
+.stopwatch-lap-container .stopwatch-lap-btn {
     width: 60px;
     height: 25px;
     font-family: 'Nova Square';
@@ -123,7 +229,13 @@ input{
     border-radius: 10px;
     box-shadow: 0px 0px 10px 1px #ff0000;
 }
-.stopwatch-lap-container .laps{
+
+/* ? Stopwatch Laps */
+/**
+ * * Set styles for the stopwatch laps container.
+ * * Define width, font family, font size, background color, color, border, border-radius, box-shadow, padding, and text alignment properties.
+ */
+.stopwatch-lap-container .laps {
     width: 200px;
     font-family: 'Nova Square';
     font-size: 13px;
@@ -135,9 +247,14 @@ input{
     box-shadow: 0px 0px 10px 1px #ff0000;
     padding: 3px;
     text-align: center;
-
 }
-.clock-container{
+
+/* ? Clock Container */
+/**
+ * * Set styles for the clock container.
+ * * Define height, margin, border radius, border, box-shadow, and background properties.
+ */
+.clock-container {
     height: 500px;
     margin: auto 0;
     border-radius: 30px;
@@ -147,14 +264,24 @@ input{
     background-color: #000;
 }
 
-.clock-container .clock-title{
+/* ? Clock Title */
+/**
+ * * Set styles for the clock title.
+ * * Define margin, color, font size, and font weight properties.
+ */
+.clock-container .clock-title {
     margin: 10px;
     color: rgb(0, 255, 255);
     font-size: 20px;
     font-weight: bold;
 }
 
-.clock-container .clock{
+/* ? Clock */
+/**
+ * * Set styles for the clock element.
+ * * Define width, height, display, border, border radius, box-shadow, and background properties.
+ */
+.clock-container .clock {
     width: 300px;
     height: 400px;
     display: flex;
@@ -167,7 +294,12 @@ input{
     background-color: #000;
 }
 
-.clock-container .clock .clock-time-container{
+/* ? Clock Time Container */
+/**
+ * * Set styles for the clock time container.
+ * * Define width, height, border, border radius, box-shadow, display, and alignment properties.
+ */
+.clock-container .clock .clock-time-container {
     width: 185px;
     height: 185px;
     border: 3px solid rgb(0, 200, 255);
@@ -178,36 +310,68 @@ input{
     justify-content: center;
 }
 
-.clock-container .clock .clock-time-container .clock-time{
+/* ? Clock Time */
+/**
+ * * Set styles for the clock time.
+ * * Define font size and color properties.
+ */
+.clock-container .clock .clock-time-container .clock-time {
     font-size: 35px;
     color: #fff;
 }
-.alarm-time-input{
+
+/* ? Alarm Time Input */
+/**
+ * * Set styles for the alarm time input container.
+ * * Define width and display properties.
+ */
+.alarm-time-input {
     width: 90%;
     display: flex;
     justify-content: center;
 }
-.alarm-time-input input{
-    font-family: "Nova Square",cursive;
+
+/* ? Alarm Time Input Field */
+/**
+ * * Set styles for the alarm time input field.
+ * * Define font family, font weight, color, border, border radius, box-shadow properties.
+ */
+.alarm-time-input input {
+    font-family: "Nova Square", cursive;
     font-weight: lighter;
     color: #444;
     border: 2px solid #fff;
     border-radius: 10px;
     box-shadow: 0px 0px 10px 1px #00ff9d;
 }
-.alarm-time-input input:focus{
+
+/* ? Alarm Time Input Field Focus */
+/**
+ * * Set styles for the alarm time input field on focus.
+ * * Define color and font weight properties.
+ */
+.alarm-time-input input:focus {
     color: #00ff9d;
     font-weight: bolder;
 }
-.alarm-set-container .btn{
+
+/* ? Alarm Set Container */
+/**
+ * * Set styles for the alarm set container.
+ * * Define border, border radius, and box-shadow properties.
+ */
+.alarm-set-container .btn {
     border: 2px solid #fff;
     border-radius: 10px;
     box-shadow: 0px 0px 10px 1px #00ff9d;
 }
-.alarm-set-container button{
-    width: 100px;
-}
-.timer-container{
+
+/* ? Timer Container */
+/**
+ * * Set styles for the timer container.
+ * * Define border radius, border, box-shadow, and background properties.
+ */
+.timer-container {
     border-radius: 30px;
     border: 1px solid #ffffff;
     border-radius: 25px;
@@ -215,14 +379,24 @@ input{
     background-color: #000;
 }
 
-.timer-container .timer-title{
+/* ? Timer Title */
+/**
+ * * Set styles for the timer title.
+ * * Define margin, color, font size, and font weight properties.
+ */
+.timer-container .timer-title {
     margin: 10px;
     color: rgb(255, 123, 0);
     font-size: 15px;
     font-weight: lighter;
 }
 
-.timer-container .timer{
+/* ? Timer */
+/**
+ * * Set styles for the timer element.
+ * * Define width, height, display, border, border radius, box-shadow, and background properties.
+ */
+.timer-container .timer {
     width: 300px;
     height: 375px;
     display: flex;
@@ -235,7 +409,12 @@ input{
     background-color: #000;
 }
 
-.timer-container .timer .timer-time-container{
+/* ? Timer Time Container */
+/**
+ * * Set styles for the timer time container.
+ * * Define width, height, border, border radius, box-shadow, display, and alignment properties.
+ */
+.timer-container .timer .timer-time-container {
     width: 185px;
     height: 185px;
     border: 3px solid rgb(255, 123, 0);
@@ -246,27 +425,56 @@ input{
     justify-content: center;
 }
 
-.timer-container .timer .timer-time-container .timer-time{
+/* ? Timer Time */
+/**
+ * * Set styles for the timer time.
+ * * Define font size and color properties.
+ */
+.timer-container .timer .timer-time-container .timer-time {
     font-size: 35px;
     color: #fff;
 }
 
-.timer-btns .btn{
+/* ? Timer Button Styles */
+/**
+ * * Set styles for the timer buttons.
+ * * Define border, border radius, and box-shadow properties.
+ */
+.timer-btns .btn {
     border: 2px solid #fff;
     border-radius: 10px;
     box-shadow: 0px 0px 10px 1px #ff7b00;
 }
-.timer-time-options{
+
+/* ? Timer Time Options */
+/**
+ * * Set styles for the timer time options container.
+ * * Define width, display, and grid properties.
+ */
+.timer-time-options {
     width: 90%;
     display: grid;
-    grid-template-columns: repeat(3,1fr);
+    grid-template-columns: repeat(3, 1fr);
     grid-template-rows: 2;
     gap: 5px;
 }
-.time-options-title, .alarm-set-title{
+
+/* ? Time Options Title, Alarm Set Title */
+/**
+ * * Set styles for the time options title and alarm set title.
+ * * Define color properties.
+ */
+.time-options-title,
+.alarm-set-title {
     color: #444;
 }
-.timer-time-options .timer-option{
+
+/* ? Timer Option Styles */
+/**
+ * * Set styles for the timer options.
+ * * Define height, border, border radius, box-shadow, background color, color properties.
+ */
+.timer-time-options .timer-option {
     height: 25px;
     border: 2px solid #fff;
     border-radius: 10px;
@@ -275,7 +483,11 @@ input{
     color: #444;
 }
 
+/* ? Inner Spin Button Styles */
+/**
+ * * Remove default inner spin button styles for number inputs.
+ */
 input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button{
+input[type="number"]::-webkit-outer-spin-button {
     appearance: none;
 }

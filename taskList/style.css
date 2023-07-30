@@ -1,251 +1,295 @@
+/* ! CSS Documentation
+* 
+ ? This CSS file contains styles for a task list app interface.
+* * The styles define the layout, colors, effects, and animations used in the interface.
+* * The styles are organized into sections for global styles, app container, todo list, input section, uncompleted tasks, completed tasks, and media queries.
+* * The styles are designed to create an interactive and visually appealing user experience for managing tasks.
+* * The file includes comments to describe the purpose and functionality of each style block.
+* * The styles are responsive and optimized for both desktop and mobile devices.
+* 
+TODO: Refactor and optimize the CSS code for improved performance.
+TODO: Consider extracting common styles into separate files for reusability.
+TODO: Add more comments to explain specific styles and their effects in more detail.
+*/
+
+/* ? Global Styles */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 
 body {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Poppins', sans-serif;
-  background: #fc3f3f;
-  background-repeat: no-repeat;
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ font-family: 'Poppins', sans-serif;
+ background: #fc3f3f;
+ background-repeat: no-repeat;
 }
 
+/* ? App Container */
 .app {
-  width: fit-content;
-  padding: 10px;
-  padding-bottom: 50px;
-  margin: 50px 0 0px 0;
-  background: linear-gradient(#3ffcdc, #fc5436);
-  border: 3px solid #fffffff3;
-  border-radius: 15px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 0px 0px 30px 5px #f57c7c;
+ width: fit-content;
+ padding: 10px;
+ padding-bottom: 50px;
+ margin: 50px 0 0px 0;
+ background: linear-gradient(#3ffcdc, #fc5436);
+ border: 3px solid #fffffff3;
+ border-radius: 15px;
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ align-items: center;
+ box-shadow: 0px 0px 30px 5px #f57c7c;
 }
 
-.todolist{
-    display: flex;
-    flex-direction: column;
-    padding: 5px;
-    align-items: center;
-    justify-content: center;
+/* ? Todo List */
+.todolist {
+ display: flex;
+ flex-direction: column;
+ padding: 5px;
+ align-items: center;
+ justify-content: center;
 }
 
-.todolist .head{
-    display: flex;
-    flex-direction: column;
-    justify-self: center;
-    align-items: center;
-    padding: 5px;
-    margin-bottom: 20px;
-}
-.todolist .head .head-title{
-    color: #fff;
-    font-size: 30px;
-    margin-bottom: -5px;
-}
-.todolist .head .input-container{
-    display: flex;
-    align-items: center;
-}
-.todolist .head .input-container .todo-input{
-    text-transform: capitalize;
-    width: 300px;
-    height: 30px;
-    text-align: center;
-    font-size: 15px;
-    font-weight: bold;
-    border-radius: 10px;
-    border: 2px solid #00ffb3;
-    margin-right: 5px;
-    color: #80a9f7;
-}
-.todolist .head .input-container .todo-input:focus{
-    text-transform: capitalize;
-    font-size: 15px;
-    font-weight: bold;
-    color:#00ff80;
-    background-color: #d6fdf1;
-    border: 2px solid #ffffff;
-    box-shadow: 0px 0px 15px 2px #ffffffa9;
-    outline:none;
-}
-.todolist .head .input-container .set-task-btn{
-    cursor: pointer;
-    height: 30px;
-    width: 45px;
-    border: 2px solid #90f7d8;
-    color: #fff;
-    background-color: #3ffcb4;
-    font-size: 20px;
-    border-radius: 5px;
-    box-shadow: 0px 0px 10px 3px #3ffcdc;
-    transition: all 0.3s;
-}
-.todolist .head .input-container .set-task-btn:hover{
-    background-color: #90f7d8;
-    border: 2px solid #fff;
-    box-shadow: 0px 0px 10px 3px #90f7d8;
-}
-.todolist .head .input-container .set-task-btn:active{
-    box-shadow: 0px 0px 10px 4px #fff;
-}
-.todolist .head .input-container .delete-btn{
-    cursor: pointer;
-    height: 30px;
-    width: 45px;
-    border: 2px solid #90f7d8;
-    color: #fff;
-    background-color: #3ffcb4;
-    font-size: 17px;
-    border-radius: 5px;
-    box-shadow: 0px 0px 10px 3px #3ffcdc;
-    transition: all 0.3s;
-}
-.todolist .head .input-container .delete-btn:hover{
-    background-color: #90f7d8;
-    border: 2px solid #fff;
-    box-shadow: 0px 0px 10px 3px #90f7d8;
-}
-.todolist .head .input-container .delete-btn:active{
-    box-shadow: 0px 0px 10px 4px #fff;
-}
-.todolist .uncompleted-tasks{
-    width: 500px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+/* ? Todo List - Head */
+.todolist .head {
+ display: flex;
+ flex-direction: column;
+ justify-self: center;
+ align-items: center;
+ padding: 5px;
+ margin-bottom: 20px;
 }
 
-.todolist .uncompleted-tasks .uncompleted-title{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: #fff;
-    font-size: 25px;
-    font-weight: bold;
-    margin-bottom: 30px;
-}
-.todolist .uncompleted-tasks .todo-item{
-    width: 100%;
-    height: 40px;
-    margin: 2px;
-    display: flex;
-    align-items:center;
-    justify-content: space-between;
-    color: #fff;
-    border: 2px solid #f57c7c;
-    border-radius: 10px;
-    background-color: #fc3f3f;
-    font-size: 16px;
-    font-weight: bold;
-    text-transform: capitalize;
-}
-.todolist .uncompleted-tasks .todo-item:hover{
-    background-color: #fa5959;
-    border: 2px solid #fff;
-}
-.todolist .uncompleted-tasks .todo-item span input{
-    margin-right: 10px;
-}
-.todolist .uncompleted-tasks .todo-item a svg{
-    fill: #fff;
-    width: 30px;
-    height: 30px;
-    margin-top: 7px;
+.todolist .head .head-title {
+ color: #fff;
+ font-size: 30px;
+ margin-bottom: -5px;
 }
 
-.todolist .completed-tasks{
-    width: 500px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+.todolist .head .input-container {
+ display: flex;
+ align-items: center;
 }
 
-.todolist .completed-tasks .completed-title{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: #fff;
-    font-size: 25px;
-    font-weight: bold;
-    margin-bottom: 30px;
-}
-.todolist .completed-tasks .completed-title span{
-    margin-left: 10px;
-    font-size: 20px;
-    transition: all .3s ease-in-out;
-}
-.todolist .completed-tasks .completed-title span:hover{
-    color: #00ff80;
-    font-size: 25px;
-}
-.todolist .completed-tasks .todo-item{
-    width: 100%;
-    height: 40px;
-    margin: 2px;
-    display: flex;
-    align-items:center;
-    justify-content: space-between;
-    color: #fff;
-    border: 2px solid #7cf5bd;
-    border-radius: 10px;
-    background-color: #3ffc9d;
-    font-size: 16px;
-    font-weight: bold;
-    text-decoration: line-through;
-    text-transform: capitalize;
-}
-.todolist .completed-tasks .todo-item:hover{
-    background-color: #6affb5;
-    border: 2px solid #fff;
-}
-.todolist .completed-tasks .todo-item span input{
-    margin-right: 10px;
-}
-.todolist .completed-tasks .todo-item a svg{
-    fill: #fff;
-    width: 30px;
-    height: 30px;
-    margin-top: 7px;
-}
-.divisor{
-    width: 300px;
-    border:1px solid #d6fdf1;
-    margin: 0;
+.todolist .head .input-container .todo-input {
+ text-transform: capitalize;
+ width: 300px;
+ height: 30px;
+ text-align: center;
+ font-size: 15px;
+ font-weight: bold;
+ border-radius: 10px;
+ border: 2px solid #00ffb3;
+ margin-right: 5px;
+ color: #80a9f7;
 }
 
+.todolist .head .input-container .todo-input:focus {
+ text-transform: capitalize;
+ font-size: 15px;
+ font-weight: bold;
+ color: #00ff80;
+ background-color: #d6fdf1;
+ border: 2px solid #ffffff;
+ box-shadow: 0px 0px 15px 2px #ffffffa9;
+ outline: none;
+}
+
+.todolist .head .input-container .set-task-btn {
+ cursor: pointer;
+ height: 30px;
+ width: 45px;
+ border: 2px solid #90f7d8;
+ color: #fff;
+ background-color: #3ffcb4;
+ font-size: 20px;
+ border-radius: 5px;
+ box-shadow: 0px 0px 10px 3px #3ffcdc;
+ transition: all 0.3s;
+}
+
+.todolist .head .input-container .set-task-btn:hover {
+ background-color: #90f7d8;
+ border: 2px solid #fff;
+ box-shadow: 0px 0px 10px 3px #90f7d8;
+}
+
+.todolist .head .input-container .set-task-btn:active {
+ box-shadow: 0px 0px 10px 4px #fff;
+}
+
+.todolist .head .input-container .delete-btn {
+ cursor: pointer;
+ height: 30px;
+ width: 45px;
+ border: 2px solid #90f7d8;
+ color: #fff;
+ background-color: #3ffcb4;
+ font-size: 17px;
+ border-radius: 5px;
+ box-shadow: 0px 0px 10px 3px #3ffcdc;
+ transition: all 0.3s;
+}
+
+.todolist .head .input-container .delete-btn:hover {
+ background-color: #90f7d8;
+ border: 2px solid #fff;
+ box-shadow: 0px 0px 10px 3px #90f7d8;
+}
+
+.todolist .head .input-container .delete-btn:active {
+ box-shadow: 0px 0px 10px 4px #fff;
+}
+
+/* ? Todo List - Uncompleted Tasks */
+.todolist .uncompleted-tasks {
+ width: 500px;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ justify-content: center;
+}
+
+.todolist .uncompleted-tasks .uncompleted-title {
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ align-items: center;
+ color: #fff;
+ font-size: 25px;
+ font-weight: bold;
+ margin-bottom: 30px;
+}
+
+.todolist .uncompleted-tasks .todo-item {
+ width: 100%;
+ height: 40px;
+ margin: 2px;
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ color: #fff;
+ border: 2px solid #f57c7c;
+ border-radius: 10px;
+ background-color: #fc3f3f;
+ font-size: 16px;
+ font-weight: bold;
+ text-transform: capitalize;
+}
+
+.todolist .uncompleted-tasks .todo-item:hover {
+ background-color: #fa5959;
+ border: 2px solid #fff;
+}
+
+.todolist .uncompleted-tasks .todo-item span input {
+ margin-right: 10px;
+}
+
+.todolist .uncompleted-tasks .todo-item a svg {
+ fill: #fff;
+ width: 30px;
+ height: 30px;
+ margin-top: 7px;
+}
+
+/* ? Todo List - Completed Tasks */
+.todolist .completed-tasks {
+ width: 500px;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ justify-content: center;
+}
+
+.todolist .completed-tasks .completed-title {
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ align-items: center;
+ color: #fff;
+ font-size: 25px;
+ font-weight: bold;
+ margin-bottom: 30px;
+}
+
+.todolist .completed-tasks .completed-title span {
+ margin-left: 10px;
+ font-size: 20px;
+ transition: all 0.3s ease-in-out;
+}
+
+.todolist .completed-tasks .completed-title span:hover {
+ color: #00ff80;
+ font-size: 25px;
+}
+
+.todolist .completed-tasks .todo-item {
+ width: 100%;
+ height: 40px;
+ margin: 2px;
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ color: #fff;
+ border: 2px solid #7cf5bd;
+ border-radius: 10px;
+ background-color: #3ffc9d;
+ font-size: 16px;
+ font-weight: bold;
+ text-decoration: line-through;
+ text-transform: capitalize;
+}
+
+.todolist .completed-tasks .todo-item:hover {
+ background-color: #6affb5;
+ border: 2px solid #fff;
+}
+
+.todolist .completed-tasks .todo-item span input {
+ margin-right: 10px;
+}
+
+.todolist .completed-tasks .todo-item a svg {
+ fill: #fff;
+ width: 30px;
+ height: 30px;
+ margin-top: 7px;
+}
+
+/* ? Divisor */
+.divisor {
+ width: 300px;
+ border: 1px solid #d6fdf1;
+ margin: 0;
+}
+
+/* ! Media Queries */
 @media (max-width: 768px) {
-    .app {
-      margin: 30px 0;
-      padding: 5px;
-    }
-  
-    .todolist .head .input-container .todo-input {
-      width: 200px;
-    }
-  
-    .todolist .head .input-container .set-task-btn,
-    .todolist .head .input-container .delete-btn {
-      height: 25px;
-      width: 40px;
-      font-size: 15px;
-    }
-  
-    .todolist .uncompleted-tasks,
-    .todolist .completed-tasks {
-      width: 300px;
-    }
-  
-    .divisor {
-      width: 200px;
-    }
-  }
+ .app {
+   margin: 30px 0;
+   padding: 5px;
+ }
+
+ .todolist .head .input-container .todo-input {
+   width: 200px;
+ }
+
+ .todolist .head .input-container .set-task-btn,
+ .todolist .head .input-container .delete-btn {
+   height: 25px;
+   width: 40px;
+   font-size: 15px;
+ }
+
+ .todolist .uncompleted-tasks,
+ .todolist .completed-tasks {
+   width: 300px;
+ }
+
+ .divisor {
+   width: 200px;
+ }
+}

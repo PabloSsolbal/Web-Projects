@@ -2,6 +2,13 @@
 
 This project is a basic calculator developed in JavaScript. It allows performing simple mathematical operations such as addition, subtraction, multiplication, and division.
 
+## To-Do List
+
+- Implement decimal number support
+- Improve error handling for invalid calculations
+- Implement complex functions
+- Create a last operations tab
+
 ## Demo
 
 You can check the [video demo](https://youtu.be/t034DasWAAI) of the calculator.

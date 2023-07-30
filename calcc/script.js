@@ -1,20 +1,49 @@
-//definimos la variable que contendra el valor que actualmente maneja la calculadora en pantalla y la iniciamos en 0
+/**
+ * ? This code implements a basic calculator functionality.
+ * * It allows users to perform arithmetic operations such as addition, subtraction, multiplication, and division.
+ * * The code maintains a running total and updates it based on the selected operator and operands.
+ * * The calculator interface includes number buttons, operator buttons, a result button, a clear button, and a backspace button.
+ * * Users can input numbers, select operators, calculate results, clear the screen, and delete the last digit.
+ * TODO: Implement decimal number support
+ * TODO: Improve error handling for invalid calculations
+ * TODO: Implement complex functions
+ * TODO: Create a last operations tab
+ */
+
+// ? the running total is the value that is currently being calculated
 let runningTotal = 0;
-//definimos las variables de los numeros a operar y la del operador que definira la operacion matematica a realizar
-//los declaramos nulos
+
+// ? a is the first number, b is the second number, and operator is the operator that is being used
 let a = null;
 let b = null;
 let operator = null;
-//construimos todos los elementos de la calculadora; botones numericos, botones de operadores, boton igual, boton C, boton borrar y la pantalla
+
+// ? get the elements for the calculator
+/**
+ * * result: the button that will display the result
+ * * clear: the button that will clear the screen
+ * * backspace: the button that will delete the last number
+ * * screen: the screen that displays the running total
+ * * numberButtons: the buttons that will display the numbers
+ * * opButtons: the buttons that will display the operators
+ */
 const result = document.getElementById("result");
 const clear = document.getElementById("clear");
 const backspace = document.getElementById("backspace");
 const screen = document.querySelector(".viewer");
 const numberButtons = document.querySelectorAll(".n-button");
 const opButtons = document.querySelectorAll(".op-button");
-//construimos un escucha para el boton igual al hacer click
+
+// ? Event listener for the result button
+/**
+ * * Perform the arithmetic operation based on the selected operator and update the running total
+ * * - Determine the operator using a switch statement
+ * * - Perform the corresponding arithmetic operation on operands a and b
+ * * - Update the screen with the running total
+ * * - Update the value of a, operator, and b
+ */
+
 result.addEventListener("click", () => {
-  //dependiendo del operador que se escogiera realizaremos alguna de las siguientes operaciones que se encuentran en el switch como casos, almacenaremos el resultado en nuestro runningTotal para mostrarlo en pantalla
   switch (operator) {
     case "+":
       runningTotal = a + b;
@@ -32,60 +61,84 @@ result.addEventListener("click", () => {
         runningTotal = a / b;
       }
       break;
+
     default:
       "syntax error";
       break;
   }
-  //mostramos el resultado en pantalla
+
   screen.textContent = runningTotal;
-  //guardamos el resultado en 'a' para poder seguir trabajando con el, ademas colocamos el operador y b en nulo para evitar bugs
+
   a = runningTotal;
   operator = null;
   b = null;
 });
-//creamos un escucha para el boton C
+
+// ? Event listener for the clear button
+/**
+ * * Reset the calculator by setting the running total, operands (a and b), and operator to null
+ * * - Set the running total and operands to 0 and null respectively
+ * * - Update the screen with the running total
+ */
+
 clear.addEventListener("click", () => {
-  //al hacer click en C reseteamos todos los valores y limpiamos la pantalla de la calculadora para trabajar desde 0
   runningTotal = 0;
   a = null;
   b = null;
   operator = null;
   screen.textContent = runningTotal;
 });
-//creamos un escucha para el backspace y poder borrar valores de la pantalla
+
+// ? Event listener for the backspace button
+/**
+ * * Handle the backspace functionality based on the current operand (a or b)
+ * * - If the operator is null, update operand a by removing the last digit
+ * * - If the operator is not null, update operand b by removing the last digit
+ * * - Update the screen with the modified operand value
+ */
+
 backspace.addEventListener("click", () => {
-  //abrimos un if para verificar con que numero se trabaja
-  //si el operador es nulo significa que trabajamos con 'a'
   if (operator === null) {
-    //divimos a entre 10 y lo redondeamos hacia abajo, de esta manera 'borramos' el ultimo valor ej:(112/10=11.2=11) y luego mostramos el nuevo valor en pantalla
     a = Math.floor(a / 10);
     screen.textContent = a;
   } else {
-    //en caso de que le operador no se anulo significa qu estamos trbajando con 'b' y repetimos la operacion para borrar el ultimo digito
     b = Math.floor(b / 10);
     screen.textContent = b;
   }
 });
-//creamos un boton por cada elemento de los botones numericos
+
+// ? Event listeners for the number buttons
+/**
+ * * Handle the click event on each number button
+ * * - Extract the clicked number from the button's text content
+ * * - Convert the number to an integer
+ * * - Determine the target operand (a or b) based on the current operator
+ * * - Update the operand value by appending the clicked number
+ * *- Update the screen with the modified operand value
+ */
+
 numberButtons.forEach((nButton) => {
-  //para cada boton se agrega una escucha al hacer click
   nButton.addEventListener("click", () => {
-    //almacenamos el contenido de ese boton y lo convertimos a entero para poder operarlo matematicamente almacenandolo en una variable
     const numberText = nButton.textContent;
     const number = parseInt(numberText, 10);
-    //si el operador es nulo trabajaremos con 'a'
+
     if (operator === null) {
-      //usamos un operador ternario, si a es nulo sera igual al numero almacenado del boton, si ya tiene un numero almacenado o sea no es nulo entonces lo multiplicamos por 10 y le sumamos el numero, actualizamos el valor y lo mostramos en pantalla
       a = a !== null ? a * 10 + number : number;
       screen.textContent = a;
     } else {
-      //si el operador no es nulo significa que estamos trabajando con 'b' y repetimos la operacion para agregar mas digitos al numero
       b = b !== null ? b * 10 + number : number;
       screen.textContent = b;
     }
   });
 });
-//creamos la escucha para obtener el operador de cada boton al hacer click en el
+
+// ? Event listeners for the operator buttons
+/**
+ * * Handle the click event on each operator button
+ * * - Update the screen with 0 to clear the display
+ * * - Assign the selected operator to the operator variable
+ */
+
 opButtons.forEach((opButton) => {
   opButton.addEventListener("click", () => {
     screen.textContent = 0;

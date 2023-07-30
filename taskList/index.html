@@ -1,5 +1,12 @@
+<!--
+    ! HTML structure for a ToDo List App
+? Introduction:
+* The following HTML code represents a ToDo List App. It consists of a main section for the app, a section for the ToDo list, and separate containers for uncompleted and completed tasks.
+-->
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,27 +14,38 @@
     <title>ToDo List App</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <main class="app">
+        <!-- ? ToDo List Section -->
         <section class="todolist">
+            <!-- ? ToDo List Header -->
             <div class="head">
                 <h1 class="head-title">ToDo List</h1>
+                <!-- ? Input Container -->
                 <div class="input-container">
                     <input type="text" class="todo-input" placeholder="write a task">
+                    <!-- ? Set Task Button -->
                     <button class="set-task-btn">→</button>
+                    <!-- ? Delete Button -->
                     <button class="delete-btn">C</button>
                 </div>
             </div>
+            <!-- ? Uncompleted Tasks Container -->
             <div class="uncompleted-tasks">
-                <div class="uncompleted-title">ToDo <hr class="divisor"></div>
+                <div class="uncompleted-title">ToDo
+                    <hr class="divisor">
+                </div>
             </div>
+            <!-- ? Completed Tasks Container -->
             <div class="completed-tasks">
                 <div class="completed-title">Completed
                     <hr class="divisor">
                 </div>
-                
+            </div>
         </section>
     </main>
     <script src="script.js"></script>
 </body>
+
 </html>

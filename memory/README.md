@@ -2,6 +2,14 @@
 
 This project is a memory game developed in JavaScript. The goal of the game is to match pairs of cards with the same image. It tests the player's memory and concentration skills.
 
+## To-Do List
+
+- Implement additional difficulty levels with different card sets and grid sizes
+- Add animations and visual effects to enhance the game experience
+- Implement a high-score system to keep track of the best times for each difficulty level
+- Add a timer countdown option to add time pressure to the game
+- Improve accessibility by adding keyboard navigation and screen reader support
+
 ## Demo
 
 You can check the [video demo](https://youtu.be/t2-Jd6O2mZ0) of the memory game. Or you can try the [live demo](https://pablossolbal.github.io/Web-Projects/memory/) to play the game.

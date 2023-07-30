@@ -2,7 +2,7 @@
 
 This code sets up a drumkit machine interface with clickable instrument pads and sound sets. It allows users to play sounds by clicking on the pads and switch between different sound sets for each instrument. The code also provides visual effects and a toggle button to show or hide the instrument list.
 
-## To-Do Lista
+## To-Do List
 
 - Add color palettes and a function to change them.
 - Add new sounds.

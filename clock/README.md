@@ -2,6 +2,13 @@
 
 This project is a web application that includes a clock, stopwatch, and timer functionality.
 
+## To-Do List
+
+- Implement UI styling and improve user experience
+- Add additional features such as multiple alarms and customization options
+- Enhance the timer functionality by adding preset time options
+- Refactor and optimize the code for better performance
+
 ## Clock
 
 The clock component displays the current time in real-time.

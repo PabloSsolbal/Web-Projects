@@ -2,6 +2,14 @@
 
 This project is a simple to-do list application developed in JavaScript. It allows users to add, complete, and delete tasks. The tasks can be categorized as incomplete or completed.
 
+## To-Do List
+
+- Implement task persistence using local storage, so tasks persist even after refreshing the page.
+- Add animations and transitions to enhance the user experience.
+- Allow users to edit task items directly by clicking on them.
+- Implement drag and drop functionality to reorder tasks.
+- Add priority levels to tasks and allow users to sort tasks by priority.
+
 ## Demo
 
 You can check the [video demo](https://youtu.be/JaoUGuMLsh4) of the to-do list application. Or you can try the [live demo](https://pablossolbal.github.io/Web-Projects/taskList/) to use the application.

@@ -1,391 +1,458 @@
+/**
+ * ! CSS Documentation
+ * 
+ * *This CSS file contains styles for a drumkit machine interface.
+ * The styles define the layout, colors, effects, and animations used in the interface.
+ * The styles are organized into sections for global styles, containers, instruments, pads, effects buttons, sets buttons, media queries, and more.
+ * The styles are designed to create an interactive and visually appealing user experience.
+ * The file includes comments to describe the purpose and functionality of each style block.
+ * The styles are responsive and optimized for both desktop and mobile devices.
+ * 
+ * TODO: Add comments to explain specific styles and their effects in more detail.
+ * TODO: Refactor and optimize the CSS code for improved performance.
+ * TODO: Consider modularizing the CSS code by extracting common styles into separate files.
+ */
+
 /*
-! import the 'Press Start 2P' font from Google fonts
-*/
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-
-/*
- ? global styles
-*/
-*{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    font-family: 'Press Start 2P',sans-serif;
-}
-
-body{
-    background: url(images/background-img-3.jpg);
-    background-size:cover;
-    background-repeat: no-repeat;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-items: center;
-    filter: hue-rotate(-20deg);
-}
-/* 
- ? background color effect for every pad
- * -blue: drum
- * -red: guitar
- * -yellow: piano
- * -green: synth
+ ! Import the 'Press Start 2P' font from Google Fonts
  */
-body.red{
-    background: #ffa2a2;
-    transition: all 0.3s ease-in-out;
-}
-body.blue{
-    background: #8ceeff;
-    transition: all 0.3s ease-in-out;
-}
-body.green{
-    background: #8cffc5;
-    transition: all 0.3s ease-in-out;
-}
-body.yellow{
-    background: #fff38c;
-    transition: all 0.3s ease-in-out;
-}
+ @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
-
-img{
-    width: 100px;
-    height: 100px;
-}
-
-/* 
-? containers styles
- */
-.app{
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 10px;
-    perspective: 1000px;
-}
-.app p{
-    color: #fff;
-    font-size: 20px;
-    font-weight: bolder;
-    text-transform: uppercase;
-    text-shadow: 0px 6px 4px #000000a8;
-}
-
-.container{
-    width: fit-content;
-    height: fit-content;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 15px;
-    margin: 5px;
-    /* opacity: 0.85; */
-    transform: perspective();
-}
-
-.instruments{
-    display: flex;
-    flex-direction: row;
-    perspective: 1000px;
-}
-
-.instrument{
-    width: 200px;
-    height: fit-content;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border: 4px solid #fff;
-    border-radius: 20px;
-    margin: 10px;
-    box-shadow: 0px 0px 10px 5px #ffffffee;
-    color: #fff;
-    font-size: 15px;
-    font-weight: bold;
-    text-shadow: 0px 5px 8px #000000a8;
-    padding: 5px;
-    opacity: 1;
-    transition: all 0.2s ease-in;
-}
-
-/* 
-? colors and effects for every instrument container
- */
-#drums{
-    background: radial-gradient(#00d9ff,#69e9ff);
-    transform:  scale(1.2) rotateY(45deg) translateX(25px) ;
-}
-#guitar{
-    background: radial-gradient(#ff0000,#ff6969);
-    transform: rotateY(35deg) translateX(25px);
-}
-#piano{
-    background: radial-gradient(#ffae00,#fbff00);
-    transform: rotateY(-35deg) translateX(-25px);
-}
-#synth{
-    background: radial-gradient(#00ffc8,#69ffc6);
-    transform: scale(1.2) rotateY(-45deg) translateX(-25px);
-}
-
-#drums:hover{
-    transform: scale(1.3) translateX(15px);
-}
-#synth:hover{
-    transform: scale(1.3) translateX(-15px);
-}
-#piano:hover{
-    z-index: 10;
-    transform: scale(1.1) translateX(-15px);
-}
-#guitar:hover{
-    z-index: 10;
-    transform: scale(1.1) translateX(15px);
-}
-
-.instrument img{
-    margin: 5px;
-    image-rendering: pixelated;
-    opacity: 1 !important;
-}
-
-/* 
- ? styles for the pad
- */
-.music-pad-c{
-    background: linear-gradient(#ffffff91,#00000091) ;
-    border-radius: 25px;
-    border: 5px solid #fff;
-    box-shadow: 0px 25px 10px 5px #00000086;
-    opacity: 0.9;
-    transform: rotateX(45deg);
-}
-.music-pad.container{
-    background: radial-gradient(#8888885b,#0000005b);
-    display: grid;
-    grid-template-columns: repeat(4,1fr);
-    grid-template-rows: auto;
-    border: 3px solid #fff;
-}
-
-/* 
- ? styles for the effects btns
- */
-.decorations{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 60px;
-    height: fit-content;
-}
-.deco{
-    width: 50px;
-    height: 50px;
-    background-color: #69e9ff;
-    margin: 20px 5px 20px 10px;
-    border: 3px solid #fff;
-    box-shadow: 0px 0px 5px 2px #69e9ff;
-    border-radius: 50%;
-}
-.deco:first-child{
-    background-color: rgb(97, 255, 176);
-    box-shadow: 0px 0px 5px 2px rgb(0, 255, 200);
-}
-.deco:last-child{
-    background-color: #ffae00;
-    box-shadow: 0px 0px 5px 2px #ffae00;
-}
-.deco:active{
-    background-color: #fff;
-    box-shadow: 0px 0px 5px 3px #fff;
-}
-
-/* 
-? styles for the pads
- */
-.pad{
-    width: 100px;
-    height: 100px;
-    margin: 8px;
-    background-color: #fff;
-    border: 3px solid #fff !important;
-    border-radius: 10px;
-    transition: all 0.2s ease-in-out;
-}
-.music-pad.container.music{
-    background-color: #fff;
-}
-
-/* 
- ? colors for the different instrument pads
- * -blue: drum
- * -red: guitar
- * -yellow: piano
- * -green: synth
- */
-.pad.blue{
-    background: radial-gradient(#00d9ff,#69e9ff);
-    border: 3px solid #00d9ff;
-    box-shadow: 0px 0px 5px 3px #69e9ffe8;
-}
-.pad.green{
-    background: radial-gradient(#00ffc8,#69ffc6);
-    border: 3px solid #00ff15;
-    box-shadow: 0px 0px 5px 3px #69ff76e8;
-}
-.pad.red{
-    background: radial-gradient(#ff0000,#ff6969);
-    border: 3px solid #ff0000;
-    box-shadow: 0px 0px 5px 3px #ff6969e8;
-}
-.pad.yellow{
-    background: radial-gradient(#ffae00,#fbff00);
-    border: 3px solid #fbff00;
-    box-shadow: 0px 0px 5px 3px #ffc400e8;
-}
-
-.pad,.deco{
-    cursor: pointer;
-}
-
-.pad:active{
-    transform: scale(1.1);
-    border: 3px solid #fff;
-    box-shadow: 0px 0px 5px 3px #ffffff;
-}
-
-.pad.br, .deco.br, body.br{
-    background: #fff;
-}
-
-/* 
-? styles for the sets btns
- */
-.sets{
-    display: grid;
-    grid-template-columns: repeat(4,1fr);
-    gap: 3px;
-    align-items: center;
-    justify-content: center;
-}
-.sets button{
-    all: unset;
-    cursor: pointer;
-    width: 40px;
-    height: 17px;
-    border-radius: 5px;
-    font-size: 11px;
-    text-align: center;
-    color: #fff;
-    background-color: #ffffff91;
-    box-shadow: 0px 0px 10px 4px #00000041;
-    transition: all 0.3s ease-in;
-}
-.sets button:hover{
-    background-color: #ffffffc0;
-    outline: 2px solid #fff;
-}
-
-/* 
- ? style for the toggler btn for mobile devices
- */
-.instruments-toggle{
-    margin-top: 10px;
-    width: 90%;
-    height: 25px;
-    border-radius: 12px;
-    border: 2px solid #fff;
-    background-color: #ffffff4f;
-    text-align: center;
-    color: #fff;
-    font-size: 16px;
-    text-shadow: 0px 5px 3px #00000041;
-    display: none;
-}
-
-/* 
- ! media querys
- */
-@media (max-width: 768px) {
-    body{
-        height: 100vh;
-        background-position: center;
-    }
-    .instruments-toggle{
-        display: block;
-    }
-    .instruments {
-        z-index: 1000;
-        display: none;
-        grid-template-columns: repeat(2,1fr);
-        position: fixed;
-        backdrop-filter: blur(5px);
-        background-color: #ffffff1a;
-        height:fit-content;
-        margin-top: 100px;
-        transition: all 0.6s ease-in-out;
-    }
-  
-    .instrument {
-      width: 70%;
-      margin: 30px;
-      padding: 0;
-      font-size: 10px;
-      padding: 5px;
-    }
-    .instrument img{
-        width: 90px;
-        height: 90px;
-    }
-    #drums{
-        background: radial-gradient(#00d9ff,#69e9ff);
-        transform:  scale(1.2) rotateY(0deg) translateX(0) ;
-    }
-    #guitar{
-        background: radial-gradient(#ff0000,#ff6969);
-        transform: scale(1.2) rotateY(0deg) translateX(0);
-    }
-    #piano{
-        background: radial-gradient(#ffae00,#fbff00);
-        transform: scale(1.2) rotateY(0deg) translateX(0);
-    }
-    #synth{
-        background: radial-gradient(#00ffc8,#69ffc6);
-        transform: scale(1.2) rotateY(0deg) translateX(0);
-    }
-    #drums:hover{
-        transform: scale(1.2) translateX(0);
-    }
-    #synth:hover{
-        transform: scale(1.2) translateX(0);
-    }
-    #piano:hover{
-        transform: scale(1.2) translateX(0);
-    }
-    #guitar:hover{
-        transform: scale(1.2) translateX(0);
-    }
-    .music-pad-c{
-        flex-direction: column;
-        transform: rotateX(20deg);
-        margin: 10px;
-    }
-    .music-pad.container{
-        grid-template-columns: repeat(3,1fr);
-    }
-    .decorations{
-        flex-direction: row;
-        width: fit-content;
-    }
-    .pad{
-        width: 80px;
-        height: 80px;
-    }
-    .sets {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
+ /*
+  ? Global Styles
+  *
+  * This section includes styles that are applied globally to the entire page.
+  * Styles such as box-sizing, font-family, and background settings are defined here.
+  * All elements on the page inherit these global styles.
+  */
+ * {
+   padding: 0;
+   margin: 0;
+   box-sizing: border-box;
+   font-family: 'Press Start 2P', sans-serif;
+ }
+ 
+ body {
+   background: url(images/background-img-3.jpg);
+   background-size: cover;
+   background-repeat: no-repeat;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-items: center;
+   filter: hue-rotate(-20deg);
+ }
+ 
+ /*
+  ? Background Color Effects for Every Pad
+  *
+  * This section defines different background colors for each instrument pad.
+  * The background color changes when a pad is clicked, creating a visual effect.
+  * The colors are defined using radial gradients.
+  */
+ body.red {
+   background: #ffa2a2;
+   transition: all 0.3s ease-in-out;
+ }
+ 
+ body.blue {
+   background: #8ceeff;
+   transition: all 0.3s ease-in-out;
+ }
+ 
+ body.green {
+   background: #8cffc5;
+   transition: all 0.3s ease-in-out;
+ }
+ 
+ body.yellow {
+   background: #fff38c;
+   transition: all 0.3s ease-in-out;
+ }
+ 
+ /*
+  ? Containers Styles
+  *
+  * This section includes styles for various containers used in the interface.
+  * Styles for the main app container, instrument containers, and music pad containers are defined here.
+  */
+ .app {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   margin: 10px;
+   perspective: 1000px;
+ }
+ 
+ .container {
+   width: fit-content;
+   height: fit-content;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   border-radius: 15px;
+   margin: 5px;
+   transform: perspective();
+ }
+ 
+ .instruments {
+   display: flex;
+   flex-direction: row;
+   perspective: 1000px;
+ }
+ 
+ .instrument {
+   width: 200px;
+   height: fit-content;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   border: 4px solid #fff;
+   border-radius: 20px;
+   margin: 10px;
+   box-shadow: 0px 0px 10px 5px #ffffffee;
+   color: #fff;
+   font-size: 15px;
+   font-weight: bold;
+   text-shadow: 0px 5px 8px #000000a8;
+   padding: 5px;
+   opacity: 1;
+   transition: all 0.2s ease-in;
+ }
+ 
+ /*
+  ? Colors and Effects for Every Instrument Container
+  *
+  * This section defines different background colors and effects for each instrument container.
+  * Each container represents a different instrument (drum, guitar, piano, synth).
+  * The colors and transformations create a distinct visual appearance for each instrument container.
+  */
+ #drums {
+   background: radial-gradient(#00d9ff, #69e9ff);
+   transform: scale(1.2) rotateY(45deg) translateX(25px);
+ }
+ 
+ #guitar {
+   background: radial-gradient(#ff0000, #ff6969);
+   transform: rotateY(35deg) translateX(25px);
+ }
+ 
+ #piano {
+   background: radial-gradient(#ffae00, #fbff00);
+   transform: rotateY(-35deg) translateX(-25px);
+ }
+ 
+ #synth {
+   background: radial-gradient(#00ffc8, #69ffc6);
+   transform: scale(1.2) rotateY(-45deg) translateX(-25px);
+ }
+ 
+ #drums:hover {
+   transform: scale(1.3) translateX(15px);
+ }
+ 
+ #synth:hover {
+   transform: scale(1.3) translateX(-15px);
+ }
+ 
+ #piano:hover {
+   z-index: 10;
+   transform: scale(1.1) translateX(-15px);
+ }
+ 
+ #guitar:hover {
+   z-index: 10;
+   transform: scale(1.1) translateX(15px);
+ }
+ 
+ .instrument img {
+   margin: 5px;
+   image-rendering: pixelated;
+   opacity: 1 !important;
+ }
+ 
+ /*
+  ? Styles for the Music Pads
+  *
+  * This section includes styles for the music pads.
+  * Styles for the pad containers, background, and hover effects are defined here.
+  */
+ .music-pad-c {
+   background: linear-gradient(#ffffff91, #00000091);
+   border-radius: 25px;
+   border: 5px solid #fff;
+   box-shadow: 0px 25px 10px 5px #00000086;
+   opacity: 0.9;
+   transform: rotateX(45deg);
+ }
+ 
+ .music-pad.container {
+   background: radial-gradient(#8888885b, #0000005b);
+   display: grid;
+   grid-template-columns: repeat(4, 1fr);
+   grid-template-rows: auto;
+   border: 3px solid #fff;
+ }
+ 
+ /*
+  ? Styles for the Effects Buttons
+  *
+  * This section includes styles for the effects buttons.
+  * Styles for the decorations container and individual effect buttons are defined here.
+  */
+ .decorations {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   width: 60px;
+   height: fit-content;
+ }
+ 
+ .deco {
+   width: 50px;
+   height: 50px;
+   background-color: #69e9ff;
+   margin: 20px 5px 20px 10px;
+   border: 3px solid #fff;
+   box-shadow: 0px 0px 5px 2px #69e9ff;
+   border-radius: 50%;
+ }
+ 
+ .deco:first-child {
+   background-color: rgb(97, 255, 176);
+   box-shadow: 0px 0px 5px 2px rgb(0, 255, 200);
+ }
+ 
+ .deco:last-child {
+   background-color: #ffae00;
+   box-shadow: 0
+ 
+ px 0px 5px 2px #ffae00;
+ }
+ 
+ .deco:active {
+   background-color: #fff;
+   box-shadow: 0px 0px 5px 3px #fff;
+ }
+ 
+ /*
+  ? Styles for the Pads
+  *
+  * This section includes styles for the individual pads.
+  * Styles for the pads' appearance, background colors, and hover effects are defined here.
+  */
+ .pad {
+   width: 100px;
+   height: 100px;
+   margin: 8px;
+   background-color: #fff;
+   border: 3px solid #fff !important;
+   border-radius: 10px;
+   transition: all 0.2s ease-in-out;
+ }
+ 
+ .music-pad.container.music {
+   background-color: #fff;
+ }
+ 
+ .pad.blue {
+   background: radial-gradient(#00d9ff, #69e9ff);
+   border: 3px solid #00d9ff;
+   box-shadow: 0px 0px 5px 3px #69e9ffe8;
+ }
+ 
+ .pad.green {
+   background: radial-gradient(#00ffc8, #69ffc6);
+   border: 3px solid #00ff15;
+   box-shadow: 0px 0px 5px 3px #69ff76e8;
+ }
+ 
+ .pad.red {
+   background: radial-gradient(#ff0000, #ff6969);
+   border: 3px solid #ff0000;
+   box-shadow: 0px 0px 5px 3px #ff6969e8;
+ }
+ 
+ .pad.yellow {
+   background: radial-gradient(#ffae00, #fbff00);
+   border: 3px solid #fbff00;
+   box-shadow: 0px 0px 5px 3px #ffc400e8;
+ }
+ 
+ .pad,
+ .deco {
+   cursor: pointer;
+ }
+ 
+ .pad:active {
+   transform: scale(1.1);
+   border: 3px solid #fff;
+   box-shadow: 0px 0px 5px 3px #ffffff;
+ }
+ 
+ .pad.br,
+ .deco.br,
+ body.br {
+   background: #fff;
+ }
+ 
+ /*
+  ? Styles for the Sets Buttons
+  *
+  * This section includes styles for the sets buttons.
+  * Styles for the sets container and individual set buttons are defined here.
+  */
+ .sets {
+   display: grid;
+   grid-template-columns: repeat(4, 1fr);
+   gap: 3px;
+   align-items: center;
+   justify-content: center;
+ }
+ 
+ .sets button {
+   all: unset;
+   cursor: pointer;
+   width: 40px;
+   height: 17px;
+   border-radius: 5px;
+   font-size: 11px;
+   text-align: center;
+   color: #fff;
+   background-color: #ffffff91;
+   box-shadow: 0px 0px 10px 4px #00000041;
+   transition: all 0.3s ease-in;
+ }
+ 
+ .sets button:hover {
+   background-color: #ffffffc0;
+   outline: 2px solid #fff;
+ }
+ 
+ /*
+  ? Styles for the Toggler Button (Mobile Devices)
+  *
+  * This section includes styles for the toggler button used on mobile devices.
+  * Styles for the toggler button container and button itself are defined here.
+  */
+ .instruments-toggle {
+   margin-top: 10px;
+   width: 90%;
+   height: 25px;
+   border-radius: 12px;
+   border: 2px solid #fff;
+   background-color: #ffffff4f;
+   text-align: center;
+   color: #fff;
+   font-size: 16px;
+   text-shadow: 0px 5px 3px #00000041;
+   display: none;
+ }
+ 
+ /*
+  ! Media Queries
+  *
+  * This section includes media queries to apply specific styles based on the viewport size.
+  * The styles within each media query are applied when the specified conditions are met.
+  * The media queries are used to make the interface responsive and adapt to different devices.
+  */
+ @media (max-width: 768px) {
+   body {
+     height: 100vh;
+     background-position: center;
+   }
+ 
+   .instruments-toggle {
+     display: block;
+   }
+ 
+   .instruments {
+     z-index: 1000;
+     display: none;
+     grid-template-columns: repeat(2, 1fr);
+     position: fixed;
+     backdrop-filter: blur(5px);
+     background-color: #ffffff1a;
+     height: fit-content;
+     margin-top: 100px;
+     transition: all 0.6s ease-in-out;
+   }
+ 
+   .instrument {
+     width: 70%;
+     margin: 30px;
+     padding: 0;
+     font-size: 10px;
+     padding: 5px;
+   }
+ 
+   .instrument img {
+     width: 90px;
+     height: 90px;
+   }
+ 
+ 
+ 
+   #drums {
+     background: radial-gradient(#00d9ff, #69e9ff);
+     transform: scale(1.2) rotateY(0deg) translateX(0);
+   }
+ 
+   #guitar {
+     background: radial-gradient(#ff0000, #ff6969);
+     transform: scale(1.2) rotateY(0deg) translateX(0);
+   }
+ 
+   #piano {
+     background: radial-gradient(#ffae00, #fbff00);
+     transform: scale(1.2) rotateY(0deg) translateX(0);
+   }
+ 
+   #synth {
+     background: radial-gradient(#00ffc8, #69ffc6);
+     transform: scale(1.2) rotateY(0deg) translateX(0);
+   }
+ 
+   #drums:hover {
+     transform: scale(1.2) translateX(0);
+   }
+ 
+   #synth:hover {
+     transform: scale(1.2) translateX(0);
+   }
+ 
+   #piano:hover {
+     transform: scale(1.2) translateX(0);
+   }
+ 
+   #guitar:hover {
+     transform: scale(1.2) translateX(0);
+   }
+ 
+   .music-pad-c {
+     flex-direction: column;
+     transform: rotateX(20deg);
+     margin: 10px;
+   }
+ 
+   .music-pad.container {
+     grid-template-columns: repeat(3, 1fr);
+   }
+ 
+   .decorations {
+     flex-direction: row;
+     width: fit-content;
+   }
+ 
+   .pad {
+     width: 80px;
+     height: 80px;
+   }
+ 
+   .sets {
+     grid-template-columns: repeat(2, 1fr);
+   }
+ }

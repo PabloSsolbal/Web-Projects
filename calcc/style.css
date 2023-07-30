@@ -1,7 +1,23 @@
+/**
+ * ! CSS Styles for Calculator
+ * 
+ * * This CSS file contains the styles for the calculator interface of the Calculator web application.
+ * * It defines the layout, colors, fonts, and transitions used to create an appealing and interactive calculator design.
+ * * The styles are organized into different sections corresponding to specific elements and components of the calculator.
+ * 
+ * * The CSS file follows the format of providing comments before each section of styles to describe their purpose and functionality.
+ */
+
+/* ! Import Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Rajdhani&display=swap');
 
-body{
-    background: radial-gradient(rgb(70, 243, 243),rgb(81, 98, 255));
+/* ? Global Styles */
+/**
+ * * Set global styles for the body element.
+ * * Define the background color, display property, and box-sizing to create a centered layout.
+ */
+body {
+    background: radial-gradient(rgb(70, 243, 243), rgb(81, 98, 255));
     display: flex;
     align-items: center;
     justify-content: center;
@@ -9,8 +25,14 @@ body{
     padding: 0;
     box-sizing: border-box;
 }
-.calc{
-    font-family: 'Rajdhani',sans-serif;
+
+/* ? Calculator Container */
+/**
+ * * Define styles for the calculator container.
+ * * Set the font family, font size, display, and other properties to create a centered and styled calculator.
+ */
+.calc {
+    font-family: 'Rajdhani', sans-serif;
     font-size: 25px;
     display: flex;
     flex-direction: column;
@@ -20,10 +42,17 @@ body{
     height: 500px;
     border: solid #000000a1 1px;
     border-radius: 20px;
-    box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.5);
-    background: linear-gradient(to top,rgb(0, 252, 113),rgb(0, 238, 247));
+    box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.5);
+    background: linear-gradient(to top, rgb(0, 252, 113), rgb(0, 238, 247));
 }
-.wrapper{
+
+/* ? Wrapper for Calculator Output Display */
+/**
+ * * Define styles for the wrapper element that contains the calculator output display.
+ * * Set the display, alignment, height, color, background color, border, box-shadow, and other properties.
+ * * Add a transition effect for hover interaction.
+ */
+.wrapper {
     display: flex;
     align-items: center;
     justify-content: left;
@@ -37,14 +66,25 @@ body{
     margin-bottom: 5px;
     font-weight: 600;
     font-size: 30px;
-    transition: all 0,3s;
+    transition: all 0.3s;
 }
-.wrapper:hover{
+
+/* ? Hover Effect for Calculator Output Display */
+/**
+ * * Define the hover effect for the wrapper element that contains the calculator output display.
+ * * Change the border color and text color on hover to create an interactive effect.
+ */
+.wrapper:hover {
     border: 1px solid #0ad3f7;
     color: #53e3fc;
 }
 
-.calc-button{
+/* ? Calculator Buttons */
+/**
+ * * Define styles for the calculator buttons.
+ * * Set the border, border radius, font size, font weight, color, box-shadow, height, width, and transition properties.
+ */
+.calc-button {
     border: solid 1px #000000a1;
     border-radius: 6.5px;
     font-size: 18px;
@@ -55,63 +95,129 @@ body{
     width: 60px;
     transition: all 0.3s;
 }
-.calc-button:hover{
+
+/* ? Hover Effect for Calculator Buttons */
+/**
+ * * Define the hover effect for the calculator buttons.
+ * * Change the border, text color, and box-shadow on hover to create an interactive effect.
+ */
+.calc-button:hover {
     cursor: pointer;
     border: 2px solid #fc5353;
     color: #ff0505;
     box-shadow: 0px 0px 6px 2px #000000e1;
 }
-.calc-buttons{
+
+/* ? Container for Calculator Buttons */
+/**
+ * * Define styles for the container that holds the calculator buttons.
+ * * Set the display, flex-direction, justify-content, margin, and height properties.
+ */
+.calc-buttons {
     display: flex;
     flex-direction: column;
     justify-content: center;
     margin: 10px;
     height: 100%;
 }
-.calc-button-row{
+
+/* ? Grid Layout for Calculator Buttons */
+/**
+ * * Define the grid layout for the calculator buttons.
+ * * Set the grid-template-columns, grid-auto-rows, gap, and padding-top properties.
+ */
+.calc-button-row {
     display: grid;
-    grid-template-columns: repeat(4,1fr) ;
-    grid-auto-rows: minmax(0,1fr);
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: minmax(0, 1fr);
     gap: 10px;
     padding-top: 5px;
 }
+
+/* ? Styling for Specific Calculator Buttons */
+/**
+ * * Define specific styles for certain calculator buttons.
+ * * Set the background color, text color, font size, and border for the last button in the first four rows.
+ */
 .calc-button-row:nth-child(-n+4) .calc-button:last-child {
     background-color: #80fad5;
     color: #ffffff;
     font-size: 30px;
 }
-.calc-button-row:nth-child(-n+4) .calc-button:last-child:hover{
+
+/* ? Hover Effect for Specific Calculator Buttons */
+/**
+ * * Define the hover
+
+ effect for specific calculator buttons.
+ * * Change the border color on hover for the last button in the first four rows.
+ */
+.calc-button-row:nth-child(-n+4) .calc-button:last-child:hover {
     border: 1px solid #27ff88;
 }
+
+/* ? Styling for Specific Calculator Buttons */
+/**
+ * * Define specific styles for certain calculator buttons.
+ * * Set the background color, text color, font size, border, and font size for the second button in the first row.
+ */
 .calc-button-row:first-child .calc-button:nth-child(2) {
     background-color: #b1acf8;
     color: #fff;
     border: 1px solid #7e76f5;
     font-size: 30px;
 }
-  
-#result{
+
+/* ? Styling for Result Display */
+/**
+ * * Define styles for the result display in the calculator.
+ * * Set the color, border, grid-column, and width properties.
+ */
+#result {
     color: #ff0000;
-    border:1px solid #f52020;
+    border: 1px solid #f52020;
     grid-column: span 3;
     width: 204px;
 }
-#result:hover{
-    color: #008cff;
-    border: 2px solid #0077ff;
-}
-#clear{
-    color: #ff5e00;
-    border:1px solid #f1750f;
-    grid-column: span 2;
-    width: 132px;
-}
-#clear:hover{
+
+/* ? Hover Effect for Result Display */
+/**
+ * * Define the hover effect for the result display in the calculator.
+ * * Change the color and border on hover to create an interactive effect.
+ */
+#result:hover {
     color: #008cff;
     border: 2px solid #0077ff;
 }
 
-.calc-button:active{
+/* ? Styling for Clear Button */
+/**
+ * * Define styles for the clear button in the calculator.
+ * * Set the color, border, grid-column, and width properties.
+ */
+#clear {
+    color: #ff5e00;
+    border: 1px solid #f1750f;
+    grid-column: span 2;
+    width: 132px;
+}
+
+/* ? Hover Effect for Clear Button */
+/**
+ * * Define the hover effect for the clear button in the calculator.
+ * * Change the color and border on hover to create an interactive effect.
+ */
+#clear:hover {
+    color: #008cff;
+    border: 2px solid #0077ff;
+}
+
+/* ? Active State Styling for Calculator Buttons */
+/**
+ * * Define the active state styling for the calculator buttons.
+ * * Change the border and box-shadow to create a visual effect when a button is pressed.
+ */
+.calc-button:active {
     border: 1px solid #fff;
     box-shadow: 0px 0px 10px 3px #ffffffb9;
 }
