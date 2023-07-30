@@ -41,6 +41,11 @@ Welcome to the repository of my front-end web development projects. Here you wil
    - **Status:** Completed
    - **Technologies Used:** HTML, CSS, JavaScript.
 
+7. **Painter**
+   - **Description:** A simple drawing app created usign HTML canvas and Js, with different functions and customization for the user.
+   - **Status:** Completed
+   - **Technologies Used:** HTML, CSS, JavaScript.
+
 ## How to Run the Projects
 
 Each project is deployed so you can check them in your browser. Make sure you have an active internet connection for projects that require real-time information, such as the weather widget. Also, please review the respective documentation for each project.
