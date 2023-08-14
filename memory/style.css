@@ -11,6 +11,7 @@ TODO: Refactor and optimize the CSS code for improved performance.
 TODO: Consider extracting common styles into separate files for reusability.
 TODO: Add more comments to explain specific styles and their effects in more detail.
 */
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
 /* ? Global Styles */
 *{
@@ -21,12 +22,13 @@ TODO: Add more comments to explain specific styles and their effects in more det
 }
 
 body{
-   height: 100%vh;
-   width: 100%vw;
+   height: 100%;
+   width: 100%;
    background: url(images/background.png);
    background-size: cover;
    scroll-behavior: smooth;
    transition: all 0.8s;
+   overflow-x: hidden;
 }
 
 button{
@@ -212,7 +214,137 @@ p{
    color: #ff2323;
 }
 
+/* ? paired cards modal */
+.modal{
+   z-index: 1000;
+   width: 350px;
+   height: 550px;
+   margin: 5px;
+   position: fixed;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   margin: 0 auto 5px;
+   border: 5px solid #ffffff;
+   border-radius: 15px;
+   box-shadow: 0px 0px 10px 5px #0000008a;
+   background-color: #ffffffd5;
+}
+
+.modal-card{
+   z-index: inherit;
+   width: 100%;
+   height: 100%;
+   margin: 5px;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: space-between;
+}
+
+.modal .modal-img{
+   width: 100px;
+   height: 100px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   box-shadow: 0px 0px 5px 2px #0000008a;
+   background-color: #fff;
+   border-radius: 15px;
+}
+
+.modal p{
+   text-align: center;
+   color: #000000e0;
+}
+
+.modal .modal-card .emotion-name{
+   color: #000;
+   font-size: 25px;
+   font-weight: bold;
+}
+
+.modal .modal-card .emotion-description{
+   word-wrap: break-word;
+   white-space: normal;
+   margin: 5px;
+}
+
+.modal .modal-card .question{
+   font-weight: bold;
+   color: #000;
+   font-size: 18px;
+}
+
+#continue{
+   width: 115px;
+   border-radius: 10px;
+   border: 2px solid #ffffff;
+   box-shadow: 0px 0px 10px 2px #fff;
+   padding: 5px;
+   margin-top: 5px;
+   font-weight: bold;
+   color: #fff;
+   background-color: #00ffea;
+   text-align: center;
+}
+
 /* ? Hidden Element */
 .hidden{
    display: none;
+}
+
+@media (max-width:786px){
+   body{
+      height: 100%;
+   }
+   img{
+      width: 50px;
+      height: 50px;
+   }
+   .app{
+      width: 80%;
+      height: 500px;
+   }
+   .app.before{
+      width: 80%;
+   }
+   .card{
+      width: 60px;
+      height: 60px;
+   }
+   .cards-container{
+      grid-template-columns: repeat(4,1fr);
+      grid-template-rows: 5;
+      padding-left: 14px;
+   }
+   .card-front{
+      margin-top: -56px;
+      background-color: #fff;
+      transform: rotateY(180deg);
+   }
+   
+   .card.flipped .card-reverse{
+      transform: rotateY(180deg);
+   }
+   
+   .card.flipped .card-front{
+      width: 100%;
+      margin-top: -56px;
+      transform: rotateY(0deg);
+   }
+   .emotion-desc{
+      display: none;
+   }
+   .game-title-container{
+      width: 100%;
+   }
+   .game-title{
+      width: 100%;
+   }
+   .modal-img img{
+      width: 70px;
+      height: 70px;
+   }
 }

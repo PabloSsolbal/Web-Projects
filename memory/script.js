@@ -50,16 +50,16 @@ let firstCardValue = "";
 
 // ? items array to const the cards
 const items = [
-  { name: "happy", image: "images/alegria.png" },
-  { name: "sad", image: "images/tristeza.png" },
-  { name: "angry", image: "images/enojo.png" },
-  { name: "anxious", image: "images/ansiedad.png" },
-  { name: "disgust", image: "images/asco.png" },
-  { name: "calm", image: "images/calma.png" },
-  { name: "frustated", image: "images/frustrado.png" },
-  { name: "scared", image: "images/miedo.png" },
-  { name: "preoccupied", image: "images/preocupacion.png" },
-  { name: "satisfaction", image: "images/satisfaccion.png" },
+  { name: "Alegria", image: "images/alegria.png" },
+  { name: "Tristeza", image: "images/tristeza.png" },
+  { name: "Enojo", image: "images/enojo.png" },
+  { name: "Ansiedad", image: "images/ansiedad.png" },
+  { name: "Asco", image: "images/asco.png" },
+  { name: "Calma", image: "images/calma.png" },
+  { name: "Frustracion", image: "images/frustrado.png" },
+  { name: "Miedo", image: "images/miedo.png" },
+  { name: "Preocupacion", image: "images/preocupacion.png" },
+  { name: "Satisfaccion", image: "images/satisfaccion.png" },
 ];
 
 // ? timer function
@@ -196,6 +196,7 @@ const addCardListeners = () => {
           if (firstCardValue == secondCardValue) {
             firstCard.classList.add("matched");
             secondCard.classList.add("matched");
+            displayModal(firstCardValue);
             firstCard = false;
             winCount += 1;
 
@@ -242,9 +243,9 @@ const start = () => {
   moveCount = 0;
 
   app.classList.remove("before");
-  gameBoard.classList.remove("hiden");
-  resultContainer.classList.add("hiden");
-  stopBtn.classList.remove("hiden");
+  gameBoard.classList.remove("hidden");
+  resultContainer.classList.add("hidden");
+  stopBtn.classList.remove("hidden");
 
   starter();
   window.scrollTo(0, document.documentElement.scrollHeight);
@@ -264,11 +265,11 @@ const start = () => {
 const stop = () => {
   clearInterval(intervalID);
 
-  result.classList.remove("hiden");
+  result.classList.remove("hidden");
   app.classList.add("before");
-  gameBoard.classList.add("hiden");
-  resultContainer.classList.remove("hiden");
-  stopBtn.classList.add("hiden");
+  gameBoard.classList.add("hidden");
+  resultContainer.classList.remove("hidden");
+  stopBtn.classList.add("hidden");
 };
 
 // ? starter function
@@ -299,3 +300,100 @@ const starter = () => {
 // ? event listeners for the start and stop button
 startBtn.addEventListener("click", start);
 stopBtn.addEventListener("click", stop);
+
+// ? display modal function
+const modal = document.querySelector(".modal");
+const modalImg = document.querySelector(".emotion-img");
+const emotionName = document.querySelector(".emotion-name");
+const emotionDesc = document.querySelector(".emotion-description");
+const questionCont = document.querySelector(".question");
+
+const continueGameBtn = document.getElementById("continue");
+
+const modalElements = {
+  Alegria: {
+    img: "./images/alegria.png",
+    name: "Alegria",
+    description:
+      "Es cuando sientes una felicidad especial que te hace sonreír y reír. Puede ser cuando juegas con tus amigos, abrazas a tu mascota o pasas tiempo con tu familia. La alegria es como un regalo mágico que te hace sentir bien por dentro y te llena de energía y positividad.",
+    question: "En que momento te sientes feliz?",
+  },
+  Tristeza: {
+    img: "./images/tristeza.png",
+    name: "Tristeza",
+    description:
+      "La tristeza es como una nube gris en el cielo de tus sentimientos. A veces, te hace sentir un poco apagado y sin muchas ganas de hacer cosas divertidas. Puede ser cuando extrañas a alguien, te sientes solo o algo no sale como esperabas. La tristeza es una emoción que todos sentimos a veces, y está bien.",
+    question: "En que momento te sientes triste?",
+  },
+  Enojo: {
+    img: "./images/enojo.png",
+    name: "Enojo",
+    description:
+      "El enojo es como un volcán dentro de ti que quiere salir. Es cuando te sientes furioso por algo que pasó y puede hacerte sentir caliente y agitado. A veces, puedes sentir que quieres gritar o golpear algo. Pero es importante recordar que el enojo no es malo, es una emoción que te dice que algo no está bien.",
+    question: "En que momento te sientes enojado?",
+  },
+  Ansiedad: {
+    img: "./images/ansiedad.png",
+    name: "Ansiedad",
+    description:
+      "La ansiedad es como una mariposa revoloteando en tu estómago. Es cuando sientes un poco de nerviosismo y preocupación por cosas que van a pasar. A veces, puede hacerte sentir inquieto e inseguro. Puede ser cuando tienes que hacer algo nuevo o enfrentar una situación desconocida. Pero recuerda que todos sienten ansiedad a veces, ¡incluso los adultos!",
+    question: "En que momento sientes ansiedad?",
+  },
+  Asco: {
+    img: "./images/asco.png",
+    name: "Asco",
+    description:
+      "El asco es como una mueca en tu cara cuando encuentras algo que te parece muy desagradable. Es cuando sientes una sensación de rechazo y no quieres estar cerca de eso. Puede ser cuando ves algo que no te gusta en la comida o cuando tocas algo que te parece sucio. El asco es una manera de protegerte, para que no te acerques a cosas que podrían hacerte daño.",
+    question: "En que momento sientes asco?",
+  },
+  Calma: {
+    img: "./images/calma.png",
+    name: "Calma",
+    description:
+      "Es cuando todo parece estar en su lugar y no hay prisas ni preocupaciones. Puedes sentir la calma cuando estás rodeado de cosas que te hacen sentir bien, como estar en un lugar tranquilo o hacer algo que te relaja. Es como si tu mente y tu corazón estuvieran en armonía, y te sientes en paz.",
+    question: "En que momento te sientes calmado?",
+  },
+  Frustracion: {
+    img: "./images/frustrado.png",
+    name: "Frustracion",
+    description:
+      "La frustración es como un rompecabezas que no puedes resolver fácilmente. Es cuando te sientes atrapado porque algo no está saliendo como esperabas. Puede hacer que te sientas enojado y agobiado. Puede ser cuando intentas hacer algo y encuentras obstáculos en el camino. Pero recuerda, ¡todos enfrentamos momentos de frustración! Puedes tratar de tomar un descanso o pedir ayuda",
+    question: "En que momento te sientes frustrado?",
+  },
+  Miedo: {
+    img: "./images/miedo.png",
+    name: "Miedo",
+    description:
+      "El miedo es como una sombra que se asoma cuando algo te hace sentir inseguro. Es cuando sientes un escalofrío o un nudo en el estómago porque te enfrentas a algo desconocido o que te preocupa. Puede ser cuando tienes que hacer algo nuevo o enfrentar algo que te da nervios. Aunque el miedo puede ser intimidante, recuerda que todos tenemos miedos a veces.",
+    question: "En que momento sientes miedo?",
+  },
+  Preocupacion: {
+    img: "./images/preocupacion.png",
+    name: "Preocupacion",
+    description:
+      "La preocupación es como una pequeña nube que flota en tu mente. Es cuando te sientes inquieto por algo que podría pasar en el futuro. Puede hacer que pienses mucho en las cosas y te sientas nervioso. La preocupación a veces es como un recordatorio de que te importa algo, pero también puede ser abrumadora. Puedes manejarla hablando sobre lo que te preocupa con alguien de confianza.",
+    question: "En que momento te sientes preocupado?",
+  },
+  Satisfaccion: {
+    img: "./images/satisfaccion.png",
+    name: "Satisfaccion",
+    description:
+      "La satisfacción es como un cálido abrazo que envuelve tu corazón. Es cuando sientes una sensación de logro y contento por haber alcanzado algo que te propusiste. Puede ser cuando terminas una tarea difícil o cuando ves los frutos de tu esfuerzo. La satisfacción te hace sonreír y sentirte orgulloso de ti mismo.",
+    question: "En que momento te sientes satisfecho?",
+  },
+};
+
+const displayModal = (emotion) => {
+  elements = modalElements[emotion];
+  modalImg.src = elements.img;
+  emotionName.innerText = elements.name;
+  emotionDesc.innerText = elements.description;
+  questionCont.innerText = elements.question;
+  modal.classList.remove("hidden");
+  clearInterval(intervalID);
+};
+
+continueGameBtn.addEventListener("click", () => {
+  modal.classList.add("hidden");
+  intervalID = setInterval(timer, 1000);
+});
