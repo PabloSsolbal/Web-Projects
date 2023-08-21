@@ -24,11 +24,25 @@
                 <h1 class="head-title">ToDo List</h1>
                 <!-- ? Input Container -->
                 <div class="input-container">
+                    <div>
+                        <button class="save-btn">Save</button>
+                        <button class="load-btn">Load</button>
+                    </div>
                     <input type="text" class="todo-input" placeholder="write a task">
-                    <!-- ? Set Task Button -->
-                    <button class="set-task-btn">→</button>
-                    <!-- ? Delete Button -->
-                    <button class="delete-btn">C</button>
+                    <!-- ? type btn -->
+                    <div class="flex-set">
+                        <div class="select-menu">
+                            <select class="type-btn" name="type" id="type">
+                                <option value="Normal">Low</option>
+                                <option value="Medium">Medium</option>
+                                <option value="Hard">High</option>
+                            </select>
+                        </div>
+                        <!-- ? Set Task Button -->
+                        <button class="set-task-btn">→</button>
+                        <!-- ? Delete Button -->
+                        <button class="delete-btn">C</button>
+                    </div>
                 </div>
             </div>
             <!-- ? Uncompleted Tasks Container -->

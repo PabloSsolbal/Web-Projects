@@ -75,7 +75,7 @@ body {
 
 .todolist .head .input-container .todo-input {
  text-transform: capitalize;
- width: 300px;
+ width: 250px;
  height: 30px;
  text-align: center;
  font-size: 15px;
@@ -83,6 +83,7 @@ body {
  border-radius: 10px;
  border: 2px solid #00ffb3;
  margin-right: 5px;
+ margin-left: 5px;
  color: #80a9f7;
 }
 
@@ -108,6 +109,7 @@ body {
  border-radius: 5px;
  box-shadow: 0px 0px 10px 3px #3ffcdc;
  transition: all 0.3s;
+ margin-left: 5px;
 }
 
 .todolist .head .input-container .set-task-btn:hover {
@@ -120,7 +122,7 @@ body {
  box-shadow: 0px 0px 10px 4px #fff;
 }
 
-.todolist .head .input-container .delete-btn {
+.todolist .head .input-container .delete-btn, .save-btn {
  cursor: pointer;
  height: 30px;
  width: 45px;
@@ -133,7 +135,7 @@ body {
  transition: all 0.3s;
 }
 
-.todolist .head .input-container .delete-btn:hover {
+.todolist .head .input-container .delete-btn:hover{
  background-color: #90f7d8;
  border: 2px solid #fff;
  box-shadow: 0px 0px 10px 3px #90f7d8;
@@ -141,6 +143,59 @@ body {
 
 .todolist .head .input-container .delete-btn:active {
  box-shadow: 0px 0px 10px 4px #fff;
+}
+
+.todolist .head .input-container .type-btn {
+  cursor: pointer;
+  height: 30px;
+  width: 90px;
+  border: 2px solid #90f7d8;
+  color: #fff;
+  background-color: #3ffcb4;
+  font-size: 17px;
+  font-weight: bold;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 3px #3ffcdc;
+  transition: all 0.3s;
+ }
+
+ .todolist .head .input-container .type-btn option{
+  background-color: #3ffcb4;
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  border: 2px solid #fff;
+ }
+
+ .todolist .head .input-container .type-btn option:active{
+  background-color: #3ffcb4;
+  color: #fff;
+  outline: 2px solid #fff;
+ }
+ 
+ .todolist .head .input-container .type-btn:hover {
+  background-color: #90f7d8;
+  border: 2px solid #fff;
+  box-shadow: 0px 0px 10px 3px #90f7d8;
+ }
+ 
+ .todolist .head .input-container .type-btn:active {
+  box-shadow: 0px 0px 10px 4px #fff;
+ }
+
+.save-btn, .load-btn{
+  cursor: pointer;
+  height: 30px;
+  width: 55px;
+  border: 2px solid #90f7d8;
+  color: #fff;
+  background-color: #3ffcb4;
+  font-size: 17px;
+  font-weight: bold;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 3px #3ffcdc;
+  transition: all 0.3s;
 }
 
 /* ? Todo List - Uncompleted Tasks */
@@ -171,28 +226,39 @@ body {
  align-items: center;
  justify-content: space-between;
  color: #fff;
- border: 2px solid #f57c7c;
  border-radius: 10px;
- background-color: #fc3f3f;
  font-size: 16px;
  font-weight: bold;
  text-transform: capitalize;
 }
 
-.todolist .uncompleted-tasks .todo-item:hover {
- background-color: #fa5959;
- border: 2px solid #fff;
+.taskcheck{
+  cursor: pointer;
+  border: 2px solid #ccc;
+  outline: none;
 }
+
+.taskcheck:checked{
+  border-color: #c8ffe5;
+  cursor: pointer;
+}
+
+.taskcheck:checked::before{
+  color: #00ffd5;
+}
+
 
 .todolist .uncompleted-tasks .todo-item span input {
  margin-right: 10px;
 }
 
-.todolist .uncompleted-tasks .todo-item a svg {
+.todolist .uncompleted-tasks .todo-item .Delete{
  fill: #fff;
+ font-size: 20px;
  width: 30px;
  height: 30px;
- margin-top: 7px;
+ margin-top: 20px;
+ cursor: pointer;
 }
 
 /* ? Todo List - Completed Tasks */
@@ -234,9 +300,9 @@ body {
  align-items: center;
  justify-content: space-between;
  color: #fff;
- border: 2px solid #7cf5bd;
+ border: 2px solid #c8ffe5;
  border-radius: 10px;
- background-color: #3ffc9d;
+ background:linear-gradient(#b2fff2, #00ffd5) ;
  font-size: 16px;
  font-weight: bold;
  text-decoration: line-through;
@@ -252,11 +318,13 @@ body {
  margin-right: 10px;
 }
 
-.todolist .completed-tasks .todo-item a svg {
+.todolist .completed-tasks .todo-item .Delete {
+  font-size: 20px;
  fill: #fff;
  width: 30px;
  height: 30px;
- margin-top: 7px;
+ margin-top: 20px;
+ cursor: pointer;
 }
 
 /* ? Divisor */
@@ -266,6 +334,36 @@ body {
  margin: 0;
 }
 
+/* ? Task Types styles*/
+
+.todolist .uncompleted-tasks .todo-item.Normal{
+  background:linear-gradient(#8fff73, #00ff80) ;
+  border: 2px solid #b2ffbc;
+}
+
+.todolist .uncompleted-tasks .todo-item.Medium{
+  background: linear-gradient(#fff387, #ffd000) ;
+  border: 2px solid #fff6da;
+}
+
+.todolist .uncompleted-tasks .todo-item.Hard{
+  background: linear-gradient(#fa6a6a, #ff2600);
+  border: 2px solid #ffadad;
+}
+
+.todolist .uncompleted-tasks .todo-item.Hard:hover,
+.todolist .uncompleted-tasks .todo-item.Medium:hover,
+.todolist .uncompleted-tasks .todo-item.Normal:hover {
+ border: 2px solid #fff;
+}
+
+/* ? Flex style for the input and btns container */
+.flex-set{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /* ! Media Queries */
 @media (max-width: 768px) {
  .app {
@@ -273,8 +371,16 @@ body {
    padding: 5px;
  }
 
+ .todolist .head .input-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+ }
+
  .todolist .head .input-container .todo-input {
-   width: 200px;
+   width: 250px;
+   margin-bottom: 5px;
  }
 
  .todolist .head .input-container .set-task-btn,
@@ -291,5 +397,15 @@ body {
 
  .divisor {
    width: 200px;
+   margin-bottom: 5px;
+ }
+
+ .todolist .head .input-container .type-btn option{
+  width: 20px !important;
+  font-size: 14px;
+ }
+
+ .completed-title, .uncompleted-title{
+ margin-bottom: 10px !important;
  }
 }

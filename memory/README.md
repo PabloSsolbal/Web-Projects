@@ -1,6 +1,6 @@
 # Memory Game
 
-This project is a memory game developed in JavaScript. The goal of the game is to match pairs of cards with the same image. It tests the player's memory and concentration skills.
+This project is a memory game developed in JavaScript. The goal of the game is to match pairs of cards with the same image. It tests the player's memory and concentration skills. When the cards match the player see a card with a description of the emotion and a question.
 
 ## To-Do List
 
@@ -24,6 +24,7 @@ You can check the [video demo](https://youtu.be/t2-Jd6O2mZ0) of the memory game.
 - Win condition detection.
 - Stop and restart functionality.
 - Sound for the cards.
+- Modal for the emotion description
 
 ## Technologies Used
 
@@ -40,12 +41,13 @@ You can check the [video demo](https://youtu.be/t2-Jd6O2mZ0) of the memory game.
 3. Try to remember the images on the flipped cards.
 4. Match pairs of cards with the same image by flipping two cards consecutively.
 5. If the cards match, they will stay flipped.
-6. If the cards do not match, they will be flipped back.
-7. Keep track of the move count and time.
-8. The game ends when all pairs of cards are matched.
-9. The result is displayed, showing the time taken and the number of moves.
-10. Click the "Stop" button to end the game and view the result.
-11. Click the "Start" button to restart the game.
+6. If the cards match, a modal with the emotion description will be displayed.
+7. If the cards do not match, they will be flipped back.
+8. Keep track of the move count and time.
+9. The game ends when all pairs of cards are matched.
+10. The result is displayed, showing the time taken and the number of moves.
+11. Click the "Stop" button to end the game and view the result.
+12. Click the "Start" button to restart the game.
 
 ## Contribution
 

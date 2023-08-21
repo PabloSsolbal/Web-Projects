@@ -166,6 +166,7 @@ flip.src = "sounds/flipcard.mp3";
  * * If the card is the first card clicked, it stores the card value in the firstCardValue variable
  * * If the card is the second card clicked, it compares the card value to the firstCardValue variable
  * * If the card values match, it adds the cards to the matched array and increments the winCount variable
+ * * If the card values match, pass the value to the modal function to display a modal of the emotion
  * * If the card values do not match, it flips the cards back
  */
 
@@ -297,11 +298,21 @@ const starter = () => {
   timeCountContainer.innerHTML = `<span>Time: </span>00:00`;
 };
 
-// ? event listeners for the start and stop button
+// ? Event listeners for the start and stop button
 startBtn.addEventListener("click", start);
 stopBtn.addEventListener("click", stop);
 
-// ? display modal function
+// ! display modal function //
+
+// ? Get modal elements
+/**
+ * * Modal container
+ * * Modal emotion image
+ * * Modal emotion name
+ * * Modal emotion description
+ * * Modal question container
+ * * Continue button
+ */
 const modal = document.querySelector(".modal");
 const modalImg = document.querySelector(".emotion-img");
 const emotionName = document.querySelector(".emotion-name");
@@ -310,6 +321,13 @@ const questionCont = document.querySelector(".question");
 
 const continueGameBtn = document.getElementById("continue");
 
+// ? Emotions elements list contains:
+/**
+ * * Emotion img src
+ * * Emotion name
+ * * Emotion description
+ * * A question about the emotion
+ */
 const modalElements = {
   Alegria: {
     img: "./images/alegria.png",
@@ -383,6 +401,15 @@ const modalElements = {
   },
 };
 
+// ? Display modal function
+/**
+ *
+ * @param Emotion - emotion name
+ * * Search the emotion name in the modal elements list
+ * * Set the modal elements to the modal elements list
+ * * Show the modal
+ * * Clear the interval to pause the game
+ */
 const displayModal = (emotion) => {
   elements = modalElements[emotion];
   modalImg.src = elements.img;
@@ -393,6 +420,7 @@ const displayModal = (emotion) => {
   clearInterval(intervalID);
 };
 
+// ? Continue btn event listener to hide the modal and continue the game time countdown
 continueGameBtn.addEventListener("click", () => {
   modal.classList.add("hidden");
   intervalID = setInterval(timer, 1000);

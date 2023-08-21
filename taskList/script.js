@@ -4,11 +4,10 @@
  * * Each task item in the uncompleted tasks list has a checkbox to mark it as completed and a delete button to remove it.
  * * When a task is marked as completed, it moves to the completed tasks list and vice versa if unchecked.
  * * Users can delete all tasks from both lists by clicking the "Delete Tasks" button.
- * TODO: Implement task persistence using local storage, so tasks persist even after refreshing the page.
  * TODO: Add animations and transitions to enhance the user experience.
  * TODO: Allow users to edit task items directly by clicking on them.
  * TODO: Implement drag and drop functionality to reorder tasks.
- * TODO: Add priority levels to tasks and allow users to sort tasks by priority.
+ * TODO: Allow users to sort tasks by priority.
  */
 
 // ? variables for task creation
@@ -28,6 +27,7 @@ const setTask = document.querySelector(".set-task-btn");
 const uncompletedTasks = document.querySelector(".uncompleted-tasks");
 const compledtedTasks = document.querySelector(".completed-tasks");
 const deleteBtn = document.querySelector(".delete-btn");
+const typeBtn = document.querySelector(".type-btn");
 
 // ? setTask function
 /**
@@ -40,14 +40,14 @@ const deleteBtn = document.querySelector(".delete-btn");
 
 setTask.addEventListener("click", () => {
   task = preTask.value;
+  type = typeBtn.value;
   newTask = document.createElement("div");
   newTask.classList.add("todo-item");
+  newTask.classList.add(type);
   newTask.innerHTML = `<span>
   <input type="checkbox" class="taskcheck">${task}
 </span>
-<a href="#">
-  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16"> <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708z"/> </svg>
-</a>`;
+<p class="Delete">X</p>`;
   uncompletedTasks.appendChild(newTask);
   preTask.value = "";
 });
@@ -93,7 +93,7 @@ compledtedTasks.addEventListener("change", (e) => {
  */
 
 uncompletedTasks.addEventListener("click", (e) => {
-  if (e.target.classList.contains("bi-x")) {
+  if (e.target.classList.contains("Delete")) {
     const taskItem = e.target.closest(".todo-item");
     uncompletedTasks.removeChild(taskItem);
   }
@@ -106,16 +106,87 @@ uncompletedTasks.addEventListener("click", (e) => {
  */
 
 compledtedTasks.addEventListener("click", (e) => {
-  if (e.target.classList.contains("bi-x")) {
+  if (e.target.classList.contains("Delete")) {
     const taskItem = e.target.closest(".todo-item");
     compledtedTasks.removeChild(taskItem);
   }
 });
 
-// ? Delete all tasks when the delete button is clicked
-deleteBtn.addEventListener("click", () => {
+// ? Delete all task function
+const clear = () => {
   const allTask = document.querySelectorAll(".todo-item");
   allTask.forEach((task) => {
     task.remove();
   });
-});
+};
+
+// ? Delete all tasks when the delete button is clicked
+deleteBtn.addEventListener("click", clear);
+
+// ! local storage functions //
+
+// ? Get the buttons to save and load tasks
+const saveBtn = document.querySelector(".save-btn");
+const loadBtn = document.querySelector(".load-btn");
+
+//? Save tasks to local storage
+/**
+ * * Select all the tasks from the document
+ * * Initialize an empty array to store the tasks
+ * * Loop through the tasks to create the task object
+ * * Push the task object to the array
+ * * Format the tasks array to a JSON
+ * * Store tasks in the local storage
+ */
+const saveTasks = () => {
+  const allTask = document.querySelectorAll(".todo-item");
+  const tasks = [];
+
+  allTask.forEach((task) => {
+    const taskObject = {
+      task: task.querySelector("span").textContent,
+      type: task.classList[1],
+      completed: task.querySelector("input").checked,
+    };
+    tasks.push(taskObject);
+  });
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+};
+
+// ? Load tasks from local storage
+/**
+ * * Clear previous content to prevent duplicates in the task list body
+ * * Retrieves task data from local storage
+ * * Checks if task data exist
+ * * Parse task data
+ * * Loop through task data to create the elements
+ * * - If the task is completed append to the completed tasks container
+ * * - If not appends it to the uncompleted tasks container
+ */
+const loadTasks = () => {
+  clear();
+  const tasks = localStorage.getItem("tasks");
+
+  if (tasks) {
+    const tasksData = JSON.parse(tasks);
+    tasksData.forEach((task) => {
+      const newTask = document.createElement("div");
+      newTask.classList.add("todo-item");
+      newTask.classList.add(task.type);
+      newTask.innerHTML = `<span>
+      <input type="checkbox" class="taskcheck">${task.task}
+    </span>
+    <p class="Delete">X</p>`;
+      if (task.completed) {
+        newTask.querySelector("input").checked = true;
+        compledtedTasks.appendChild(newTask);
+      } else {
+        uncompletedTasks.appendChild(newTask);
+      }
+    });
+  }
+};
+
+// ? Add event listeners to the buttons
+saveBtn.addEventListener("click", saveTasks);
+loadBtn.addEventListener("click", loadTasks);
