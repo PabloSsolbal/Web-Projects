@@ -4,7 +4,6 @@ This project is a weather widget application that uses the OpenWeatherMap API to
 
 ## To-Do List
 
-- Add geolocation functionality to get the weather information of the user's current location.
 - Implement a feature to toggle between Celsius and Fahrenheit temperature units.
 - Improve the user interface with more detailed weather information and additional weather icons.
 - Add error handling for cases where the API request fails or the weather data is incomplete.
@@ -19,6 +18,7 @@ You can check the [video demo](https://youtu.be/2S_g0_LQL0Q) of the weather widg
 - Search for weather information based on location.
 - Display current temperature, weather description, humidity, and wind speed.
 - Show weather icons based on the weather condition.
+- Show weather information with the user's location using geolocation API
 
 ## Technologies Used
 
@@ -35,6 +35,7 @@ You can check the [video demo](https://youtu.be/2S_g0_LQL0Q) of the weather widg
 3. The weather widget will display the current temperature, weather description, humidity, and wind speed.
 4. If the location is not found, an error message will be displayed.
 5. The weather widget will show appropriate weather icons based on the weather condition.
+6. If you allow geolocation permissions the app will display the weather based on your location automatically
 
 ## Contribution
 

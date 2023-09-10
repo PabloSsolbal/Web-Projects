@@ -4,7 +4,6 @@
  * * The API key for the OpenWeatherMap API is retrieved from a global variable called "window.key".
  * * If the search is successful, the app displays the weather information for the city, including temperature, weather description, humidity, and wind speed, along with corresponding weather icons.
  * * If the city is not found or there is an error with the API request, it displays a "Not Found" message.
- * TODO: Add geolocation functionality to get the weather information of the user's current location.
  * TODO: Implement a feature to toggle between Celsius and Fahrenheit temperature units.
  * TODO: Improve the user interface with more detailed weather information and additional weather icons.
  * TODO: Add error handling for cases where the API request fails or the weather data is incomplete.
@@ -153,3 +152,69 @@ const updateWeather = (weather) => {
 search.addEventListener("focus", () => {
   search.value = "";
 });
+
+// ! Geolocalitation functions
+// ? variables for the geolocation -latitude and longitude-
+let lat = null;
+let lon = null;
+
+// ? Function to get the user's location coords
+/**
+ * * Create a success callback function.
+ * * Get the latitude and longitude of the user's location.
+ * * Call the byCoords function with the latitude and longitude.
+ *
+ * * Create an error callback function.
+ * * Update the weather with the error code 404.
+ *
+ * * Get the user's location.
+ */
+const getLocation = () => {
+  const success = (position) => {
+    let positionCoord = position.coords;
+    lat = positionCoord.latitude;
+    lon = positionCoord.longitude;
+
+    byCoords(lat, lon);
+  };
+  const error = (err) => {
+    console.log(err);
+    updateWeather(404);
+  };
+  navigator.geolocation.getCurrentPosition(success, error);
+};
+
+// ? Function to get the weather by coordinates
+/**
+ *
+ * @param latitude - latitude of the user's location
+ * @param longitude - longitude of the user's location
+ *
+ * * Make a request to the OpenWeatherMap API with the coordinates.
+ * * Get the weather data from the response.
+ * * Await the weather data.
+ * * Set the search input value to the city name.
+ * * Get the weather information from the data.
+ * * Update the weather display.
+ */
+const byCoords = (lat, lon) => {
+  fetch(
+    `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${APIKey}`
+  )
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      search.value = data.name;
+      const weather = data.weather[0].main;
+      temperature = data.main.temp;
+      weatherDescp = data.weather[0].description;
+      humidity = data.main.humidity;
+      windSpeed = data.wind.speed;
+
+      updateWeather(weather);
+    });
+};
+
+// ? Start the app with the user's location by default
+getLocation();
