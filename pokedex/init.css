@@ -1,0 +1,493 @@
+/* ? Global Styles*/
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
+:root {
+  --shadow: rgba(0, 0, 0, 0.25);
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-size: 16px;
+  font-family: "Press Start 2P", cursive;
+  color: #fff;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.Font10 {
+  font-size: 10px;
+}
+
+.Font12 {
+  font-size: 12px;
+}
+
+.Font14 {
+  font-size: 14px;
+}
+
+.Font16 {
+  font-size: 16px;
+}
+
+.Font18 {
+  font-size: 18px;
+}
+
+.Font20 {
+  font-size: 20px;
+}
+
+.Font24 {
+  font-size: 24px;
+}
+
+.Shadow4 {
+  box-shadow: 0px 0px 4px 4px var(--shadow);
+}
+
+.Shadow2 {
+  box-shadow: 0px 0px 4px 2px var(--shadow);
+}
+
+.Shadow0 {
+  box-shadow: 2px 2px 4px 0px var(--shadow);
+}
+
+/* ? Dimensions of the App container */
+.GameBoy {
+  width: 100%;
+  height: 100%;
+}
+
+/* * Body Styles */
+/* ? Colors for the Gameboy */
+:root {
+  --blue: #5eecff;
+  --yellow: #fff500;
+  --red: #ff5454;
+  --green: #c0ff3a;
+  --pink: #ff39b0;
+  --purple: #5451ff;
+  --classic: #888787;
+}
+
+.Background {
+  border-radius: 15px;
+}
+
+.Config {
+  border: 4px solid #fff;
+  border-radius: 10px;
+  background-color: var(--screen-pokemon-bg);
+  z-index: 1000;
+}
+
+.Blue {
+  background-color: var(--blue);
+}
+
+.Yellow {
+  background-color: var(--yellow);
+}
+
+.Red {
+  background-color: var(--red);
+}
+
+.Green {
+  background-color: var(--green);
+}
+
+.Pink {
+  background-color: var(--pink);
+}
+
+.Purple {
+  background-color: var(--purple);
+}
+
+.Classic {
+  background-color: var(--classic);
+}
+
+/* * Styles for the types */
+/* ? Type colors */
+:root {
+  --normal: #dfcf96;
+  --fight: #ff2929;
+  --flying: #7381ff;
+  --poison: #8b55ff;
+  --ground: #ad9952;
+  --rock: #8e6f00;
+  --bug: #bdff00;
+  --ghost: #7443ff;
+  --steel: #6e9ea5;
+  --fire: #ff7a00;
+  --water: #58d7ff;
+  --plant: #7de87b;
+  --electric: #ffdc26;
+  --psychic: #ff007a;
+  --ice: #53ffd6;
+  --dragon: #ff2e00;
+  --dark: #131313;
+  --fairy: #ff3d8e;
+  --null: #00000000;
+}
+/* ? Class per type */
+.Type {
+  border: 1px solid #ffffff;
+  border-radius: 10px;
+}
+
+.Null {
+  visibility: hidden;
+  background-color: var(--null);
+}
+
+.Normal {
+  background-color: var(--normal);
+}
+
+.Fighting {
+  background-color: var(--fight);
+}
+
+.Flying {
+  background-color: var(--flying);
+}
+
+.Poison {
+  background-color: var(--poison);
+}
+
+.Ground {
+  background-color: var(--ground);
+}
+
+.Rock {
+  background-color: var(--rock);
+}
+
+.Bug {
+  background-color: var(--bug);
+}
+
+.Ghost {
+  background-color: var(--ghost);
+}
+
+.Steel {
+  background-color: var(--steel);
+}
+
+.Fire {
+  background-color: var(--fire);
+}
+
+.Water {
+  background-color: var(--water);
+}
+
+.Grass {
+  background-color: var(--plant);
+}
+
+.Electric {
+  background-color: var(--electric);
+}
+
+.Psychic {
+  background-color: var(--psychic);
+}
+
+.Ice {
+  background-color: var(--ice);
+}
+
+.Dragon {
+  background-color: var(--dragon);
+}
+
+.Dark {
+  background-color: var(--dark);
+}
+
+.Fairy {
+  background-color: var(--fairy);
+}
+
+/* * Styles for the btns */
+/* ? colors for the btns */
+:root {
+  --btn: #999999;
+  --btn-border: #8f8b8b;
+  --B-btn: #ff7d7d;
+  --B-btn-border: #ff9a94;
+  --A-btn: #8296ff;
+  --A-btn-border: #93a4ff;
+  --S-btn: #ffe27d;
+  --S-btn-border: #ffeca7;
+  --btn-classic: #ff2b2b;
+  --btn-classic-border: #ff9a94;
+}
+
+.RoundBtn {
+  border-radius: 50%;
+}
+
+.NormalBtn {
+  background-color: var(--btn);
+}
+
+/* ? Select and Start btns */
+.LinkBtn {
+  border: 2px solid var(--btn-border);
+  border-radius: 10px;
+}
+
+/* ? Letter btns */
+.A {
+  background-color: var(--A-btn);
+  border: 2px solid var(--A-btn-border);
+}
+
+.B {
+  background-color: var(--B-btn);
+  border: 2px solid var(--B-btn-border);
+}
+
+.S {
+  background-color: var(--S-btn);
+  border: 2px solid var(--S-btn-border);
+}
+
+.Background.Classic .A,
+.Background.Classic .B,
+.Background.Classic .S {
+  background-color: var(--btn-classic);
+  border: 2px solid var(--btn-classic-border);
+}
+
+/* ? Arrow btns */
+.Center {
+  z-index: 10;
+}
+
+.Up {
+  border-top: 2px solid var(--btn-border);
+  border-left: 2px solid var(--btn-border);
+  border-right: 2px solid var(--btn-border);
+  border-radius: 5px 5px 0px 0px;
+}
+
+.Down {
+  border-bottom: 2px solid var(--btn-border);
+  border-left: 2px solid var(--btn-border);
+  border-right: 2px solid var(--btn-border);
+  border-radius: 0px 0px 5px 5px;
+  z-index: 1;
+}
+
+.Left {
+  border-top: 2px solid var(--btn-border);
+  border-bottom: 2px solid var(--btn-border);
+  border-left: 2px solid var(--btn-border);
+  border-radius: 5px 0px 0px 5px;
+}
+
+.Right {
+  border-top: 2px solid var(--btn-border);
+  border-bottom: 2px solid var(--btn-border);
+  border-right: 2px solid var(--btn-border);
+  border-radius: 0px 5px 5px 0px;
+  z-index: 1;
+}
+
+.Btn {
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+}
+
+.Background.Classic .Arrow,
+.Background.Classic .NormalBtn {
+  background-color: #535050;
+}
+
+/* * Styles for the screen of the Gameboy */
+/* ? colors for the screen components */
+:root {
+  --screen-background: #c6c6c6;
+  --screen-pokemon-bg: rgba(255, 255, 255, 0.9);
+  --screen-name-bg: #848484;
+  --shadow-sprite: rgba(0, 0, 0, 0.5);
+  --close-btn: #72a2fa;
+  --close-btn-border: #5e96ff;
+  --dont-remember-btn: #ff7c02;
+  --dont-remember-btn-border: #ff6702;
+  --social-btn: #2b2b2b;
+  --social-btn-border: #5c5c5c;
+  --show-btn: #32f8ff;
+  --show-btn-border: #62edff;
+}
+
+.ScreenStyle {
+  background-color: var(--screen-background);
+  border: 1px solid #fff;
+  border-radius: 10px;
+  box-shadow: 0px 0px 4px 4px var(--shadow) inset;
+}
+
+.Background.Classic .Screen {
+  filter: grayscale(1);
+}
+
+.PkmnViewStyle {
+  background-color: var(--screen-pokemon-bg);
+  border-radius: 10px;
+}
+
+.PkmnSprite {
+  filter: drop-shadow(0px 4px 2px var(--shadow-sprite));
+  width: 11em;
+  height: 11em;
+  object-fit: contain;
+}
+
+.PokeballLoader {
+  filter: drop-shadow(0px 4px 2px var(--shadow-sprite));
+  animation: loading 1.5s infinite ease-in-out;
+}
+
+@keyframes loading {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.Loader {
+  background-color: var(--screen-pokemon-bg);
+  border-radius: 10px;
+  transition: opacity 1s;
+}
+
+.Loader.Hide {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.PkmnInfo {
+  background-color: var(--screen-name-bg);
+  border: 1px solid #fff;
+  border-radius: 10px;
+}
+
+.View {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 1s ease;
+}
+
+.View.Currently {
+  opacity: 1;
+  visibility: visible;
+}
+
+.Instructions {
+  border: 4px solid #fff;
+  border-radius: 10px;
+  background-color: var(--screen-pokemon-bg);
+  z-index: 100;
+}
+
+.CloseAndRemember {
+  background-color: var(--close-btn);
+  border: 2px solid var(--close-btn-border);
+  border-radius: 15px;
+}
+
+.DontRememberClose {
+  background-color: var(--dont-remember-btn);
+  border: 2px solid var(--dont-remember-btn-border);
+  border-radius: 15px;
+}
+
+.Close {
+  background-color: var(--dont-remember-btn);
+  border: 2px solid var(--dont-remember-btn-border);
+  border-radius: 15px;
+}
+
+.Social {
+  background-color: var(--social-btn);
+  border: 2px solid var(--social-btn-border);
+  border-radius: 15px;
+}
+
+.ShowInstructions {
+  background-color: var(--show-btn);
+  border: 2px solid var(--show-btn-border);
+  border-radius: 15px;
+}
+
+.Color,
+.BlockSound {
+  border: 2px solid #fff;
+  border-radius: 15px;
+}
+
+.Img {
+  border-radius: 10px;
+}
+
+.Title {
+  background-color: #f85454;
+  border: 1px solid #ff2929;
+  border-radius: 10px;
+  text-shadow: 0px 2px 3px var(--shadow);
+}
+
+.Logo {
+  color: #ffffff;
+}
+
+.TxtUp {
+  transform: rotate(270deg);
+}
+
+.TxtDown {
+  transform: rotate(90deg);
+}
+
+.TxtLeft {
+  transform: rotate(180deg);
+}
+
+.Instructions.Hide {
+  display: none;
+}
+
+.Config.Hide {
+  display: none;
+}
+
+.CloseAndRemember.Hide {
+  display: none;
+}
+
+.Btn.Active {
+  transform: scale(1.1);
+  box-shadow: 0px 0px 4px 2px #fff;
+}
