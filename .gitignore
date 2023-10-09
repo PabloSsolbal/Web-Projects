@@ -1,1 +1,7 @@
 weather/config.js
+pokedex/Backend/__pycache__
+pokedex/Backend/.space
+pokedex/Backend/venv
+pokedex/Backend/config.py
+pokedex/Backend/requirements.txt
+pokedex/Backend/Spacefile

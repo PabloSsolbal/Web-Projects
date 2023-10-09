@@ -1,5 +1,7 @@
 /* * Global Styles */
+/* ? Flex Styles */
 
+/* * Flex Row */
 .Center {
   display: flex;
   justify-content: center;
@@ -18,10 +20,40 @@
   align-items: center;
 }
 
+/* * Flex Column */
+
 .CenterColumn {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
+}
+
+.CenterBetweenColumn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: space-between;
+}
+
+.CenterEvenlyColumn {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.CenterEvenlyColumnReverse {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.StartColumn {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
 }
 
@@ -32,6 +64,7 @@
 }
 
 /* * Screen styles */
+/* ? Basic Layout for the Screen and the primary elements */
 .Screen {
   width: 100%;
   height: 50%;
@@ -45,13 +78,6 @@
   position: relative;
 }
 
-.Loader {
-  display: flex;
-  position: absolute;
-  width: 90%;
-  height: 90%;
-}
-
 .View {
   position: absolute;
   width: 90%;
@@ -61,6 +87,19 @@
 .PkmnView {
   width: 100%;
   height: 70%;
+}
+
+.Loader {
+  display: flex;
+  position: absolute;
+  width: 90%;
+  height: 90%;
+}
+
+.PkmnSprite {
+  width: 11em;
+  height: 11em;
+  object-fit: contain;
 }
 
 .PkmnTypes {
@@ -153,6 +192,8 @@
   transform: rotate(10deg);
 }
 
+/* * Options layout */
+
 .Options {
   height: 50%;
   width: 90%;
@@ -168,6 +209,8 @@
   height: 3.5em;
 }
 
+/* * Instructions layout */
+
 .Instructions {
   width: 90%;
   height: 95%;
@@ -177,23 +220,23 @@
 
 .InstructionsBtns {
   width: 100%;
-  height: 15%;
+  height: 20%;
+}
+
+.InstructionsImg {
+  margin: 5px;
+  width: 95%;
+  height: 82%;
+  align-items: flex-start;
 }
 
 .ConfigBtns {
   height: 20%;
 }
 
-.InstructionsImg {
-  margin: 5px;
-  width: 100%;
-  height: 85%;
-  align-items: flex-start;
-}
-
 .Img {
-  width: 95%;
-  height: Auto;
+  width: 100%;
+  height: 100%;
 }
 
 .Title {
@@ -209,8 +252,9 @@
 .Social,
 .ShowInstructions {
   margin: 5px;
+  padding: 1px;
   width: 60%;
-  height: 2em;
+  height: fit-content;
 }
 
 .Config {
@@ -230,4 +274,135 @@
   margin: 5px;
   width: 70%;
   height: 8%;
+}
+
+.Info {
+  height: 70%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Info .PkmnView {
+  width: 55%;
+  height: 100%;
+}
+
+.Info .PkmnView .PkmnSprite {
+  width: 9em;
+  height: 9em;
+  object-fit: contain;
+}
+
+.Info .PhysInfo {
+  width: 40%;
+  height: 90%;
+  justify-content: space-evenly;
+}
+
+.SpritesGrid {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  justify-items: center;
+}
+
+.SpritesGrid .PkmnSprite {
+  width: 8em;
+  height: 8em;
+}
+
+.StatView {
+  width: 100%;
+  height: 85%;
+  margin-bottom: 1.25em;
+}
+
+.Stat {
+  width: 95%;
+  height: 14%;
+  margin: 2px;
+}
+
+.StatName {
+  width: 55%;
+  height: 100%;
+}
+
+.StatValue {
+  width: 40%;
+  height: 100%;
+}
+
+.AbilityView {
+  height: 91%;
+}
+
+.Ability {
+  width: 95%;
+  flex-grow: 1;
+
+  margin: 2%;
+}
+
+.AbilityTitle {
+  width: 90%;
+  height: 16px;
+}
+
+.AbilityText {
+  height: 70%;
+  margin-top: 0.5em;
+}
+
+.CheckText {
+  width: 95%;
+  height: 40%;
+}
+
+.InfoText {
+  width: 80%;
+  height: 15%;
+}
+
+.AttackView {
+  width: 100%;
+  height: 100%;
+  margin-bottom: 0;
+}
+
+.Attack {
+  width: 96%;
+  height: 10%;
+}
+
+.GridCards {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(1, 1fr);
+  justify-items: center;
+}
+
+.Card {
+  width: 100%;
+  height: 100%;
+}
+
+.CardImage {
+  width: 90%;
+  height: 60%;
+}
+
+.CardInfo {
+  width: 90%;
+  height: 28%;
+}
+
+.CardInfo p {
+  width: 90%;
+  margin-bottom: 0.5em;
+  text-align: center;
 }

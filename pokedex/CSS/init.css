@@ -12,6 +12,7 @@
   font-size: 16px;
   font-family: "Press Start 2P", cursive;
   color: #fff;
+  text-shadow: 0px 2px 2px var(--shadow-sprite);
 }
 
 body {
@@ -70,12 +71,19 @@ body {
 /* ? Colors for the Gameboy */
 :root {
   --blue: #5eecff;
-  --yellow: #fff500;
+  --blueII: #00e1ff;
+  --yellow: #fffa67;
+  --yellowII: #fff500;
   --red: #ff5454;
+  --redII: #ff2121;
   --green: #c0ff3a;
+  --greenII: #aeff00;
   --pink: #ff39b0;
+  --pinkII: #ff0099;
   --purple: #5451ff;
+  --purpleII: #3834ff;
   --classic: #888787;
+  --classicII: #555555;
 }
 
 .Background {
@@ -90,31 +98,31 @@ body {
 }
 
 .Blue {
-  background-color: var(--blue);
+  background: linear-gradient(var(--blue), var(--blueII));
 }
 
 .Yellow {
-  background-color: var(--yellow);
+  background: linear-gradient(var(--yellow), var(--yellowII));
 }
 
 .Red {
-  background-color: var(--red);
+  background: linear-gradient(var(--red), var(--redII));
 }
 
 .Green {
-  background-color: var(--green);
+  background: linear-gradient(var(--green), var(--greenII));
 }
 
 .Pink {
-  background-color: var(--pink);
+  background: linear-gradient(var(--pink), var(--pinkII));
 }
 
 .Purple {
-  background-color: var(--purple);
+  background: linear-gradient(var(--purple), var(--purpleII));
 }
 
 .Classic {
-  background-color: var(--classic);
+  background: linear-gradient(var(--classic), var(--classicII));
 }
 
 /* * Styles for the types */
@@ -355,9 +363,6 @@ body {
 
 .PkmnSprite {
   filter: drop-shadow(0px 4px 2px var(--shadow-sprite));
-  width: 11em;
-  height: 11em;
-  object-fit: contain;
 }
 
 .PokeballLoader {
@@ -412,6 +417,11 @@ body {
   z-index: 100;
 }
 
+.InstructionsImg {
+  background-color: #dbdbdb;
+  border-radius: 15px;
+}
+
 .CloseAndRemember {
   background-color: var(--close-btn);
   border: 2px solid var(--close-btn-border);
@@ -457,6 +467,79 @@ body {
   border: 1px solid #ff2929;
   border-radius: 10px;
   text-shadow: 0px 2px 3px var(--shadow);
+}
+
+.Info .PhysInfo {
+  background-color: #848484;
+  border-radius: 10px;
+}
+
+.View.WhiteBg {
+  background-color: #ffffff;
+  border-radius: 10px;
+}
+
+.View .GrayBg {
+  background-color: #848484;
+  border: 1px solid #ffffff;
+  border-radius: 10px;
+}
+
+.StatName,
+.StatValue {
+  border-radius: 10px;
+}
+
+.Ability {
+  background-color: #848484;
+  border-radius: 10px;
+}
+
+.Ability.Hidden {
+  background-color: #4b4a4a;
+}
+
+.AbilityTitle {
+  border-radius: 10px;
+  text-align: center;
+}
+
+.AbilityText {
+  text-align: center;
+}
+
+.CheckText {
+  text-align: center;
+  text-shadow: 0px 2px 2px var(--shadow-sprite);
+}
+
+.InfoText {
+  border-radius: 15px;
+  border: 1px solid #fff;
+  margin: 2px;
+}
+
+.Continue {
+  background-color: var(--A-btn);
+}
+
+.Cancel {
+  background-color: var(--B-btn);
+}
+
+.Attack {
+  border-radius: 10px;
+  border: 1px solid #fff;
+}
+
+.CardImage {
+  border-radius: 10px;
+}
+
+.CardInfo {
+  background-color: #848484;
+  border: 1px solid #fff;
+  border-radius: 10px;
 }
 
 .Logo {
