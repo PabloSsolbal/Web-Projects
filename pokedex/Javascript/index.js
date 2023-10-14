@@ -1,9 +1,29 @@
+/**
+* @file Index file for the pokedex project.
+* @author Pablo Solbal <pablossolbal@gmail.com>
+* @copyright Pablo Solbal 2023
+* @license MIT
+/** @version 1.1*/
+/**
+ * @todo
+ * * - Fix minor bugs in search functions.
+ * * - Improve the use of names for card searches.
+ * * - Enhance loading times.
+ * * - Add visualization of Pokémon evolutions.
+ * * - Add Pokémon description display.
+ * * - Begin working on the team builder feature.
+ */
+
 // ! Import the required modules
 import {
   LogPokemon,
   pkmnObject,
   createPokemonInfo,
   CreateAttacksViews,
+  SearchPokemonByName,
+  SearchPokemonByType,
+  SearchConstructor,
+  CreateSearcher,
 } from "./app.js";
 
 import { Capitalizer, createLoader, getPkmns, $screen } from "./builder.js";
@@ -35,6 +55,8 @@ PressSound.src = "assets/press.mp3";
 // ? Create the URL const
 let url = "https://pokeapi.co/api/v2/pokemon/";
 
+let PokemonDataId = null;
+
 // ? Variable to save the last pokemon page
 let lastUrl = "";
 
@@ -42,14 +64,17 @@ let lastUrl = "";
 // * --to check the currently displayed view--
 export let currentlyCounter = 0;
 
-// ? Boolean to check if the pokemon info is displayed
-let isDisplayed = false;
-
 // ? varialbe to save the index of the last Pokemon View
 export let lastPokemonView = 0;
 
 // ? Boolean to check if the content is loading
 window.isCharging = false;
+
+// ? Boolean to check if the app is in home view
+window.areInHome = true;
+
+// ? Variable to save the las type searched --
+window.Type = null;
 
 // ! Pokemon DataSet Functions
 
@@ -202,6 +227,9 @@ const SetPokemonPhysInfo = (data) => {
   pkmnObject.height = (data.height / 10).toFixed(1) + " m";
 };
 
+// ? Function to get the sprites of the pokemon
+// * -front and back- for normal and shiny version
+
 const SetPokemonSprites = (data) => {
   const spritesData = data.sprites;
 
@@ -215,6 +243,15 @@ const SetPokemonSprites = (data) => {
   pkmnObject.sprites = sprites;
 };
 
+// ? function that split the name -if is necesary-
+
+const PokeName = (name) => {
+  if (name.includes("-")) {
+    name = name.split("-")[0];
+  }
+  return name;
+};
+
 // ? This asynchronous function 'getPkmnData' retrieves Pokémon data based on an 'id'.
 // ? It makes API requests, processes the data, and updates 'pkmnObject' with the retrieved information.
 /**
@@ -224,7 +261,7 @@ const SetPokemonSprites = (data) => {
  * * - Logs the 'pkmnObject' to provide information about the Pokémon.
  */
 
-async function getPkmnData(id) {
+export const getPkmnData = async (id) => {
   createLoader();
   try {
     let pkmnResponse = await fetch(url + id);
@@ -238,7 +275,7 @@ async function getPkmnData(id) {
     await SetPokemonSprites(data);
 
     let pokeName = await Capitalizer(data.name);
-    pkmnObject.name = await pokeName;
+    pkmnObject.name = await PokeName(pokeName);
 
     await SetPokemonCards();
 
@@ -253,7 +290,7 @@ async function getPkmnData(id) {
   } catch (error) {
     console.log("Error fetching Pokémon data:", error);
   }
-}
+};
 
 // ! Interactive Functions
 
@@ -417,17 +454,20 @@ document.addEventListener("click", (e) => {
     // * It also resets the 'currentlyCounter' to 0.
 
     if (e.target.matches(".Start") || e.target.matches(".Start p")) {
-      let url = e.target.getAttribute("href");
+      if (areInHome == true) {
+        let $Currently = document.querySelector(".Currently");
+        let url = e.target.getAttribute("href");
 
-      if (e.target.matches(".Start p")) {
-        url = e.target.parentElement.getAttribute("href");
-      }
+        if (e.target.matches(".Start p")) {
+          url = e.target.parentElement.getAttribute("href");
+        }
 
-      if (isDisplayed == false) {
-        if (url) {
-          loadPkmns(url);
-          currentlyCounter = 0;
-          lastPokemonView = 0;
+        if ($Currently.classList.contains("Pokemon")) {
+          if (url) {
+            loadPkmns(url);
+            currentlyCounter = 0;
+            lastPokemonView = 0;
+          }
         }
       }
     }
@@ -437,17 +477,20 @@ document.addEventListener("click", (e) => {
     // * It also resets the 'currentlyCounter' to 0.
 
     if (e.target.matches(".Select") || e.target.matches(".Select p")) {
-      let url = e.target.getAttribute("href");
+      if (areInHome == true) {
+        let $Currently = document.querySelector(".Currently");
+        let url = e.target.getAttribute("href");
 
-      if (e.target.matches(".Select p")) {
-        url = e.target.parentElement.getAttribute("href");
-      }
+        if (e.target.matches(".Select p")) {
+          url = e.target.parentElement.getAttribute("href");
+        }
 
-      if (isDisplayed == false) {
-        if (url) {
-          loadPkmns(url);
-          currentlyCounter = 0;
-          lastPokemonView = 0;
+        if ($Currently.classList.contains("Pokemon")) {
+          if (url) {
+            loadPkmns(url);
+            currentlyCounter = 0;
+            lastPokemonView = 0;
+          }
         }
       }
     }
@@ -592,53 +635,206 @@ document.addEventListener("click", (e) => {
 
     /**
      *  ?This code block listens for a click event on elements with class "A" or "A p".
-     * * If the event target matches one of these classes and 'isDisplayed' is false:
-     * * - It retrieves the Pokémon data ID from the currently displayed Pokémon card.
-     * * - It calls 'getPkmnData' with the Pokémon data ID to display additional details.
-     * * - It sets 'isDisplayed' to true to prevent further repeated clicks.
+     */
+    /**
+     * * - It checks the currently displayed view.
+     * * - If a Pokémon view is displayed, it loads the detailed information of that Pokémon.
+     * * - If a Checker view is displayed and there are moves available, it switches to the Attacks view.
+     * * - If a CardsChecker view is displayed and there are cards available, it switches to the Cards view.
+     * * - If a SearchChecker view is displayed, it goes to the previous view (either home screen or search screen).
+     * * - If a Name view is displayed, it initiates a search by name.
+     * * - If a PkmnType view is displayed, it initiates a search by type.
      */
 
     if (e.target.matches(".A") || e.target.matches(".A p")) {
-      if (isDisplayed == false) {
-        let PokemonDataId = document
+      let $Currently = document.querySelector(".Currently");
+
+      // ? Check if currently viewing a specific Pokémon
+      if ($Currently.classList.contains("Pokemon")) {
+        // * Get the Pokémon data and set last viewed view
+        PokemonDataId = document
           .querySelector(".Currently")
           .getAttribute("data-id");
 
         lastPokemonView = currentlyCounter;
 
         getPkmnData(PokemonDataId);
-        isDisplayed = true;
-      } else {
-        let $Checker = document.querySelector(".Checker");
-        if ($Checker.classList.contains("Currently")) {
-          CreateAttacksViews();
-          currentlyCounter = 0;
-        }
-        let $CardsChecker = document.querySelector(".CardsChecker");
-        if ($CardsChecker.classList.contains("Currently")) {
-          CreateCardsViews();
-          currentlyCounter = 0;
-        }
+        //
+      }
+      // ? Check if currently viewing Pokémon attacks and there are available attacks
+      else if (
+        $Currently.classList.contains("Checker") &&
+        pkmnObject.moves.length >= 1
+      ) {
+        // * Create Pokémon attacks view and reset the counter
+        CreateAttacksViews();
+        currentlyCounter = 0;
+        //
+      }
+      // ? Check if currently viewing Pokémon cards and there are available cards
+      else if (
+        $Currently.classList.contains("CardsChecker") &&
+        pkmnObject.cards.length >= 1
+      ) {
+        // * Create Pokémon cards view and reset the counter
+        CreateCardsViews();
+        currentlyCounter = 0;
+        //
+      }
+      // ? Check if currently viewing the search results screen
+      else if ($Currently.classList.contains("SearchChecker")) {
+        // * Set last viewed view and create a searcher view for filtering by name
+        lastPokemonView = currentlyCounter;
+        CreateSearcher("Name");
+        //
+      }
+      // ? Check if currently viewing the Pokémon name search results
+      else if ($Currently.classList.contains("Name")) {
+        // * Set last viewed view and initiate the Pokémon search by name
+        lastPokemonView = 0;
+        SearchPokemonByName();
+        areInHome = false;
+        //
+      }
+      // ? Check if currently viewing the Pokémon type filter screen
+      else if ($Currently.classList.contains("PkmnType")) {
+        // * Switch to the type filter and reset counters
+        areInHome = false;
+        currentlyCounter = 0;
+        lastPokemonView = 0;
+        SearchPokemonByType();
+        //
       }
     }
 
     /**
      * ? This code block listens for a click event on elements with class "B" or "B p".
-     * * If the event target matches one of these classes and 'isDisplayed' is true:
-     * * - It checks if the last loaded URL is the same as the initial URL.
-     * * - If it is, it resets the last URL to the default URL for loading Pokémon data.
-     * * - It calls 'loadPkmns' with the last URL to reload the initial Pokémon list.
-     * * - It resets 'isDisplayed' to false and 'currentlyCounter' to 0 for initial display.
+     */
+    /**
+     * * - It checks the currently displayed view.
+     * * - If a Pokémon view is currently displayed in the home screen, it loads the previous list of Pokémon.
+     * * - If an attack view or card view is displayed, it goes back to the Pokémon view.
+     * * - If a search view is displayed, it goes back to the previous list of Pokémon or the home screen.
+     * * - If a Pokémon view is displayed in a non-home screen, it goes back to the previous list of Pokémon or the home screen.
      */
 
     if (e.target.matches(".B") || e.target.matches(".B p")) {
-      if (isDisplayed == true) {
+      let $Currently = document.querySelector(".Currently");
+
+      // ? Check if currently viewing the home screen with Pokémon views
+      if ($Currently.classList.contains("PkmnViewClass") && areInHome == true) {
+        /**
+         * * Load the previous set of Pokémon views
+         *
+         * * - If the last URL is the default url set the offset and the limit to 0 and 20 respectively to prevent errors
+         */
         if (lastUrl == url) {
           lastUrl = "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=20";
         }
+
         loadPkmns(lastUrl);
-        isDisplayed = false;
         currentlyCounter = lastPokemonView;
+        //
+      }
+      // ?  Check if currently viewing Pokémon attack details
+      else if ($Currently.classList.contains("PkmnViewAttack")) {
+        // * Go back to the Pokémon data view
+        getPkmnData(PokemonDataId);
+        currentlyCounter = 0;
+        //
+      }
+      // ? Check if currently viewing Pokémon card details
+      else if ($Currently.classList.contains("PkmnViewCard")) {
+        // * Go back to the Pokémon data view
+        getPkmnData(PokemonDataId);
+        currentlyCounter = 0;
+        //
+      }
+      // ? Check if currently in the search results screen
+      else if (
+        $Currently.classList.contains("SearchChecker") ||
+        $Currently.classList.contains("Searcher")
+      ) {
+        // * Load the previous set of Pokémon views
+        if (lastUrl == url) {
+          lastUrl = "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=20";
+        }
+
+        loadPkmns(lastUrl);
+
+        // * - If not are in home restart the currently counter and lastpokemon values to 0
+        if (areInHome == true) {
+          currentlyCounter = lastPokemonView;
+        } else {
+          currentlyCounter = 0;
+          lastPokemonView = 0;
+        }
+        //
+      }
+      // ? Check if currently viewing Pokémon of a specific type --not in home--
+      else if (
+        $Currently.classList.contains("PkmnViewClass") &&
+        areInHome == false
+      ) {
+        // * Check if a type was searched
+        if (Type != null) {
+          /**
+           * * If a type was searched, load the previous set of Pokémon views by the type searched previous
+           */
+          currentlyCounter = lastPokemonView;
+          SearchPokemonByType(Type);
+        } else {
+          // * If not load the previous set of Pokémon views (all types)
+          if (lastUrl == url) {
+            lastUrl = "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=20";
+          }
+
+          // * Restart all values
+          loadPkmns(lastUrl);
+          currentlyCounter = 0;
+          lastPokemonView = 0;
+          Type = null;
+          areInHome = true;
+        }
+      }
+      // ? Check if currently viewing a specific Pokémon --searched by name--
+      else if ($Currently.classList.contains("Pokemon") && areInHome == false) {
+        // * Delete the las type searched to prevent errors
+        Type = null;
+
+        // * Load the previous set of Pokémon views
+        if (lastUrl == url) {
+          lastUrl = "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=20";
+        }
+
+        // * Restart all values
+        loadPkmns(lastUrl);
+        currentlyCounter = 0;
+        lastPokemonView = 0;
+        areInHome = true;
+      }
+    }
+
+    /**
+     * ? This scope handles the behavior when the 'S' button is pressed.
+     * * - It checks the currently displayed view and performs different actions based on the view.
+     */
+
+    if (e.target.matches(".S") || e.target.matches(".S p")) {
+      let $Currently = document.querySelector(".Currently");
+      lastPokemonView = currentlyCounter;
+
+      if ($Currently.classList.contains("SearchChecker")) {
+        // * Display the type search view
+        CreateSearcher("Type");
+        areInHome = false;
+        //
+      } else if ($Currently.classList.contains("Searcher")) {
+        //
+      } else {
+        // * Return to the default search view
+        Type = null;
+        SearchConstructor();
       }
     }
   }

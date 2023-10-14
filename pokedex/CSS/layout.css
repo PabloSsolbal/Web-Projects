@@ -100,6 +100,7 @@
   width: 11em;
   height: 11em;
   object-fit: contain;
+  align-self: center;
 }
 
 .PkmnTypes {
@@ -306,11 +307,14 @@
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
   justify-items: center;
+  align-items: center;
+  gap: 2px;
 }
 
 .SpritesGrid .PkmnSprite {
   width: 8em;
   height: 8em;
+  padding: 3px;
 }
 
 .StatView {
@@ -405,4 +409,21 @@
   width: 90%;
   margin-bottom: 0.5em;
   text-align: center;
+}
+
+.SearchInput {
+  text-align: center;
+  all: none;
+  width: 90%;
+  height: 15%;
+  border-radius: 10px;
+  border: 2px solid #ebebeb;
+  color: #5a5a5a;
+  margin-bottom: 1em;
+  padding: 2px;
+}
+
+.SearchInput:focus {
+  color: #848484;
+  outline: none;
 }

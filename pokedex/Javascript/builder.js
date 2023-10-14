@@ -79,9 +79,17 @@ export const CreatePokemonView = (pkmnData, isJSON) => {
   $pkmnimage.classList.add("PkmnSprite");
 
   if (isJSON == true) {
-    $pkmnimage.src = pkmnData.sprites.front_default;
+    if (pkmnData.sprites.front_default == null) {
+      $pkmnimage.src = `assets/Missingno.webp`;
+    } else {
+      $pkmnimage.src = pkmnData.sprites.front_default;
+    }
   } else {
-    $pkmnimage.src = pkmnData;
+    if (pkmnData == null) {
+      $pkmnimage.src = `assets/Missingno.webp`;
+    } else {
+      $pkmnimage.src = pkmnData;
+    }
   }
 
   $pkmnview.appendChild($pkmnimage);
@@ -226,36 +234,56 @@ export const CreatePokemonViewer = () => {
 };
 
 /**
- * ? This function fetches and displays Pokémon data for a list of Pokémon.
- * * - It creates a div element '$viewer' to contain Pokémon cards.
- * * - It iterates through the list of Pokémon ('pkmns') and fetches data for each Pokémon.
- * * - For each Pokémon, it creates a card using 'CreatePokemonCard' and appends it to '$viewer'.
- * * - It applies CSS classes to '$viewer' for styling.
- * * - It clears the '$screen' element and appends '$viewer' to it.
- * * - It sets the 'Currently' class to the first Pokémon card for initial display.
+ * ? This function retrieves Pokémon data and generates Pokémon card views.
+ * * - It creates a viewer for displaying Pokémon card views.
+ * * - Iterates through a list of Pokémon data.
+ * * - Fetches Pokémon data from the provided URLs or Pokémon URLs.
+ * * - Creates a card view for each Pokémon data and appends it to the viewer.
+ * * - Sets the 'Currently' class to the last viewed Pokémon.
+ * * - Clears the screen and displays the viewer.
  *
- * @param {Array} pkmns - An array of Pokémon objects.
+ * @param {Array of objects} pkmns - An array of Pokémon urls
  */
 
 export const getPkmns = async (pkmns) => {
   let $viewer = CreatePokemonViewer();
 
   for (let pkmn of pkmns) {
+    let pkmnData = null;
+
     try {
-      let pkmnResponse = await fetch(pkmn.url);
-      const pkmnData = await pkmnResponse.json();
+      //
+      if (pkmn.pokemon) {
+        //
+        let pkmnResponse = await fetch(pkmn.pokemon.url);
+        pkmnData = await pkmnResponse.json();
+        //
+      } else {
+        //
+        let pkmnResponse = await fetch(pkmn.url);
+
+        if (pkmnResponse.status == 404) {
+          return;
+        } else {
+          pkmnData = await pkmnResponse.json();
+        }
+      }
 
       let $view = CreatePokemonCard(pkmnData);
+      $view.classList.add("Pokemon");
 
       $viewer.appendChild($view);
     } catch (err) {
       console.log(err);
     }
   }
+
   $screen.innerHTML = "";
   $screen.appendChild($viewer);
+
   document
     .querySelectorAll(".View")
     [lastPokemonView].classList.add("Currently");
+
   isCharging = false;
 };

@@ -143,6 +143,9 @@ export const CreateCardsViews = () => {
   setTimeout(() => {
     $screen.innerHTML = "";
     $screen.appendChild($Viewer);
+    document.querySelectorAll(".View").forEach((view) => {
+      view.classList.add("PkmnViewCard");
+    });
     document.querySelectorAll(".View")[0].classList.add("Currently");
     isCharging = false;
   }, 5500);

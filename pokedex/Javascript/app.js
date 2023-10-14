@@ -6,6 +6,7 @@ import {
   CreatePokemonTypes,
   CreatePokemonInfo,
   createLoader,
+  getPkmns,
 } from "./builder.js";
 
 // ? Pokemon Object to store the data of the currently Pokemon
@@ -119,8 +120,13 @@ const CreatePokemonSpritesScreen = (sprites) => {
   $SpritesGrid.classList.add("SpritesGrid");
 
   sprites.forEach((sprite) => {
+    console.log(sprite == null);
     const $Sprite = document.createElement("img");
-    $Sprite.src = sprite;
+    if (sprite == null) {
+      $Sprite.src = `assets/Missingno.webp`;
+    } else {
+      $Sprite.src = sprite;
+    }
     $Sprite.classList.add("PkmnSprite");
     $SpritesGrid.appendChild($Sprite);
   });
@@ -399,6 +405,10 @@ export const createPokemonInfo = (PkmnObject) => {
   $screen.innerHTML = "";
   $screen.appendChild($Viewer);
 
+  document.querySelectorAll(".View").forEach((view) => {
+    view.classList.add("PkmnViewClass");
+  });
+
   document.querySelectorAll(".View")[0].classList.add("Currently");
   isCharging = false;
 };
@@ -508,7 +518,221 @@ export const CreateAttacksViews = () => {
   setTimeout(() => {
     $screen.innerHTML = "";
     $screen.appendChild($Viewer);
+    document.querySelectorAll(".View").forEach((view) => {
+      view.classList.add("PkmnViewAttack");
+    });
     document.querySelectorAll(".View")[0].classList.add("Currently");
+    isCharging = false;
+  }, 2000);
+};
+
+// ! Search functions
+
+/**
+ * ? This function searches for a Pokémon by name and displays the result.
+ * * - Retrieves the Pokémon name from the input field.
+ * * - Constructs the URL for the name-based search.
+ * * - Calls 'getPkmns' to display the fetched Pokémon.
+ */
+export const SearchPokemonByName = async () => {
+  // * Retrieve the Pokémon name from the input field
+  let pkmnName = document.querySelectorAll(".SearchInput")[0].value;
+
+  try {
+    // * Construct the URL for the name-based search
+    let url = "https://pokeapi.co/api/v2/pokemon/" + pkmnName.toLowerCase();
+
+    // * Check if the URL is valid, and call 'getPkmns' to display the fetched Pokémon
+    if (url) {
+      getPkmns([{ url: url }]);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+/**
+ * ? This function performs a search for Pokémon by type and displays the results.
+ * * - If `typeN` is not provided, it retrieves the type from the input field.
+ * * - Sets the global variable `Type` for type-based searches.
+ * * - Constructs the URL for the type-based search.
+ * * - Fetches data from the API based on the type.
+ * * - Extracts the Pokémon from the response data.
+ * * - Sets up a loader to indicate loading.
+ * * - Calls `getPkmns` to display the fetched Pokémon.
+ *
+ * @param {string} typeN - Optional type name for the search.
+ */
+
+export const SearchPokemonByType = async (typeN = "") => {
+  // * Check if typeN is provided, otherwise, get it from the input field
+  if (typeN == "") {
+    typeN = document.querySelectorAll(".SearchInput")[0].value;
+  }
+
+  // * Set the global variable 'Type' for type-based searches
+  Type = typeN;
+
+  // * Construct the URL for the type-based search
+  let url = "https://pokeapi.co/api/v2/type/" + typeN.toLowerCase();
+
+  // * Fetch data from the API based on the type
+  let response = await fetch(url);
+  let data = await response.json();
+
+  // * Extract the Pokémon from the response data
+  let pokemon = [];
+
+  for (let pkmn of data.pokemon) {
+    pokemon.push(pkmn.pokemon);
+  }
+
+  // * Call 'getPkmns' to display the fetched Pokémon
+  createLoader();
+  getPkmns(pokemon);
+};
+
+/**
+ * ? This function creates a search checker view:
+ * * - Sets up a loader and the main viewer.
+ * * - Creates a search checker with appropriate text and buttons for searching by name or type.
+ * * - Updates the text and buttons in the search checker.
+ * * - Displays the search checker after a delay.
+ */
+
+export const SearchConstructor = () => {
+  // * Create a loader and the main viewer
+  createLoader();
+  const $viewer = CreatePokemonViewer();
+
+  // * Create the search checker
+  let $SearchChecker = CreatePokemonAttacksScreen(
+    [],
+    "",
+    "Search",
+    "SearchChecker"
+  );
+
+  // * Get elements from the search checker
+  let $SearchText = $SearchChecker
+    .querySelector(".StatView")
+    .querySelector(".CheckText");
+
+  let $SearchBtns = $SearchChecker
+    .querySelector(".StatView")
+    .querySelectorAll(".InfoText");
+
+  // * Update the search text and buttons
+  $SearchText.textContent = "Search a Pokémon by name or type.";
+
+  $SearchBtns[0].textContent = "A: By name";
+  $SearchBtns[1].textContent = "S: By type";
+
+  // * Update classes to distinguish between cancel and search
+  $SearchBtns[1].classList.remove("Cancel");
+  $SearchBtns[1].classList.add("Search");
+
+  // * Set the search checker as 'Currently' to display it
+  $SearchChecker.classList.add("Currently");
+
+  // * Display the search checker after a delay
+  setTimeout(() => {
+    $screen.innerHTML = "";
+    $viewer.appendChild($SearchChecker);
+    $screen.appendChild($viewer);
+    isCharging = false;
+  }, 2000);
+};
+
+/**
+ * ? This function creates an input search field.
+ * * Add classes to it
+ * * Add a placeholder to it
+ * @returns {HTMLElement} $InputSearch - The created input search field.
+ */
+
+const CreateInputSearch = () => {
+  const $InputSearch = document.createElement("input");
+  $InputSearch.classList.add("SearchInput");
+  $InputSearch.classList.add("Font12");
+  $InputSearch.classList.add("Shadow2");
+
+  $InputSearch.placeholder = "...Search";
+
+  return $InputSearch;
+};
+
+/**
+ * ? This function creates a search button element.
+ * * Add classes to it
+ * * Add a text to it
+ * @returns {HTMLElement} $SearchBtn - The created search button element.
+ */
+const CreateSearchBtn = () => {
+  const $SearchBtn = document.createElement("div");
+  $SearchBtn.classList.add("InfoText");
+  $SearchBtn.classList.add("Continue");
+  $SearchBtn.classList.add("Shadow2");
+  $SearchBtn.classList.add("Center");
+
+  $SearchBtn.textContent = "A: Search";
+
+  return $SearchBtn;
+};
+
+/**
+ * ? This function creates a search view based on the given 'type'.
+ * * - It sets up a loader and the main viewer.
+ * * - Creates a search checker with an appropriate text based on the type.
+ * * - Adds an input field and a search button to the search checker.
+ * * - Sets appropriate classes on the search checker.
+ */
+
+export const CreateSearcher = (type) => {
+  // * Create a loader and the main viewer
+  createLoader();
+  const $viewer = CreatePokemonViewer();
+
+  // * Create the search checker
+  let $SearchChecker = CreatePokemonAttacksScreen([], "", "Search", "Searcher");
+
+  // * Get elements from the search checker
+  let $SearchText = $SearchChecker
+    .querySelector(".StatView")
+    .querySelector(".CheckText");
+
+  let $SearchBtns = $SearchChecker
+    .querySelector(".StatView")
+    .querySelectorAll(".InfoText");
+
+  // * Remove any existing search buttons
+  $SearchBtns.forEach(($SearchBtn) => {
+    $SearchChecker.querySelector(".StatView").removeChild($SearchBtn);
+  });
+
+  // * Update the search text based on the type of search --name or type--
+  $SearchText.textContent = `Search a Pokemon by ${type}`;
+
+  // * Create input search field and search button
+  let $InputSearch = CreateInputSearch();
+  let $SearchBtn = CreateSearchBtn();
+  $SearchBtn.classList.add("SearchBtn");
+
+  $SearchChecker.querySelector(".StatView").appendChild($InputSearch);
+  $SearchChecker.querySelector(".StatView").appendChild($SearchBtn);
+  $SearchChecker.classList.add("Currently");
+
+  // * If checked by type change the Type class to PkmnType class bcs the Type class alredy exist
+  if (type == "Type") {
+    type = "PkmnType";
+  }
+  $SearchChecker.classList.add(type);
+
+  // * Display the search checker after a delay
+  setTimeout(() => {
+    $screen.innerHTML = "";
+    $viewer.appendChild($SearchChecker);
+    $screen.appendChild($viewer);
     isCharging = false;
   }, 2000);
 };

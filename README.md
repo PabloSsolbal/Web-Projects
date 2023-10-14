@@ -5,7 +5,7 @@ Welcome to the repository of my front-end web development projects. Here you wil
 **Technologies Used**
 <p align="center">
   <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=js,html,css" />
+    <img src="https://skillicons.dev/icons?i=js,html,css,py" />
   </a>
 </p>
 
@@ -45,6 +45,11 @@ Welcome to the repository of my front-end web development projects. Here you wil
    - **Description:** A simple drawing app created usign HTML canvas and Js, with different functions and customization for the user.
    - **Status:** Completed
    - **Technologies Used:** HTML, CSS, JavaScript.
+
+8. **K-usaDex**
+   - **Description:** A pokedex app with a gemeboy style interface that allow to see pokemon and his respective infroamtion and details included see the tcg cards.
+   - **Status:** Completed
+   - **Techonologies Used:** HTML, CSS, JavaScript, Python.
 
 ## How to Run the Projects
 

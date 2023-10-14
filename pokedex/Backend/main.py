@@ -14,7 +14,7 @@ app = FastAPI()
 RestClient.configure(API_Key)
 
 # ! Allows CORS only from the frontend origin
-origins = ["*"]
+origins = ["https://pablossolbal.github.io", "*"]
 
 # ? Set the CORS Deatils
 app.add_middleware(
