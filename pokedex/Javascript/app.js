@@ -586,6 +586,8 @@ export const TypeLoader = async () => {
     "ice",
     "dragon",
     "dark",
+    "steel",
+    "flying",
   ];
 
   for (let Type of Types) {
