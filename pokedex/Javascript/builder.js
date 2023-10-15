@@ -204,16 +204,19 @@ export const CreatePokemonInfo = (pkmnData) => {
 const CreatePokemonCard = (pkmnData) => {
   const $view = document.createElement("div");
   $view.classList.add("View");
+  let fragment = document.createDocumentFragment();
 
   let $pkmnView = CreatePokemonView(pkmnData, true);
-  $view.appendChild($pkmnView);
+  fragment.appendChild($pkmnView);
 
   let $types = CreatePokemonTypes([...pkmnData.types], true);
-  $view.appendChild($types);
+  fragment.appendChild($types);
 
   let $info = CreatePokemonInfo([pkmnData.id, pkmnData.name]);
-  $view.appendChild($info);
+  fragment.appendChild($info);
   $view.dataset.id = pkmnData.id;
+
+  $view.appendChild(fragment);
 
   return $view;
 };
@@ -247,6 +250,7 @@ export const CreatePokemonViewer = () => {
 
 export const getPkmns = async (pkmns) => {
   let $viewer = CreatePokemonViewer();
+  let fragment = document.createDocumentFragment();
 
   for (let pkmn of pkmns) {
     let pkmnData = null;
@@ -272,11 +276,13 @@ export const getPkmns = async (pkmns) => {
       let $view = CreatePokemonCard(pkmnData);
       $view.classList.add("Pokemon");
 
-      $viewer.appendChild($view);
+      fragment.appendChild($view);
     } catch (err) {
       console.log(err);
     }
   }
+
+  $viewer.appendChild(fragment);
 
   $screen.innerHTML = "";
   $screen.appendChild($viewer);

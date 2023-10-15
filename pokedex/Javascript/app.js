@@ -374,6 +374,7 @@ export const createPokemonInfo = (PkmnObject) => {
   } = PkmnObject;
 
   let $Viewer = CreatePokemonViewer();
+  let fragment = document.createDocumentFragment();
 
   let $PokemonInfo = CreatePokemonInfoScreen(
     height,
@@ -399,12 +400,14 @@ export const createPokemonInfo = (PkmnObject) => {
     "CardsChecker"
   );
 
-  $Viewer.appendChild($PokemonInfo);
-  $Viewer.appendChild($PokemonSprites);
-  $Viewer.appendChild($PokemonStats);
-  $Viewer.appendChild($PokemonAbilities);
-  $Viewer.appendChild($PokemonAttacks);
-  $Viewer.appendChild($PokemonCards);
+  fragment.appendChild($PokemonInfo);
+  fragment.appendChild($PokemonSprites);
+  fragment.appendChild($PokemonStats);
+  fragment.appendChild($PokemonAbilities);
+  fragment.appendChild($PokemonAttacks);
+  fragment.appendChild($PokemonCards);
+
+  $Viewer.appendChild(fragment);
 
   $screen.innerHTML = "";
   $screen.appendChild($Viewer);
