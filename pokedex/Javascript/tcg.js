@@ -10,6 +10,19 @@ let API = "https://pokemontcg-1-b2036309.deta.app/TcgData/";
 let cardCounter = 1;
 
 /**
+ * ? Preloads card images associated with the current Pokémon.
+ * @description This function preloads card images by creating and setting the 'src' property of 'Image' elements.
+ */
+const CardsPreload = () => {
+  const Cards = pkmnObject.cards;
+
+  for (const card of Cards) {
+    const img = new Image();
+    img.src = card.imageUrl;
+  }
+};
+
+/**
  * ? This function sets the Pokémon cards data for the current Pokémon based on its name.
  * * - It retrieves Pokémon card data from the API using the Pokémon's name.
  * * - The fetched data is stored in the 'pkmnObject.cards' property.
@@ -22,6 +35,7 @@ export const SetPokemonCards = async () => {
   const Data = await Response.json();
 
   pkmnObject.cards = Data;
+  CardsPreload();
 };
 
 /**

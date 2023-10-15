@@ -23,6 +23,11 @@ export const pkmnObject = {
   sprites: [],
   cards: [],
 };
+/**
+ * * Object to store the pokemon data by type
+ * @property {array} TypeName - an array for each type
+ */
+const TypesObject = {};
 
 // ? Function to log the pokemon info if necesary
 export const LogPokemon = (Pokemon) => {
@@ -120,7 +125,6 @@ const CreatePokemonSpritesScreen = (sprites) => {
   $SpritesGrid.classList.add("SpritesGrid");
 
   sprites.forEach((sprite) => {
-    console.log(sprite == null);
     const $Sprite = document.createElement("img");
     if (sprite == null) {
       $Sprite.src = `assets/Missingno.webp`;
@@ -538,6 +542,10 @@ export const SearchPokemonByName = async () => {
   // * Retrieve the Pokémon name from the input field
   let pkmnName = document.querySelectorAll(".SearchInput")[0].value;
 
+  if (pkmnName == "") {
+    return;
+  }
+
   try {
     // * Construct the URL for the name-based search
     let url = "https://pokeapi.co/api/v2/pokemon/" + pkmnName.toLowerCase();
@@ -548,6 +556,46 @@ export const SearchPokemonByName = async () => {
     }
   } catch (error) {
     console.log(error);
+  }
+};
+
+/**
+ * ? Loads Pokémon types and their associated Pokémon data.
+ * @description This function loads data for various Pokémon types and stores it in the TypesObject.
+ * @async
+ */
+
+export const TypeLoader = async () => {
+  const Types = [
+    "grass",
+    "fire",
+    "water",
+    "bug",
+    "normal",
+    "poison",
+    "electric",
+    "ground",
+    "fairy",
+    "fighting",
+    "psychic",
+    "rock",
+    "ghost",
+    "ice",
+    "dragon",
+    "dark",
+  ];
+
+  for (let Type of Types) {
+    const response = await fetch("https://pokeapi.co/api/v2/type/" + Type);
+    const data = await response.json();
+
+    let pokemon = [];
+
+    for (let pkmn of data.pokemon) {
+      pokemon.push(pkmn.pokemon);
+    }
+
+    TypesObject[Type] = pokemon;
   }
 };
 
@@ -568,28 +616,20 @@ export const SearchPokemonByType = async (typeN = "") => {
   // * Check if typeN is provided, otherwise, get it from the input field
   if (typeN == "") {
     typeN = document.querySelectorAll(".SearchInput")[0].value;
+    if (typeN == "") {
+      return;
+    }
   }
 
   // * Set the global variable 'Type' for type-based searches
   Type = typeN;
 
-  // * Construct the URL for the type-based search
-  let url = "https://pokeapi.co/api/v2/type/" + typeN.toLowerCase();
-
-  // * Fetch data from the API based on the type
-  let response = await fetch(url);
-  let data = await response.json();
-
-  // * Extract the Pokémon from the response data
-  let pokemon = [];
-
-  for (let pkmn of data.pokemon) {
-    pokemon.push(pkmn.pokemon);
-  }
+  // * Extract the Pokémon from the type array
+  let data = TypesObject[typeN];
 
   // * Call 'getPkmns' to display the fetched Pokémon
   createLoader();
-  getPkmns(pokemon);
+  getPkmns(data);
 };
 
 /**

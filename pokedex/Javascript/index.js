@@ -24,6 +24,7 @@ import {
   SearchPokemonByType,
   SearchConstructor,
   CreateSearcher,
+  TypeLoader,
 } from "./app.js";
 
 import { Capitalizer, createLoader, getPkmns, $screen } from "./builder.js";
@@ -281,7 +282,6 @@ export const getPkmnData = async (id) => {
 
     pkmnObject.id = parseInt(id);
 
-    LogPokemon(pkmnObject);
     createPokemonInfo(pkmnObject);
     currentlyCounter = 0;
 
@@ -442,6 +442,8 @@ document.addEventListener("DOMContentLoaded", () => {
   } else if (localStorage.getItem("sound") == null) {
     localStorage.setItem("sound", "true");
   }
+
+  TypeLoader();
 });
 
 // ! Event Listeners
