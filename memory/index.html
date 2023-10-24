@@ -16,10 +16,27 @@
 </head>
 
 <body>
+    <section class="modal hidden">
+        <div class="modal-card">
+            <div class="modal-img"><img src="images/alegria.png" alt="" class="emotion-img"></div>
+            <p class="emotion-name">Alegria</p>
+            <p class="emotion-description">Es cuando sientes una alegría especial que te hace sonreír y reír.
+                Puede
+                ser cuando juegas con tus amigos, abrazas a tu mascota o pasas tiempo con tu familia. La
+                felicidad
+                es como un regalo mágico que te hace sentir bien por dentro y te llena de energía y positividad.
+            </p>
+            <p class="question">En que momento te sientes feliz?</p>
+            <!-- ? btn to continue the game -->
+            <button id="continue">Continue</button>
+        </div>
+    </section>
     <!-- ? Game Title Section -->
     <section class="game-title-container">
         <img src="images/banner-title.png" alt="" class="game-title">
     </section>
+
+
 
     <main class="app before">
         <!--! Game Board Section -->
@@ -36,33 +53,30 @@
 
         <!-- ! Emotion modal card -->
         <!-- ? creates a modal of the emotion when the cards match -->
-        <section class="modal hidden">
-            <div class="modal-card">
-                <div class="modal-img"><img src="images/alegria.png" alt="" class="emotion-img"></div>
-                <p class="emotion-name">Alegria</p>
-                <p class="emotion-description">Es cuando sientes una alegría especial que te hace sonreír y reír. Puede
-                    ser cuando juegas con tus amigos, abrazas a tu mascota o pasas tiempo con tu familia. La felicidad
-                    es como un regalo mágico que te hace sentir bien por dentro y te llena de energía y positividad.
-                </p>
-                <p class="question">En que momento te sientes feliz?</p>
-                <!-- ? btn to continue the game -->
-                <button id="continue">Continue</button>
-            </div>
-        </section>
+
+
 
         <!-- ! Game Results Section -->
         <div class="results-container">
             <!-- ? Result Display -->
+            <p class="results-text hidden">Resultados:</p>
             <p id="result" class="hidden"><span>Time: </span>00 <span>Moves: </span>00</p>
+            <p class="highscore-text hidden"><b>Tu Record:</b></p>
+            <p id="highscore" class="hidden"><span>Time: </span>00 <span>Moves: </span>00
+            </p>
             <!-- ? Start Game Button -->
-            <button id="start">Start Game</button>
-            <p class="inst">Please use full screen to play</p>
+            <p class="inst">Selecciona una categoria para empezar</p>
+            <button class="start">Emociones</button>
+            <button class="start">Comidas</button>
+            <button class="start">Colores</button>
+            <button class="start">Animales</button>
+            <button class="start">Figuras</button>
         </div>
     </main>
 
     <!-- ? Attribution -->
-    <a href="https://www.flaticon.es/packs/human-emotions-6?word=emotions" title="human emotions icons">Human Emotions
-        icons created by Freepik - Flaticon</a>
+    <a href="https://www.flaticon.es/autores/freepik" title="human emotions icons">Icons created by Freepik -
+        Flaticon</a>
 
     <script src="script.js"></script>
 </body>
