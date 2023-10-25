@@ -5,9 +5,10 @@ pokedex/Backend/venv
 pokedex/Backend/config.py
 pokedex/Backend/requirements.txt
 pokedex/Backend/Spacefile
+/memory
 memory/backend/__pycache__
 memory/backend/.space
 memory/backend/venv
 memory/backend/config.py
 memory/backend/requirements.txt
-vSpacefile
+Spacefile
