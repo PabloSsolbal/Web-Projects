@@ -5,10 +5,8 @@ This project is a memory game developed in JavaScript. The goal of the game is t
 ## To-Do List
 
 - Implement additional difficulty levels with different card sets and grid sizes
-- Add animations and visual effects to enhance the game experience
 - Implement a high-score system to keep track of the best times for each difficulty level
 - Add a timer countdown option to add time pressure to the game
-- Improve accessibility by adding keyboard navigation and screen reader support
 
 ## Demo
 
@@ -25,6 +23,8 @@ You can check the [video demo](https://youtu.be/t2-Jd6O2mZ0) of the memory game.
 - Stop and restart functionality.
 - Sound for the cards.
 - Modal for the emotion description
+- Some animations for the UI
+- More Sounds
 
 ## Technologies Used
 

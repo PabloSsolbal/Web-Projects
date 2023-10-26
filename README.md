@@ -1,6 +1,6 @@
 # Web Development Projects
 
-Welcome to the repository of my front-end web development projects. Here you will find a collection of projects I have developed using web technologies. These projects have allowed me to practice and improve my skills in the field of web development.
+Welcome to the repository of my web development projects. Here you will find a collection of projects I have developed using web technologies. These projects have allowed me to practice and improve my skills in the field of web development.
 
 **Technologies Used**
 <p align="center">
@@ -26,10 +26,10 @@ Welcome to the repository of my front-end web development projects. Here you wil
    - **Status:** Completed
    - **Technologies Used:** HTML, CSS, JavaScript
 
-4. **Emotion Memory Game**
-   - **Description:** A memory game that helps identify and associate different emotions through cards or related images.
+4. **Memory Game**
+   - **Description:** A memory game with different categories, effects and sounds and record tracker.
    - **Status:** Completed
-   - **Technologies Used:** HTML, CSS, JavaScript
+   - **Technologies Used:** HTML, CSS, JavaScript, Python
 
 5. **Triple Clock Application**
    - **Description:** A clock application with stopwatch, alarm clock, and timer functionalities.
@@ -41,13 +41,8 @@ Welcome to the repository of my front-end web development projects. Here you wil
    - **Status:** Completed
    - **Technologies Used:** HTML, CSS, JavaScript.
 
-7. **Painter**
-   - **Description:** A simple drawing app created usign HTML canvas and Js, with different functions and customization for the user.
-   - **Status:** Completed
-   - **Technologies Used:** HTML, CSS, JavaScript.
-
-8. **K-usaDex**
-   - **Description:** A pokedex app with a gemeboy style interface that allow to see pokemon and his respective infroamtion and details included see the tcg cards.
+7. **K-usaDex**
+   - **Description:** A pokedex app with a gameboy style interface that allow to see pokemon and his respective infroamtion and details included see the tcg cards.
    - **Status:** Completed
    - **Techonologies Used:** HTML, CSS, JavaScript, Python.
 
