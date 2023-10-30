@@ -1,8 +1,10 @@
+import unidecode
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 from config import MONGO_URL
+import random
 # ! import the necesary modules
 # * FastAPI
 # * PyMongo
@@ -60,3 +62,50 @@ async def get_category(category: str):
 
     except Exception as e:
         return {"error": str(e)}
+
+
+def word_selector(category):
+    with open(f'{category}.txt', 'r', encoding='utf-8') as f:
+        words = f.read().splitlines()
+        word = random.choice(words)
+        word = unidecode.unidecode(word)
+        hidden = ['_']*len(word)
+    return word.lower(), hidden
+
+
+word, hidden = "", []
+attemps = 0
+game_finished = False
+
+
+def start_game(category):
+    global word, hidden, attemps, game_finished
+    word, hidden = word_selector(category)
+    attemps = int(3+round(len(word)/2))
+    game_finished = False
+    return word, hidden, attemps, game_finished
+
+
+@app.get("/hangman/category/{category}")
+def get_hangman(category: str):
+    start_game(category)
+
+
+@app.get("/hangman/{letter}")
+async def check_letter(letter: str):
+    global attemps, game_finished
+    found = False
+    for index, char in enumerate(word):
+        if char == letter.lower():
+            hidden[index] = letter.lower()
+            found = True
+    if not found:
+        attemps -= 1
+    if attemps == 0:
+        game_finished = True
+        return {'game_finished': game_finished, 'status': 'lose', 'word': word}
+    if "_" not in hidden:
+        game_finished = True
+        return {'game_finished': game_finished, 'status': 'win', 'word': word}
+    print(attemps)
+    return {'hidden_word': hidden}
