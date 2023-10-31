@@ -65,13 +65,20 @@ async def get_category(category: str):
 
 
 def word_selector(category):
-    with open(f'{category}.txt', 'r', encoding='utf-8') as f:
+    with open(f'archives/{category}.txt', 'r', encoding='utf-8') as f:
         words = f.read().splitlines()
         word = random.choice(words)
         word = unidecode.unidecode(word)
         hidden = ['_']*len(word)
     return word.lower(), hidden
 
+
+@app.get("/get_word/{category}")
+async def get_word(category: str):
+    word, hidden = word_selector(category)
+    word = [x for x in word]
+    attemps = int(3+round(len(word)/2))
+    return {'word': word, 'hidden': hidden, 'attemps': attemps}
 
 word, hidden = "", []
 attemps = 0
