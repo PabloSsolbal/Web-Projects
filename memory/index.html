@@ -16,6 +16,18 @@
 </head>
 
 <body>
+
+    <section class="lose-modal hidden">
+        <div class="modal-card">
+            <div class="modal-img"><img src="images/tristeza.png" alt="" class="emotion-img"></div>
+            <p>Perdiste 🙁</p>
+            <p>Mejor suerte la proxima vez</p>
+            <div class="show-word-container"><span>La palabra era:</span> </div>
+            <button id="Close-hangman-modal">Continue</button>
+        </div>
+    </section>
+
+
     <section class="modal hidden">
         <div class="modal-card">
             <div class="modal-img"><img src="images/alegria.png" alt="" class="emotion-img"></div>
@@ -36,9 +48,44 @@
         <img src="images/banner-title.png" alt="" class="game-title">
     </section>
 
+    <section class="main-menu">
+        <p>A que quieres jugar hoy?</p>
+        <button class="Memory">Memoria</button>
+        <button class="Hangman">Ahorcado</button>
+    </section>
+
+    <article class="hangman-menu hidden">
+        <p>Selecciona una categoria</p>
+        <section class="menu">
+            <button class="option">Animales</button>
+            <button class="option">Ciencia</button>
+            <button class="option">Comics</button>
+            <button class="option">Comidas</button>
+            <button class="option">Dinosaurios</button>
+            <button class="option">Musica</button>
+            <button class="option">Paises</button>
+            <button class="option">Profesiones</button>
+            <button class="option">Transportes</button>
+        </section>
+        <button class="home">Home</button>
+    </article>
+
+    <article class="hangman-app hidden">
+        <div class="attemps-count"><span>Intentos:</span> 00</div>
+        <div class="used"><span>Letras Usadas:</span> </div>
+        <div class="hangman-container">
+            <div class="modal-img"><img class="hangman-pic" src="" alt=""></div>
+        </div>
+        <div class="word-container"></div>
+        <input type="text" class="letter-checker">
+        <button class="check">Revisar</button>
+        <button class="hangman-stop">Stop Game</button>
+    </article>
 
 
-    <main class="app before">
+
+
+    <main class="app before hidden">
         <!--! Game Board Section -->
         <section class="board hidden">
             <!-- ? Move Count -->
@@ -71,6 +118,7 @@
             <button class="start">Colores</button>
             <button class="start">Animales</button>
             <button class="start">Figuras</button>
+            <button class="home">Home</button>
         </div>
     </main>
 
@@ -78,7 +126,7 @@
     <a href="https://www.flaticon.es/autores/freepik" title="human emotions icons">Icons created by Freepik -
         Flaticon</a>
 
-    <script src="script.js"></script>
+    <script src="script.js" type="module"></script>
 </body>
 
 </html>

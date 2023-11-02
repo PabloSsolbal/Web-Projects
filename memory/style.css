@@ -28,7 +28,7 @@ body {
   background: url(images/background.png);
   background-size: cover;
   transition: all 0.8s;
-  overflow-x: hidden;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -57,6 +57,7 @@ a {
 img {
   width: 60%;
   height: 60%;
+  filter: drop-shadow(0px 0px 3px #000000bb);
 }
 
 span {
@@ -73,6 +74,7 @@ p {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 5px;
 }
 
 .game-title {
@@ -81,14 +83,17 @@ p {
 }
 
 /* ? App Container */
-.app {
+.app,
+.main-menu,
+.hangman-menu,
+.hangman-app {
   width: 80%;
   height: 95%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 5px;
+  margin: 10px auto 5px;
   outline: 5px solid #ffffff;
   border-radius: 15px;
   box-shadow: 0px 0px 10px 5px #0000008a;
@@ -96,10 +101,40 @@ p {
   animation: glow 4s infinite ease-in-out;
 }
 
-.app.before {
+.app.before,
+.main-menu,
+.hangman-menu {
   height: fit-content;
   width: 600px;
   margin: 0 auto;
+}
+
+.menu {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+  justify-items: center;
+}
+
+.main-menu,
+.hangman-menu {
+  padding: 5px;
+}
+
+.hangman-app {
+  justify-content: space-evenly;
+}
+
+.hangman-container {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.word-container {
+  color: #000000ab;
+  font-size: 1.6em;
 }
 
 /* ? Board */
@@ -256,7 +291,13 @@ p {
   margin: 10px;
 }
 
-.start {
+.start,
+.Memory,
+.Hangman,
+.option,
+.check,
+.hangman-stop,
+.home {
   width: 115px;
   border-radius: 10px;
   border: 2px solid #ffffff;
@@ -285,6 +326,71 @@ p {
   background-color: #ff0040;
 }
 
+.Memory {
+  background-color: #ff3c6d;
+}
+
+.Hangman,
+.check {
+  background-color: #4bfff0;
+}
+
+.option:nth-child(2) {
+  background-color: #00ffb3;
+}
+
+.option:nth-child(3) {
+  background-color: #ff0040;
+}
+
+.option:nth-child(4) {
+  background-color: #00d9ff;
+}
+
+.option:nth-child(5),
+.hangman-stop {
+  background-color: #ff2323;
+}
+
+.option:nth-child(6) {
+  background-color: #6f65fa;
+}
+
+.option:nth-child(7) {
+  background-color: #ff3c00;
+}
+
+.option:nth-child(8) {
+  background-color: #32ff76;
+}
+
+.option:nth-child(9) {
+  background-color: #00ffea;
+}
+
+.letter-checker {
+  border-radius: 16px;
+  border: none;
+  outline: 2px solid #55f4ff;
+  box-shadow: 0px 0px 10px 6px #fffffff3;
+  background-color: #ffffff9c;
+  text-align: center;
+  padding: 2px;
+  font-weight: bold;
+  font-size: 1em;
+  color: #23f0ff;
+}
+
+.letter-checker:focus {
+  color: #ff2323;
+  outline-color: #ff0040;
+}
+
+.home {
+  background: linear-gradient(#3654ff, #00d9ff);
+  border-radius: 20px;
+}
+
 /* ? Results Container */
 .results-container {
   width: 100%;
@@ -306,7 +412,8 @@ p {
 }
 
 /* ? Paired cards modal */
-.modal {
+.modal,
+.lose-modal {
   z-index: 1000;
   width: 85%;
   height: 85vh;
@@ -325,6 +432,11 @@ p {
   animation: glow 3s infinite ease-in-out;
 }
 
+.lose-modal {
+  height: 60vh;
+  min-height: 60vh;
+}
+
 .modal-card {
   z-index: inherit;
   width: 40%;
@@ -336,7 +448,9 @@ p {
   justify-content: center;
 }
 
-.modal .modal-img {
+.modal .modal-img,
+.lose-modal .modal-img,
+.hangman-container .modal-img {
   width: 7em;
   height: 7em;
   display: flex;
@@ -375,13 +489,14 @@ p {
 }
 
 /* ? Continue game btn*/
-#continue {
+#continue,
+#Close-hangman-modal {
   width: 115px;
   border-radius: 10px;
   border: 2px solid #ffffff;
   box-shadow: 0px 0px 10px 2px #fff;
   padding: 5px;
-  margin-top: 5px;
+  margin: 5px;
   font-weight: bold;
   color: #fff;
   background-color: #00ffea;
@@ -397,6 +512,9 @@ p {
   .cards-container {
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: repeat(4, 1fr);
+  }
+  .menu {
+    grid-template-columns: repeat(1, 1fr);
   }
 }
 
@@ -414,11 +532,16 @@ p {
     width: 80%;
     height: 80%;
   }
-  .app {
+  .app,
+  .main-menu,
+  .hangman-menu,
+  .hangman-app {
     width: 85%;
     height: 85vh;
   }
-  .app.before {
+  .app.before,
+  .main-menu,
+  .hangman-menu {
     width: 85%;
   }
   .card {
@@ -453,6 +576,10 @@ p {
   .modal-card {
     width: 100%;
   }
+
+  .modal .modal-card .emotion-description {
+    font-size: 0.9em;
+  }
   .emotion-desc {
     display: none;
   }
@@ -465,5 +592,28 @@ p {
   .modal-img img {
     width: 5em;
     height: 5em;
+  }
+
+  .hangman-menu,
+  .main-menu {
+    height: fit-content;
+  }
+
+  .menu {
+    height: fit-content;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .hangman-app {
+    height: fit-content;
+    min-height: 65vh;
+  }
+
+  .word-container {
+    font-size: 1.1em;
+  }
+
+  .letter-checker {
+    font-size: 0.8em;
   }
 }

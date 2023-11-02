@@ -5,7 +5,7 @@ Monopatín
 Catamarán
 Carretón
 Rikshaw
-Go-kart
+Gokart
 Jet
 Hovercraft
 Monorraíl
@@ -72,7 +72,7 @@ Jet
 Trolebús
 Dirigible
 Catamarán
-Go-kart
+Gokart
 Carretón
 Patineta
 Patinete

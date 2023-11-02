@@ -1,9 +1,10 @@
 /**
  * @file Code for a memory game
- * @author FirstName LastName <pablossolbal@gmail.com>
+ * @author Pablo Solbal <pablossolbal@gmail.com>
  * @copyright Pablo Solbal 2023
  * @license MIT
- */
+ * /
+/** @version 1.0.1 */
 /**
  * ? This code implements a memory game where the player needs to match pairs of cards with the same emotion image.
  * * The game keeps track of the number of moves and the time taken to complete the game.
@@ -12,6 +13,8 @@
  * TODO: Implement a high-score system to keep track of the best times for each difficulty level
  * TODO: Add a timer countdown option to add time pressure to the game
  */
+
+import { getWord, usedLetter } from "./hangman.js";
 
 // ? get the memory elements
 /**
@@ -41,6 +44,8 @@ const startBtns = document.querySelectorAll(".start");
 const highscoreText = document.querySelector(".highscore-text");
 const highscoreContainer = document.getElementById("highscore");
 const body = document.querySelector("body");
+export const mainMenu = document.querySelector(".main-menu");
+export const hangmanMenu = document.querySelector(".hangman-menu");
 
 // ? memory variables for move and time counts
 let moveCount = 0;
@@ -65,12 +70,12 @@ const flip = new Audio();
 flip.src = "sounds/flipcard.mp3";
 
 // ? sound for the modal pop up
-const popUp = new Audio();
+export const popUp = new Audio();
 popUp.src = "sounds/popmodal.mp3";
 popUp.volume = 0.5;
 
 // ? sound for the success game
-const success = new Audio();
+export const success = new Audio();
 success.src = "sounds/success.mp3";
 success.volume = 1;
 
@@ -78,6 +83,18 @@ success.volume = 1;
 const bubble = new Audio();
 bubble.src = "sounds/bubble.mp3";
 bubble.volume = 1;
+
+// ? sound for correct answers
+export const correct = new Audio();
+correct.src = "sounds/correct.mp3";
+
+// ? sound for incorrect answers
+export const incorrect = new Audio();
+incorrect.src = "sounds/incorrect.mp3";
+
+// ? sound for failure game
+export const failure = new Audio();
+failure.src = "sounds/fail.mp3";
 
 // ? variable to check if there's new highscore
 let newHighscore = false;
@@ -347,12 +364,29 @@ const Win = () => {
  */
 
 document.addEventListener("click", (e) => {
+  if (e.target.matches(".option")) {
+    let category = e.target.textContent;
+    getWord(category.toLowerCase());
+    usedLetter();
+  }
+  if (e.target.matches(".home")) {
+    app.classList.add("hidden");
+    mainMenu.classList.remove("hidden");
+  }
+  if (e.target.matches(".Memory")) {
+    mainMenu.classList.add("hidden");
+    app.classList.remove("hidden");
+  }
+  if (e.target.matches(".Hangman")) {
+    mainMenu.classList.add("hidden");
+    hangmanMenu.classList.remove("hidden");
+  }
   if (e.target.matches("button")) {
     bubble.play();
   }
 
   if (e.target.classList.contains("card-reverse")) {
-    cardE = e.target.parentElement;
+    let cardE = e.target.parentElement;
 
     if (
       !cardE.classList.contains("matched") &&
@@ -377,6 +411,7 @@ document.addEventListener("click", (e) => {
         let secondCardValue = cardE.getAttribute("card-value");
 
         if (firstCardValue == secondCardValue) {
+          correct.play();
           firstCard.classList.add("matched");
           secondCard.classList.add("matched");
 
@@ -391,6 +426,7 @@ document.addEventListener("click", (e) => {
           }
           //
         } else {
+          incorrect.play();
           let temporalFirst = firstCard;
           let temporalSecond = secondCard;
 
@@ -501,7 +537,7 @@ const starter = () => {
  */
 startBtns.forEach((Btn) => {
   Btn.addEventListener("click", async () => {
-    category = Btn.textContent;
+    let category = Btn.textContent;
     await getCategoryData(category);
   });
 });
@@ -523,7 +559,7 @@ stopBtn.addEventListener("click", () => {
  * * Continue button
  */
 const modal = document.querySelector(".modal");
-const modalImg = document.querySelector(".emotion-img");
+const modalImg = document.querySelector(".modal .modal-card .emotion-img");
 const emotionName = document.querySelector(".emotion-name");
 const emotionDesc = document.querySelector(".emotion-description");
 const questionCont = document.querySelector(".question");
