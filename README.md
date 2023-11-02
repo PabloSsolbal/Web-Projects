@@ -5,7 +5,7 @@ Welcome to the repository of my web development projects. Here you will find a c
 **Technologies Used**
 <p align="center">
   <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=js,html,css,py" />
+    <img src="https://skillicons.dev/icons?i=js,html,css,py,mongodb" />
   </a>
 </p>
 
@@ -26,10 +26,10 @@ Welcome to the repository of my web development projects. Here you will find a c
    - **Status:** Completed
    - **Technologies Used:** HTML, CSS, JavaScript
 
-4. **Memory Game**
-   - **Description:** A memory game with different categories, effects and sounds and record tracker.
+4. **Kids Game Web App**
+   - **Description:** A kids game  web app with different games, categories, effects and sounds and record tracker.
    - **Status:** Completed
-   - **Technologies Used:** HTML, CSS, JavaScript, Python
+   - **Technologies Used:** HTML, CSS, JavaScript, Python, Mongodb
 
 5. **Triple Clock Application**
    - **Description:** A clock application with stopwatch, alarm clock, and timer functionalities.
