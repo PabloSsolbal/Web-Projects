@@ -13,14 +13,9 @@
  *
  * * These imports are used to access various elements and sound effects needed for the Hangman game.
  */
-import {
-  hangmanMenu,
-  popUp,
-  success,
-  correct,
-  incorrect,
-  failure,
-} from "./memory.js";
+import { popUp, success, correct, incorrect, failure } from "./script.js";
+
+import { hangmanMenu } from "./memory.js";
 
 /**
  * ? Hangman Game Variables and DOM Elements

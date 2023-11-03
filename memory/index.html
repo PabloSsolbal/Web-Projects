@@ -1,7 +1,7 @@
 <!--
-    ! HTML structure for a Memeory game
+    ! HTML structure for a the MiniGameBox PWA's
 ? Introduction:
-* The following HTML code represents a Memory Game. It includes sections for the game title, game board, game results, and attribution. The game board is initially hidden, and the user can start and stop the game.
+* The following HTML code represents a Games app for kids. It includes sections for the games elements.
 -->
 
 <!DOCTYPE html>
@@ -19,13 +19,13 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-traslucent">
     <meta name="shortcut icon" type="image/png" href="images/alegria.png">
-    <title>Memory Game</title>
+    <title>MiniGameBox</title>
     <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-
+    <!-- ? Lose modal for the Hangman game -->
     <section class="lose-modal hidden">
         <div class="modal-card">
             <div class="modal-img"><img src="images/tristeza.png" alt="" class="emotion-img"></div>
@@ -36,7 +36,7 @@
         </div>
     </section>
 
-
+    <!-- ? Modal for the memory game when you match two cards -->
     <section class="modal hidden">
         <div class="modal-card">
             <div class="modal-img"><img src="images/alegria.png" alt="" class="emotion-img"></div>
@@ -56,15 +56,17 @@
     <section class="game-title-container">
         <img src="images/banner-title.png" alt="" class="game-title">
     </section>
-
+    <!-- ? Main menu for the app -->
     <section class="main-menu">
         <p>A que quieres jugar hoy?</p>
         <button class="Memory">Memoria</button>
         <button class="Hangman">Ahorcado</button>
     </section>
 
+    <!-- ? Hangman game menu -->
     <article class="hangman-menu hidden">
         <p>Selecciona una categoria</p>
+        <!-- ? Categories for the game -->
         <section class="menu">
             <button class="option">Animales</button>
             <button class="option">Ciencia</button>
@@ -79,6 +81,7 @@
         <button class="home">Home</button>
     </article>
 
+    <!-- ? Hangman app -->
     <article class="hangman-app hidden">
         <div class="attemps-count"><span>Intentos:</span> 00</div>
         <div class="used"><span>Letras Usadas:</span> </div>
@@ -120,7 +123,7 @@
             <p class="highscore-text hidden"><b>Tu Record:</b></p>
             <p id="highscore" class="hidden"><span>Time: </span>00 <span>Moves: </span>00
             </p>
-            <!-- ? Start Game Button -->
+            <!-- ? Categories for the Memory game -->
             <p class="inst">Selecciona una categoria para empezar</p>
             <button class="start">Emociones</button>
             <button class="start">Comidas</button>
@@ -135,8 +138,7 @@
     <a href="https://www.flaticon.es/autores/freepik" title="human emotions icons">Icons created by Freepik -
         Flaticon</a>
 
-    <script src="script.js"></script>
-    <script src="memory.js" type="module"></script>
+    <script src="script.js" type="module"></script>
 </body>
 
 </html>

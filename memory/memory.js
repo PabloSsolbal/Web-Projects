@@ -14,9 +14,10 @@
  * TODO: Add a timer countdown option to add time pressure to the game
  */
 
-import { getWord, usedLetter } from "./hangman.js";
-
 // ? get the memory elements
+
+import { correct, flip, popUp, success, incorrect } from "./script.js";
+
 /**
  * * the app container
  * * board
@@ -31,7 +32,7 @@ import { getWord, usedLetter } from "./hangman.js";
  * * highscore results container
  * * body
  */
-const app = document.querySelector(".app");
+export const app = document.querySelector(".app");
 const gameBoard = document.querySelector(".board");
 const moveCountContainer = document.querySelector(".move-count");
 const timeCountContainer = document.querySelector(".time-count");
@@ -64,37 +65,6 @@ let intervalID = null;
 let firstCard = false;
 let secondCard = false;
 let firstCardValue = "";
-
-// ? flip audio for the cards
-const flip = new Audio();
-flip.src = "sounds/flipcard.mp3";
-
-// ? sound for the modal pop up
-export const popUp = new Audio();
-popUp.src = "sounds/popmodal.mp3";
-popUp.volume = 0.5;
-
-// ? sound for the success game
-export const success = new Audio();
-success.src = "sounds/success.mp3";
-success.volume = 1;
-
-// ? sound for the buttons
-const bubble = new Audio();
-bubble.src = "sounds/bubble.mp3";
-bubble.volume = 1;
-
-// ? sound for correct answers
-export const correct = new Audio();
-correct.src = "sounds/correct.mp3";
-
-// ? sound for incorrect answers
-export const incorrect = new Audio();
-incorrect.src = "sounds/incorrect.mp3";
-
-// ? sound for failure game
-export const failure = new Audio();
-failure.src = "sounds/fail.mp3";
 
 // ? variable to check if there's new highscore
 let newHighscore = false;
@@ -364,27 +334,6 @@ const Win = () => {
  */
 
 document.addEventListener("click", (e) => {
-  if (e.target.matches(".option")) {
-    let category = e.target.textContent;
-    getWord(category.toLowerCase());
-    usedLetter();
-  }
-  if (e.target.matches(".home")) {
-    app.classList.add("hidden");
-    mainMenu.classList.remove("hidden");
-  }
-  if (e.target.matches(".Memory")) {
-    mainMenu.classList.add("hidden");
-    app.classList.remove("hidden");
-  }
-  if (e.target.matches(".Hangman")) {
-    mainMenu.classList.add("hidden");
-    hangmanMenu.classList.remove("hidden");
-  }
-  if (e.target.matches("button")) {
-    bubble.play();
-  }
-
   if (e.target.classList.contains("card-reverse")) {
     let cardE = e.target.parentElement;
 
