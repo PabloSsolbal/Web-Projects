@@ -102,7 +102,7 @@ We look forward to your contributions and appreciate your interest in improving 
 
 ## Author
 
-- [Your Name](https://github.com/pablossolbal)
+- [Pablo Solbal](https://github.com/pablossolbal)
 
 ## Credits
 
