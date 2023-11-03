@@ -20,7 +20,7 @@ import {
   correct,
   incorrect,
   failure,
-} from "./script.js";
+} from "./memory.js";
 
 /**
  * ? Hangman Game Variables and DOM Elements

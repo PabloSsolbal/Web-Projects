@@ -1,0 +1,19 @@
+{
+    "name": "MiniGameBox",
+    "short_name": "MiniGameBox",
+    "description": "Web App with simple kids games",
+    "background_color": "#ffffff70",
+    "theme_color": "#ffffff70",
+    "orientation": "portrait",
+    "display": "standalone",
+    "start_url": "/",
+    "scope": "/",
+    "lang": "es",
+    "icons": [
+        {
+            "src": "images/alegria.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
