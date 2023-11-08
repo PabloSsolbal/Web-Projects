@@ -128,6 +128,26 @@ const createHangman = (data) => {
   setHangmanPic();
 };
 
+const saveWords = (category, data) => {
+  data = JSON.stringify(data);
+  if (localStorage.getItem(category)) {
+    let dataSet = new Set(JSON.parse(localStorage.getItem(category)));
+    if (dataSet.has(data)) {
+      return;
+    }
+    dataSet.add(data);
+    localStorage.setItem(category, JSON.stringify(Array.from(dataSet)));
+  } else {
+    let dataSet = new Set();
+    dataSet.add(data);
+    localStorage.setItem(category, JSON.stringify(Array.from(dataSet)));
+  }
+};
+
+const getWordOffline = (category) => {
+  return JSON.parse(localStorage.getItem(category));
+};
+
 /**
  * Fetch a word from the Hangman API based on the specified category and create the Hangman game.
  *
@@ -142,8 +162,14 @@ const createHangman = (data) => {
  */
 
 export const getWord = async (category) => {
-  let response = await fetch(hangmanurl + category);
-  let data = await response.json();
+  let data = null;
+  try {
+    let response = await fetch(hangmanurl + category);
+    data = await response.json();
+    saveWords(await category, await data);
+  } catch (error) {
+    data = getWordOffline(category);
+  }
 
   createHangman(await data);
 };

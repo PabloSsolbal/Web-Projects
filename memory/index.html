@@ -26,9 +26,9 @@
 
 <body>
     <!-- ? Lose modal for the Hangman game -->
-    <section class="lose-modal hidden">
+    <section class="lose-modal glow hidden">
         <div class="modal-card">
-            <div class="modal-img"><img src="images/tristeza.png" alt="" class="emotion-img"></div>
+            <div class="modal-img glow"><img src="images/tristeza.png" alt="" class="emotion-img"></div>
             <p>Perdiste 🙁</p>
             <p>Mejor suerte la proxima vez</p>
             <div class="show-word-container"><span>La palabra era:</span> </div>
@@ -37,9 +37,9 @@
     </section>
 
     <!-- ? Modal for the memory game when you match two cards -->
-    <section class="modal hidden">
+    <section class="modal glow hidden">
         <div class="modal-card">
-            <div class="modal-img"><img src="images/alegria.png" alt="" class="emotion-img"></div>
+            <div class="modal-img glow"><img src="images/alegria.png" alt="" class="emotion-img"></div>
             <p class="emotion-name">Alegria</p>
             <p class="emotion-description">Es cuando sientes una alegría especial que te hace sonreír y reír.
                 Puede
@@ -57,14 +57,36 @@
         <img src="images/banner-title.png" alt="" class="game-title">
     </section>
     <!-- ? Main menu for the app -->
-    <section class="main-menu">
+    <section class="main-menu glow">
         <p>A que quieres jugar hoy?</p>
         <button class="Memory">Memoria</button>
         <button class="Hangman">Ahorcado</button>
+        <p>Quieres cambiar la configuracion?</p>
+        <button class="config">Config</button>
+    </section>
+
+    <section class="Config glow hidden">
+        <p>Que quieres cambiar?</p>
+        <p>Colores de las cartas</p>
+        <div class="OptionContainer">
+            <button class="configOption">Blue</button>
+            <button class="configOption">Aqua</button>
+            <button class="configOption">Pink</button>
+            <button class="configOption">Orange</button>
+            <button class="configOption">Purple</button>
+            <button class="configOption">Red</button>
+            <button class="configOption">Green</button>
+            <button class="configOption">Yellow</button>
+        </div>
+        <p>Desactivar animaciones</p>
+        <button class="animationOption">Desactivar</button>
+        <p>Desactivar sonidos</p>
+        <button class="soundOption">Desactivar</button>
+        <button class="home">Home</button>
     </section>
 
     <!-- ? Hangman game menu -->
-    <article class="hangman-menu hidden">
+    <article class="hangman-menu glow hidden">
         <p>Selecciona una categoria</p>
         <!-- ? Categories for the game -->
         <section class="menu">
@@ -82,11 +104,11 @@
     </article>
 
     <!-- ? Hangman app -->
-    <article class="hangman-app hidden">
+    <article class="hangman-app glow hidden">
         <div class="attemps-count"><span>Intentos:</span> 00</div>
         <div class="used"><span>Letras Usadas:</span> </div>
         <div class="hangman-container">
-            <div class="modal-img"><img class="hangman-pic" src="" alt=""></div>
+            <div class="modal-img glow"><img class="hangman-pic" src="" alt=""></div>
         </div>
         <div class="word-container"></div>
         <input type="text" class="letter-checker">
@@ -97,7 +119,7 @@
 
 
 
-    <main class="app before hidden">
+    <main class="app glow before hidden">
         <!--! Game Board Section -->
         <section class="board hidden">
             <!-- ? Move Count -->
@@ -137,6 +159,7 @@
     <!-- ? Attribution -->
     <a href="https://www.flaticon.es/autores/freepik" title="human emotions icons">Icons created by Freepik -
         Flaticon</a>
+    <a href="https://github.com/PabloSsolbal">Created by Pablo Solbal</a>
 
     <script src="script.js" type="module"></script>
 </body>

@@ -4,7 +4,7 @@
  * @copyright Pablo Solbal 2023
  * @license MIT
  * /
-/** @version 1.0.1 */
+/** @version 0.0.1 */
 /**
  * ? This code implements a memory game where the player needs to match pairs of cards with the same emotion image.
  * * The game keeps track of the number of moves and the time taken to complete the game.
@@ -83,6 +83,15 @@ let modalElements = {};
 
 // ? url to get the necesary data
 let url = "https://memory-1-u4335091.deta.app/category/";
+
+const getCardTheme = () => {
+  if (localStorage.getItem("CardsTheme")) {
+    return localStorage.getItem("CardsTheme");
+  } else {
+    localStorage.setItem("CardsTheme", "Blue");
+    return "Blue";
+  }
+};
 
 /**
  * ? Fetches and stores data for a specific category from a given URL.
@@ -189,6 +198,7 @@ const cardsRandomGenerator = () => {
 
     const reverseCard = document.createElement("div");
     reverseCard.classList.add("card-reverse");
+    reverseCard.classList.add(getCardTheme());
     reverseCard.textContent = "?";
 
     const frontCard = document.createElement("div");
@@ -363,6 +373,8 @@ document.addEventListener("click", (e) => {
           correct.play();
           firstCard.classList.add("matched");
           secondCard.classList.add("matched");
+          firstCard.classList.add("glow");
+          secondCard.classList.add("glow");
 
           displayModal(firstCardValue);
 

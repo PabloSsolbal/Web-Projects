@@ -64,8 +64,10 @@ span {
   font-weight: bold;
 }
 
-p {
+p,
+span {
   font-weight: bold;
+  text-shadow: 0px 2px 3px #0000003b;
 }
 
 /* ? Game Title Container */
@@ -82,11 +84,16 @@ p {
   width: 48em;
 }
 
+.glow {
+  animation: glow 4s infinite ease-in-out;
+}
+
 /* ? App Container */
 .app,
 .main-menu,
 .hangman-menu,
-.hangman-app {
+.hangman-app,
+.Config {
   width: 80%;
   height: 95%;
   display: flex;
@@ -98,7 +105,19 @@ p {
   border-radius: 15px;
   box-shadow: 0px 0px 10px 5px #0000008a;
   background-color: #ffffff70;
-  animation: glow 4s infinite ease-in-out;
+}
+
+.Config {
+  justify-content: space-evenly;
+}
+
+.OptionContainer {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 .app.before,
@@ -109,13 +128,19 @@ p {
   margin: 0 auto;
 }
 
-.menu {
+.menu,
+.OptionContainer {
   width: 100%;
   height: 100%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 5px;
   justify-items: center;
+}
+
+.OptionContainer {
+  height: fit-content;
+  grid-template-columns: repeat(2, 1fr);
 }
 
 .main-menu,
@@ -223,7 +248,6 @@ p {
 }
 
 .card-reverse {
-  background-color: #00d9ff;
   text-align: center;
   font-size: 2.8em;
   font-weight: 600;
@@ -239,7 +263,6 @@ p {
 
 .card.matched {
   outline-width: 3px;
-  animation: glow 3s infinite ease-in-out;
 }
 
 @keyframes glow {
@@ -297,7 +320,11 @@ p {
 .option,
 .check,
 .hangman-stop,
-.home {
+.home,
+.configOption,
+.animationOption,
+.soundOption,
+.config {
   width: 115px;
   border-radius: 10px;
   border: 2px solid #ffffff;
@@ -310,62 +337,60 @@ p {
   text-align: center;
 }
 
-.start:nth-child(6) {
-  background-color: #00ffea;
+.card-reverse.Blue,
+.configOption:nth-child(1),
+.config,
+.start:nth-child(6),
+.check,
+.option:nth-child(4),
+.option:nth-child(9) {
+  background: linear-gradient(#00d9ff, #6ba6ff);
 }
-
-.start:nth-child(7) {
-  background-color: #32ff76;
-}
-
-.start:nth-child(8) {
-  background-color: #ff2323;
-}
-
-.start:nth-child(9) {
-  background-color: #ff0040;
-}
-
-.Memory {
-  background-color: #ff3c6d;
-}
-
+.card-reverse.Aqua,
+.configOption:nth-child(2),
+.soundOption,
+.start:nth-child(7),
+.option:nth-child(2),
 .Hangman,
-.check {
-  background-color: #4bfff0;
+#continue,
+#Close-hangman-modal {
+  background: linear-gradient(#50ffc5, #00ff73);
 }
-
-.option:nth-child(2) {
-  background-color: #00ffb3;
+.card-reverse.Pink,
+.configOption:nth-child(3),
+.start:nth-child(9),
+.option:nth-child(3),
+.Memory {
+  background: linear-gradient(#ff3ebf, #ff0055);
 }
-
-.option:nth-child(3) {
-  background-color: #ff0040;
+.card-reverse.Orange,
+.configOption:nth-child(4),
+.start,
+.animationOption,
+.option:nth-child(7) {
+  background: linear-gradient(#ffa600, #ff4800);
 }
-
-.option:nth-child(4) {
-  background-color: #00d9ff;
+.card-reverse.Purple,
+.configOption:nth-child(5),
+.option:nth-child(6) {
+  background: linear-gradient(#a883ff, #973bff);
 }
-
+.card-reverse.Red,
+.configOption:nth-child(6),
+.start:nth-child(8),
 .option:nth-child(5),
 .hangman-stop {
-  background-color: #ff2323;
+  background: linear-gradient(#ff5454, #fa0000);
 }
-
-.option:nth-child(6) {
-  background-color: #6f65fa;
-}
-
-.option:nth-child(7) {
-  background-color: #ff3c00;
-}
-
+.card-reverse.Green,
+.configOption:nth-child(7),
 .option:nth-child(8) {
-  background-color: #32ff76;
+  background: linear-gradient(#e8ff83, #88ff00);
 }
-
-.option:nth-child(9) {
-  background-color: #00ffea;
+.card-reverse.Yellow,
+.configOption:nth-child(8),
+.option:nth-child(1) {
+  background: linear-gradient(#ffed4a, #ffc400);
 }
 
 .letter-checker {
@@ -429,7 +454,6 @@ p {
   border-radius: 15px;
   box-shadow: 0px 0px 10px 5px #0000008a;
   background-color: #ffffffd5;
-  animation: glow 3s infinite ease-in-out;
 }
 
 .lose-modal {
@@ -461,7 +485,6 @@ p {
   border-radius: 15px;
   outline: solid 2px #fff;
   margin: 1em;
-  animation: glow 3s infinite ease-in-out;
 }
 
 .modal p {
@@ -499,7 +522,6 @@ p {
   margin: 5px;
   font-weight: bold;
   color: #fff;
-  background-color: #00ffea;
   text-align: center;
 }
 

@@ -19,6 +19,8 @@ if ("serviceWorker" in navigator) {
 import { getWord, usedLetter } from "./hangman.js";
 import { app, mainMenu, hangmanMenu } from "./memory.js";
 
+const configMenu = document.querySelector(".Config");
+
 // ? flip audio for the cards
 export const flip = new Audio();
 flip.src = "sounds/flipcard.mp3";
@@ -50,6 +52,12 @@ incorrect.src = "sounds/incorrect.mp3";
 export const failure = new Audio();
 failure.src = "sounds/fail.mp3";
 
+const audios = [bubble, failure, incorrect, correct, success, popUp, flip];
+
+const changeCardsTheme = (theme) => {
+  localStorage.setItem("CardsTheme", theme);
+};
+
 /**
  * ? Click Event Listener
  *
@@ -68,6 +76,34 @@ document.addEventListener("click", (e) => {
   if (e.target.matches(".home")) {
     app.classList.add("hidden");
     mainMenu.classList.remove("hidden");
+    configMenu.classList.add("hidden");
+  }
+  if (e.target.matches(".config")) {
+    mainMenu.classList.add("hidden");
+    configMenu.classList.remove("hidden");
+  }
+  if (e.target.matches(".configOption")) {
+    changeCardsTheme(e.target.textContent);
+  }
+  if (e.target.matches(".animationOption")) {
+    let content = "Desactivar";
+    if (e.target.textContent == "Desactivar") {
+      content = "Activar";
+    }
+    e.target.textContent = content;
+  }
+  if (e.target.matches(".soundOption")) {
+    let content = "Desactivar";
+    for (let audio of audios) {
+      audio.volume = 1;
+    }
+    if (e.target.textContent == "Desactivar") {
+      for (let audio of audios) {
+        audio.volume = 0;
+      }
+      content = "Activar";
+    }
+    e.target.textContent = content;
   }
   // ? Start the Memory game
   if (e.target.matches(".Memory")) {
