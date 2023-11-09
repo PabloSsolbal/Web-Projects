@@ -3,7 +3,7 @@
  *
  * ? The name of the cache used to store assets for the MiniGameBox web application.
  */
-const CACHE_NAME = "v1_MiniGameBox";
+const CACHE_NAME = "v0.0.11_MiniGameBox";
 
 /**
  * ? URLs to Cache
@@ -17,6 +17,7 @@ let urlsToCache = [
   "memory.js",
   "hangman.js",
   "script.js",
+  "https://fonts.googleapis.com/css2?family=Poppins&display=swap",
   "https://memory-1-u4335091.deta.app/category/Emociones",
   "https://memory-1-u4335091.deta.app/category/Animales",
   "https://memory-1-u4335091.deta.app/category/Colores",

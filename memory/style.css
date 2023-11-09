@@ -163,7 +163,12 @@ button:hover {
 }
 
 .Config {
+  height: fit-content;
   justify-content: space-evenly;
+}
+
+.Config > * {
+  margin: 5px;
 }
 
 .OptionContainer {
@@ -194,9 +199,14 @@ button:hover {
 }
 
 .colorsOptionContainer {
+  height: fit-content;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+}
+
+.colorsOptionContainer > * {
+  margin: 5px;
 }
 
 .OptionContainer {
