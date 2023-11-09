@@ -16,10 +16,11 @@ if ("serviceWorker" in navigator) {
 }
 
 // ! import the necesary things
-import { getWord, usedLetter } from "./hangman.js";
+import { getWord, usedLetter, hangmanHigscore } from "./hangman.js";
 import { app, mainMenu, hangmanMenu } from "./memory.js";
 
 const configMenu = document.querySelector(".Config");
+const colorsMenu = document.querySelector(".colorsOptionContainer");
 
 // ? flip audio for the cards
 export const flip = new Audio();
@@ -54,9 +55,70 @@ failure.src = "sounds/fail.mp3";
 
 const audios = [bubble, failure, incorrect, correct, success, popUp, flip];
 
+export const UpdateStrike = () => {
+  let strikeCounter = JSON.parse(localStorage.getItem("HangmanStrike"));
+  let formatedStrikeCounter =
+    strikeCounter < 10 ? `0${strikeCounter}` : strikeCounter;
+  hangmanHigscore.innerHTML = `<span>Racha Maxima: </span>${formatedStrikeCounter}`;
+};
+
 const changeCardsTheme = (theme) => {
   localStorage.setItem("CardsTheme", theme);
 };
+
+const toggleAnimations = (value, button) => {
+  let items = document.querySelectorAll(".glow");
+  let itemsToJSON = [];
+  for (let item of items) {
+    itemsToJSON.push(item.classList[0]);
+  }
+  if (value === "Desactivar") {
+    localStorage.setItem("Animations", false);
+    localStorage.setItem("items", JSON.stringify(itemsToJSON));
+    for (let item of items) {
+      item.classList.remove("glow");
+    }
+    button.textContent = "Activar";
+  } else if (value === "Activar") {
+    localStorage.setItem("Animations", true);
+    items = JSON.parse(localStorage.getItem("items"));
+    for (let item of items) {
+      item = document.querySelectorAll(`.${item}`);
+      item.forEach((i) => i.classList.add("glow"));
+    }
+    button.textContent = "Desactivar";
+  }
+};
+
+const changeAudioVolume = (value, button) => {
+  value = parseInt(value);
+  localStorage.setItem("AudioVolume", value);
+  if (value === 0) {
+    button.textContent = "Activar";
+  } else {
+    button.textContent = "Desactivar";
+  }
+  for (let audio of audios) {
+    audio.volume = value;
+  }
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+  if (!localStorage.getItem("HangmanStrike")) {
+    localStorage.setItem("HangmanStrike", JSON.stringify(0));
+  }
+  UpdateStrike();
+  changeAudioVolume(
+    localStorage.getItem("AudioVolume"),
+    document.querySelector(".soundOption")
+  );
+  let animationButton = document.querySelector(".animationOption");
+  if (localStorage.getItem("Animations") == "true") {
+    toggleAnimations("Activar", animationButton);
+  } else {
+    toggleAnimations("Desactivar", animationButton);
+  }
+});
 
 /**
  * ? Click Event Listener
@@ -66,6 +128,14 @@ const changeCardsTheme = (theme) => {
  * @param {MouseEvent} e - The mouse click event object.
  */
 document.addEventListener("click", (e) => {
+  if (e.target.matches(".showColorsMenu")) {
+    colorsMenu.classList.toggle("hidden");
+    configMenu.classList.add("hidden");
+  }
+  if (e.target.matches(".closeColorsMenu")) {
+    colorsMenu.classList.toggle("hidden");
+    configMenu.classList.remove("hidden");
+  }
   // ? Options in the Hangman menu
   if (e.target.matches(".option")) {
     let category = e.target.textContent;
@@ -86,24 +156,18 @@ document.addEventListener("click", (e) => {
     changeCardsTheme(e.target.textContent);
   }
   if (e.target.matches(".animationOption")) {
-    let content = "Desactivar";
+    let value = "Activar";
     if (e.target.textContent == "Desactivar") {
-      content = "Activar";
+      value = "Desactivar";
     }
-    e.target.textContent = content;
+    toggleAnimations(value, e.target);
   }
   if (e.target.matches(".soundOption")) {
-    let content = "Desactivar";
-    for (let audio of audios) {
-      audio.volume = 1;
-    }
+    let value = 1;
     if (e.target.textContent == "Desactivar") {
-      for (let audio of audios) {
-        audio.volume = 0;
-      }
-      content = "Activar";
+      value = 0;
     }
-    e.target.textContent = content;
+    changeAudioVolume(value, e.target);
   }
   // ? Start the Memory game
   if (e.target.matches(".Memory")) {

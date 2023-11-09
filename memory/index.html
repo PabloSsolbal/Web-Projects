@@ -65,9 +65,8 @@
         <button class="config">Config</button>
     </section>
 
-    <section class="Config glow hidden">
-        <p>Que quieres cambiar?</p>
-        <p>Colores de las cartas</p>
+    <div class="colorsOptionContainer glow hidden">
+        <p>Elige un color</p>
         <div class="OptionContainer">
             <button class="configOption">Blue</button>
             <button class="configOption">Aqua</button>
@@ -78,8 +77,17 @@
             <button class="configOption">Green</button>
             <button class="configOption">Yellow</button>
         </div>
+        <button class="closeColorsMenu">Close</button>
+    </div>
+
+    <section class="Config glow hidden">
+        <p>Que quieres cambiar?</p>
+        <p>Colores de las cartas</p>
+        <button class="showColorsMenu">Colores</button>
         <p>Desactivar animaciones</p>
         <button class="animationOption">Desactivar</button>
+        <p>Quitar Neon</p>
+        <button class="neonOption">Desactivar</button>
         <p>Desactivar sonidos</p>
         <button class="soundOption">Desactivar</button>
         <button class="home">Home</button>
@@ -87,6 +95,8 @@
 
     <!-- ? Hangman game menu -->
     <article class="hangman-menu glow hidden">
+        <p class="hangman-highscore"><span>Racha Maxima:</span> 00</p>
+        <p class="hangman-results"><span>Racha Actual:</span> 00</p>
         <p>Selecciona una categoria</p>
         <!-- ? Categories for the game -->
         <section class="menu">

@@ -373,8 +373,10 @@ document.addEventListener("click", (e) => {
           correct.play();
           firstCard.classList.add("matched");
           secondCard.classList.add("matched");
-          firstCard.classList.add("glow");
-          secondCard.classList.add("glow");
+          if (localStorage.getItem("Animations") === "true") {
+            firstCard.classList.add("glow");
+            secondCard.classList.add("glow");
+          }
 
           displayModal(firstCardValue);
 

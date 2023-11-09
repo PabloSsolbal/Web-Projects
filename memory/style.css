@@ -14,6 +14,45 @@ TODO: Add more comments to explain specific styles and their effects in more det
 @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 
 /* ? Global Styles */
+@keyframes glow {
+  0% {
+    /* outline-color: #ff0040; */
+    box-shadow: 0px 0px 10px 6.5px #ff0040, 0px 0px 10px 3px #ff0040 inset;
+  }
+  10% {
+    /* outline-color: #ff2323; */
+    box-shadow: 0px 0px 10px 5px #ff2323, 0px 0px 10px 3px #ff2323 inset;
+  }
+  35% {
+    /* outline-color: #ff7b00; */
+    box-shadow: 0px 0px 10px 6.5px #ff7b00, 0px 0px 10px 3px #ff7b00 inset;
+  }
+  60% {
+    /* outline-color: #32ff76; */
+    box-shadow: 0px 0px 10px 5px #32ff76, 0px 0px 10px 3px #32ff76 inset;
+  }
+  85% {
+    /* outline-color: #00ffea; */
+    box-shadow: 0px 0px 10px 6.5px #00ffea, 0px 0px 10px 3px #00ffea inset;
+  }
+  100% {
+    /* outline-color: #ff0040; */
+    box-shadow: 0px 0px 10px 5px #ff0040, 0px 0px 10px 3px #ff0040 inset;
+  }
+}
+
+:root {
+  --glow: glow 4s infinite ease-in-out;
+  --blue-glow: 0px 0px 10px 2px #00d9ff;
+  --aqua-glow: 0px 0px 10px 2px #50ffc5;
+  --pink-glow: 0px 0px 10px 2px #ff3ebf;
+  --orange-glow: 0px 0px 10px 2px #ffa600;
+  --purple-glow: 0px 0px 10px 2px #a883ff;
+  --red-glow: 0px 0px 10px 2px #ff5454;
+  --green-glow: 0px 0px 10px 2px #e8ff83;
+  --yellow-glow: 0px 0px 10px 2px #ffed4a;
+  --dark-blue-glow: 0px 0px 10px 2px #3654ff;
+}
 * {
   padding: 0;
   margin: 0;
@@ -33,10 +72,19 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  --glow: glow 4s infinite ease-in-out;
 }
 
-body.displayed {
-  justify-content: center;
+body.NoGlow {
+  --blue-glow: 0px 0px 10px 2px #fff;
+  --aqua-glow: 0px 0px 10px 2px #fff;
+  --pink-glow: 0px 0px 10px 2px #fff;
+  --orange-glow: 0px 0px 10px 2px #fff;
+  --purple-glow: 0px 0px 10px 2px #fff;
+  --red-glow: 0px 0px 10px 2px #fff;
+  --green-glow: 0px 0px 10px 2px #fff;
+  --yellow-glow: 0px 0px 10px 2px #fff;
+  --dark-blue-glow: 0px 0px 10px 2px #fff;
 }
 
 button {
@@ -69,6 +117,12 @@ span {
   font-weight: bold;
   text-shadow: 0px 2px 3px #0000003b;
 }
+button {
+  transition: transform 0.5s;
+}
+button:hover {
+  transform: scale(1.1);
+}
 
 /* ? Game Title Container */
 .game-title-container {
@@ -85,7 +139,7 @@ span {
 }
 
 .glow {
-  animation: glow 4s infinite ease-in-out;
+  animation: var(--glow);
 }
 
 /* ? App Container */
@@ -93,7 +147,8 @@ span {
 .main-menu,
 .hangman-menu,
 .hangman-app,
-.Config {
+.Config,
+.colorsOptionContainer {
   width: 80%;
   height: 95%;
   display: flex;
@@ -130,7 +185,7 @@ span {
 
 .menu,
 .OptionContainer {
-  width: 100%;
+  width: fit-content;
   height: 100%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -138,9 +193,16 @@ span {
   justify-items: center;
 }
 
+.colorsOptionContainer {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
 .OptionContainer {
   height: fit-content;
-  grid-template-columns: repeat(2, 1fr);
+  width: fit-content;
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .main-menu,
@@ -207,7 +269,7 @@ span {
   display: block;
   justify-content: center;
   align-items: center;
-  outline: 2px solid #000000b0;
+  outline: 4px solid #ffffff;
   border-radius: 13px;
   box-shadow: 0px 0px 10px 2px #00000077;
   cursor: pointer;
@@ -251,6 +313,8 @@ span {
   text-align: center;
   font-size: 2.8em;
   font-weight: 600;
+  color: #fff;
+  text-shadow: 0px 2px 2px #00000041;
 }
 
 .card-front {
@@ -263,27 +327,6 @@ span {
 
 .card.matched {
   outline-width: 3px;
-}
-
-@keyframes glow {
-  0% {
-    outline-color: #ff0040;
-  }
-  10% {
-    outline-color: #ff2323;
-  }
-  35% {
-    outline-color: #ff7b00;
-  }
-  60% {
-    outline-color: #32ff76;
-  }
-  85% {
-    outline-color: #00ffea;
-  }
-  100% {
-    outline-color: #ff0040;
-  }
 }
 
 .card.flipped .card-reverse {
@@ -324,7 +367,10 @@ span {
 .configOption,
 .animationOption,
 .soundOption,
-.config {
+.config,
+.showColorsMenu,
+.neonOption,
+.closeColorsMenu {
   width: 115px;
   border-radius: 10px;
   border: 2px solid #ffffff;
@@ -343,8 +389,10 @@ span {
 .start:nth-child(6),
 .check,
 .option:nth-child(4),
-.option:nth-child(9) {
+.option:nth-child(9),
+.showColorsMenu {
   background: linear-gradient(#00d9ff, #6ba6ff);
+  box-shadow: var(--blue-glow);
 }
 .card-reverse.Aqua,
 .configOption:nth-child(2),
@@ -353,15 +401,19 @@ span {
 .option:nth-child(2),
 .Hangman,
 #continue,
-#Close-hangman-modal {
+#Close-hangman-modal,
+#stop {
   background: linear-gradient(#50ffc5, #00ff73);
+  box-shadow: var(--aqua-glow);
 }
 .card-reverse.Pink,
 .configOption:nth-child(3),
 .start:nth-child(9),
 .option:nth-child(3),
-.Memory {
+.Memory,
+.neonOption {
   background: linear-gradient(#ff3ebf, #ff0055);
+  box-shadow: var(--pink-glow);
 }
 .card-reverse.Orange,
 .configOption:nth-child(4),
@@ -369,11 +421,13 @@ span {
 .animationOption,
 .option:nth-child(7) {
   background: linear-gradient(#ffa600, #ff4800);
+  box-shadow: var(--orange-glow);
 }
 .card-reverse.Purple,
 .configOption:nth-child(5),
 .option:nth-child(6) {
   background: linear-gradient(#a883ff, #973bff);
+  box-shadow: var(--purple-glow);
 }
 .card-reverse.Red,
 .configOption:nth-child(6),
@@ -381,16 +435,19 @@ span {
 .option:nth-child(5),
 .hangman-stop {
   background: linear-gradient(#ff5454, #fa0000);
+  box-shadow: var(--red-glow);
 }
 .card-reverse.Green,
 .configOption:nth-child(7),
 .option:nth-child(8) {
   background: linear-gradient(#e8ff83, #88ff00);
+  box-shadow: var(--green-glow);
 }
 .card-reverse.Yellow,
 .configOption:nth-child(8),
 .option:nth-child(1) {
   background: linear-gradient(#ffed4a, #ffc400);
+  box-shadow: var(--yellow-glow);
 }
 
 .letter-checker {
@@ -411,9 +468,11 @@ span {
   outline-color: #ff0040;
 }
 
-.home {
+.home,
+.closeColorsMenu {
   background: linear-gradient(#3654ff, #00d9ff);
   border-radius: 20px;
+  box-shadow: var(--dark-blue-glow);
 }
 
 /* ? Results Container */
@@ -428,7 +487,9 @@ span {
   padding: 10px;
 }
 
-.results-container #result span {
+.results-container #result span,
+.hangman-highscore span,
+.hangman-results span {
   color: #ff2323;
 }
 
@@ -472,6 +533,10 @@ span {
   justify-content: center;
 }
 
+.modal-img:hover {
+  transform: scale(1.1);
+}
+
 .modal .modal-img,
 .lose-modal .modal-img,
 .hangman-container .modal-img {
@@ -485,6 +550,7 @@ span {
   border-radius: 15px;
   outline: solid 2px #fff;
   margin: 1em;
+  transition: all 0.5s;
 }
 
 .modal p {
@@ -637,5 +703,9 @@ span {
 
   .letter-checker {
     font-size: 0.8em;
+  }
+
+  .OptionContainer {
+    grid-template-columns: repeat(2, 1fr);
   }
 }

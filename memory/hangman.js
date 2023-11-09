@@ -13,7 +13,14 @@
  *
  * * These imports are used to access various elements and sound effects needed for the Hangman game.
  */
-import { popUp, success, correct, incorrect, failure } from "./script.js";
+import {
+  popUp,
+  success,
+  correct,
+  incorrect,
+  failure,
+  UpdateStrike,
+} from "./script.js";
 
 import { hangmanMenu } from "./memory.js";
 
@@ -31,6 +38,8 @@ const loseModal = document.querySelector(".lose-modal");
 const continueBtn = document.getElementById("Close-hangman-modal");
 const showWordContainer = document.querySelector(".show-word-container");
 const hangmanPic = document.querySelector(".hangman-pic");
+export const hangmanHigscore = document.querySelector(".hangman-highscore");
+export const hangmanResults = document.querySelector(".hangman-results");
 
 // ? The base URL for fetching Hangman words.
 let hangmanurl = "https://memory-1-u4335091.deta.app/get_word/";
@@ -46,6 +55,20 @@ const validCharacters = "abcdefghijklmnopqrstuvwxyz";
 
 // ? Array to store used letters in the game.
 let usedLetters = [];
+
+let strikeCounter = 0;
+
+const SaveStrike = () => {
+  if (JSON.parse(localStorage.getItem("HangmanStrike")) < strikeCounter) {
+    localStorage.setItem("HangmanStrike", JSON.stringify(strikeCounter));
+  }
+};
+
+const StrikeCounterAdd = () => {
+  let formatedStrikeCounter =
+    strikeCounter < 10 ? `0${strikeCounter}` : strikeCounter;
+  hangmanResults.innerHTML = `<span>Racha Actual: </span>${formatedStrikeCounter}`;
+};
 
 /**
  * Set Hangman Picture
@@ -145,7 +168,8 @@ const saveWords = (category, data) => {
 };
 
 const getWordOffline = (category) => {
-  return JSON.parse(localStorage.getItem(category));
+  let words = JSON.parse(localStorage.getItem(category));
+  return words[Math.floor(Math.random() * words.length)];
 };
 
 /**
@@ -197,6 +221,10 @@ const checkLetter = (letter) => {
     updateWord();
     if (hidden.join("") == word.join("")) {
       success.play();
+      strikeCounter += 1;
+      StrikeCounterAdd();
+      SaveStrike();
+      UpdateStrike();
       setTimeout(() => {
         hangmanApp.classList.add("hidden");
         hangmanMenu.classList.remove("hidden");
@@ -209,6 +237,10 @@ const checkLetter = (letter) => {
     setHangmanPic();
     if (attempsCounter == 0) {
       failure.play();
+      SaveStrike();
+      strikeCounter = 0;
+      StrikeCounterAdd();
+      UpdateStrike();
       showWordContainer.innerHTML = `<span>La palabra era:</span> ${word.join(
         ""
       )}`;
@@ -296,6 +328,10 @@ document.addEventListener("click", (e) => {
     hangmanMenu.classList.remove("hidden");
     usedLetters = [];
     usedLetter();
+    SaveStrike();
+    strikeCounter = 0;
+    StrikeCounterAdd();
+    UpdateStrike();
   }
   if (e.target.matches(".check")) {
     let letter = getLetter();
@@ -314,6 +350,10 @@ document.addEventListener("click", (e) => {
     hangmanMenu.classList.remove("hidden");
     usedLetters = [];
     usedLetter();
+    SaveStrike();
+    strikeCounter = 0;
+    StrikeCounterAdd();
+    UpdateStrike();
   }
 });
 
