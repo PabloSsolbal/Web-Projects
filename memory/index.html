@@ -58,11 +58,19 @@
     </section>
     <!-- ? Main menu for the app -->
     <section class="main-menu glow">
-        <p>A que quieres jugar hoy?</p>
+        <p class="greet">A que quieres jugar hoy?</p>
         <button class="Memory">Memoria</button>
         <button class="Hangman">Ahorcado</button>
         <p>Quieres cambiar la configuracion?</p>
         <button class="config">Config</button>
+    </section>
+
+    <section class="Signup hidden">
+        <label for="#Username">
+            <p>Elige un nombre de usuario:</p>
+        </label>
+        <input type="text" id="Username" placeholder="your username">
+        <button class="Create">Create</button>
     </section>
 
     <div class="colorsOptionContainer glow hidden">
@@ -122,6 +130,7 @@
         </div>
         <div class="word-container"></div>
         <input type="text" class="letter-checker">
+        <div class="keyBoard"></div>
         <button class="check">Revisar</button>
         <button class="hangman-stop">Stop Game</button>
     </article>

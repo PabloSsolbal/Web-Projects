@@ -16,11 +16,16 @@ if ("serviceWorker" in navigator) {
 }
 
 // ! import the necesary things
-import { getWord, usedLetter, hangmanHigscore } from "./hangman.js";
+import { getWord, usedLetter, hangmanHigscore, keyBoard } from "./hangman.js";
 import { app, mainMenu, hangmanMenu } from "./memory.js";
 
 const configMenu = document.querySelector(".Config");
 const colorsMenu = document.querySelector(".colorsOptionContainer");
+export const body = document.querySelector("body");
+const signUpMenu = document.querySelector(".Signup");
+const signUpInput = document.getElementById("Username");
+
+export let username = null;
 
 // ? flip audio for the cards
 export const flip = new Audio();
@@ -104,6 +109,16 @@ const changeAudioVolume = (value, button) => {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
+  if (localStorage.getItem("Username")) {
+    signUpMenu.classList.add("hidden");
+    username = JSON.parse(localStorage.getItem("Username"));
+    let greet = document.querySelector(".greet");
+    greet.textContent = `Hola ${username} a que quieres jugar hoy?`;
+  } else {
+    mainMenu.classList.add("hidden");
+    signUpMenu.classList.remove("hidden");
+  }
+  keyBoard();
   if (!localStorage.getItem("HangmanStrike")) {
     localStorage.setItem("HangmanStrike", JSON.stringify(0));
   }
@@ -128,6 +143,17 @@ document.addEventListener("DOMContentLoaded", () => {
  * @param {MouseEvent} e - The mouse click event object.
  */
 document.addEventListener("click", (e) => {
+  if (e.target.matches(".Create")) {
+    localStorage.setItem("Username", JSON.stringify(signUpInput.value));
+    mainMenu.classList.remove("hidden");
+    signUpMenu.classList.add("hidden");
+  }
+
+  if (e.target.matches(".neonOption")) {
+    body.classList.toggle("NoGlow");
+    e.target.textContent =
+      e.target.textContent == "Desactivar" ? "Activar" : "Desactivar";
+  }
   if (e.target.matches(".showColorsMenu")) {
     colorsMenu.classList.toggle("hidden");
     configMenu.classList.add("hidden");

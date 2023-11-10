@@ -40,6 +40,7 @@ const showWordContainer = document.querySelector(".show-word-container");
 const hangmanPic = document.querySelector(".hangman-pic");
 export const hangmanHigscore = document.querySelector(".hangman-highscore");
 export const hangmanResults = document.querySelector(".hangman-results");
+const keyboardContainer = document.querySelector(".keyBoard");
 
 // ? The base URL for fetching Hangman words.
 let hangmanurl = "https://memory-1-u4335091.deta.app/get_word/";
@@ -51,12 +52,26 @@ let maxAttemps;
 let attempsCounter = null;
 
 // ? Valid characters for the Hangman game.
-const validCharacters = "abcdefghijklmnopqrstuvwxyz";
+const validCharacters = "abcdefghijklmnñopqrstuvwxyz";
+
+const keyBoardCharacters = "qwertyuiopasdfghjklzxcvbnm↩⏎";
 
 // ? Array to store used letters in the game.
-let usedLetters = [];
+const usedLetters = new Set();
 
 let strikeCounter = 0;
+
+export const keyBoard = async () => {
+  const keyboard = document.createDocumentFragment();
+
+  for (let letter of keyBoardCharacters) {
+    const letterContainer = document.createElement("div");
+    letterContainer.classList.add("letter-container");
+    letterContainer.innerHTML = `<p>${letter}</p>`;
+    keyboard.appendChild(letterContainer);
+  }
+  keyboardContainer.appendChild(keyboard);
+};
 
 const SaveStrike = () => {
   if (JSON.parse(localStorage.getItem("HangmanStrike")) < strikeCounter) {
@@ -115,10 +130,15 @@ const updateWord = () => {
  * ? This function updates the display to show the letters that have been used in the game.
  */
 
-export const usedLetter = () => {
-  usedLetterContainer.innerHTML = `<span>Letras Usadas:</span> ${usedLetters.join(
-    " "
-  )}`;
+export const usedLetter = (letter = null) => {
+  if (letter == null) {
+    usedLetters.clear();
+  } else {
+    usedLetters.add(letter);
+  }
+  usedLetterContainer.innerHTML = `<span>Letras Usadas:</span> ${Array.from(
+    usedLetters
+  ).join("")}`;
 };
 
 /**
@@ -211,6 +231,7 @@ export const getWord = async (category) => {
  */
 
 const checkLetter = (letter) => {
+  usedLetter(letter);
   if (word.includes(letter)) {
     for (let a in word) {
       if (word[a] == letter) {
@@ -228,7 +249,6 @@ const checkLetter = (letter) => {
       setTimeout(() => {
         hangmanApp.classList.add("hidden");
         hangmanMenu.classList.remove("hidden");
-        usedLetters = [];
       }, 1250);
     }
   } else {
@@ -292,8 +312,7 @@ const getLetter = () => {
         validCharacters.includes(letter.toLowerCase())
       ) {
         letterInput.value = "";
-        usedLetters.push(letter.toLowerCase());
-        usedLetter();
+        usedLetter(letter);
         return letter.toLowerCase();
       } else {
         letterInput.value = "";
@@ -322,12 +341,34 @@ const getLetter = () => {
  */
 
 document.addEventListener("click", (e) => {
+  if (
+    e.target.matches(".letter-container") |
+    e.target.matches(".letter-container p")
+  ) {
+    let l = "";
+    if (e.target.matches(".letter-container")) {
+      l = e.target.querySelector("p").textContent;
+    } else {
+      l = e.target.textContent;
+    }
+
+    if (l == "⏎") {
+      checkLetter(letterInput.value);
+      letterInput.value = "";
+    } else if (l == "↩") {
+      let actualWord = letterInput.value;
+      console.log(actualWord);
+      let changedWord = Array.from(actualWord);
+      changedWord.pop(actualWord.length - 1);
+      letterInput.value = changedWord.join("");
+    } else {
+      letterInput.value += l;
+    }
+  }
   if (e.target == continueBtn) {
     loseModal.classList.add("hidden");
     hangmanApp.classList.add("hidden");
     hangmanMenu.classList.remove("hidden");
-    usedLetters = [];
-    usedLetter();
     SaveStrike();
     strikeCounter = 0;
     StrikeCounterAdd();
@@ -348,8 +389,6 @@ document.addEventListener("click", (e) => {
   if (e.target.matches(".hangman-stop")) {
     hangmanApp.classList.add("hidden");
     hangmanMenu.classList.remove("hidden");
-    usedLetters = [];
-    usedLetter();
     SaveStrike();
     strikeCounter = 0;
     StrikeCounterAdd();

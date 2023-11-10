@@ -148,7 +148,8 @@ button:hover {
 .hangman-menu,
 .hangman-app,
 .Config,
-.colorsOptionContainer {
+.colorsOptionContainer,
+.Signup {
   width: 80%;
   height: 95%;
   display: flex;
@@ -182,10 +183,15 @@ button:hover {
 
 .app.before,
 .main-menu,
-.hangman-menu {
+.hangman-menu,
+.Signup {
   height: fit-content;
   width: 600px;
   margin: 0 auto;
+}
+
+.Signup > * {
+  margin: 5px;
 }
 
 .menu,
@@ -380,7 +386,8 @@ button:hover {
 .config,
 .showColorsMenu,
 .neonOption,
-.closeColorsMenu {
+.closeColorsMenu,
+.Create {
   width: 115px;
   border-radius: 10px;
   border: 2px solid #ffffff;
@@ -479,7 +486,8 @@ button:hover {
 }
 
 .home,
-.closeColorsMenu {
+.closeColorsMenu,
+.Create {
   background: linear-gradient(#3654ff, #00d9ff);
   border-radius: 20px;
   box-shadow: var(--dark-blue-glow);
@@ -601,6 +609,60 @@ button:hover {
   text-align: center;
 }
 
+.hangman-app {
+  height: fit-content;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.keyBoard {
+  display: none;
+  width: 100%;
+  height: fit-content;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 15px 2px;
+}
+
+.letter-container {
+  aspect-ratio: 1/1;
+  height: fit-content;
+  border-radius: 15px;
+  background-color: #72727280;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2.5em;
+  height: 2.5em;
+  margin: 2.5px;
+  box-shadow: 0px 0px 2px 1px #fff;
+}
+
+.letter-container p {
+  text-align: center;
+  font-size: 18px;
+}
+
+#Username {
+  border-radius: 15px;
+  border: 2px solid #00ff73;
+  box-shadow: 0px 0px 10px 6px #fffffff3;
+  background-color: #ffffff9c;
+  text-align: center;
+  padding: 2px;
+  font-weight: bold;
+  font-size: 1em;
+  color: #00ff73;
+}
+
+#Username:focus {
+  color: #ff2323;
+  outline-color: #ff0040;
+}
+
 /* ? Hidden Element */
 .hidden {
   display: none;
@@ -626,6 +688,9 @@ button:hover {
   body.displayed {
     justify-content: center;
   }
+  .keyBoard {
+    display: flex;
+  }
   .card img {
     width: 80%;
     height: 80%;
@@ -633,7 +698,7 @@ button:hover {
   .app,
   .main-menu,
   .hangman-menu,
-  .hangman-app {
+  .Signup {
     width: 85%;
     height: 85vh;
   }
@@ -641,6 +706,9 @@ button:hover {
   .main-menu,
   .hangman-menu {
     width: 85%;
+  }
+  .Signup {
+    height: fit-content;
   }
   .card {
     aspect-ratio: 1/1;
@@ -704,7 +772,6 @@ button:hover {
 
   .hangman-app {
     height: fit-content;
-    min-height: 65vh;
   }
 
   .word-container {
