@@ -60,6 +60,18 @@ failure.src = "sounds/fail.mp3";
 
 const audios = [bubble, failure, incorrect, correct, success, popUp, flip];
 
+const greetUser = () => {
+  if (localStorage.getItem("Username")) {
+    signUpMenu.classList.add("hidden");
+    username = JSON.parse(localStorage.getItem("Username"));
+    let greet = document.querySelector(".greet");
+    greet.textContent = `Hola ${username} a que quieres jugar hoy?`;
+  } else {
+    mainMenu.classList.add("hidden");
+    signUpMenu.classList.remove("hidden");
+  }
+};
+
 export const UpdateStrike = () => {
   let strikeCounter = JSON.parse(localStorage.getItem("HangmanStrike"));
   let formatedStrikeCounter =
@@ -109,16 +121,14 @@ const changeAudioVolume = (value, button) => {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-  if (localStorage.getItem("Username")) {
-    signUpMenu.classList.add("hidden");
-    username = JSON.parse(localStorage.getItem("Username"));
-    let greet = document.querySelector(".greet");
-    greet.textContent = `Hola ${username} a que quieres jugar hoy?`;
-  } else {
-    mainMenu.classList.add("hidden");
-    signUpMenu.classList.remove("hidden");
+  greetUser();
+  if (!localStorage.getItem("keyboard")) {
+    localStorage.setItem(JSON.stringify(true));
   }
-  keyBoard();
+  document.querySelector(".keyboardOption").textContent =
+    JSON.parse(localStorage.getItem("keyboard")) == true
+      ? "Desactivar"
+      : "Activar";
   if (!localStorage.getItem("HangmanStrike")) {
     localStorage.setItem("HangmanStrike", JSON.stringify(0));
   }
@@ -147,6 +157,17 @@ document.addEventListener("click", (e) => {
     localStorage.setItem("Username", JSON.stringify(signUpInput.value));
     mainMenu.classList.remove("hidden");
     signUpMenu.classList.add("hidden");
+    greetUser();
+  }
+
+  if (e.target.matches(".keyboardOption")) {
+    localStorage.setItem(
+      "keyboard",
+      JSON.stringify(e.target.textContent == "Desactivar" ? false : true)
+    );
+
+    e.target.textContent =
+      e.target.textContent == "Desactivar" ? "Activar" : "Desactivar";
   }
 
   if (e.target.matches(".neonOption")) {

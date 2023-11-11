@@ -1,7 +1,7 @@
 {
     "name": "MiniGameBox",
     "short_name": "MiniGameBox",
-    "version": "1.0",
+    "version": "0.12",
     "description": "Web App with simple games for kids",
     "background_color": "#ffffff70",
     "theme_color": "#ffffff70",

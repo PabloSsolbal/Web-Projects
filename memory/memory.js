@@ -18,6 +18,7 @@
 
 import { correct, flip, popUp, success, incorrect } from "./script.js";
 
+import { urls } from "./config.js";
 /**
  * * the app container
  * * board
@@ -82,7 +83,7 @@ let items = [];
 let modalElements = {};
 
 // ? url to get the necesary data
-let url = "https://memory-1-u4335091.deta.app/category/";
+let url = urls.MemoryData;
 
 const getCardTheme = () => {
   if (localStorage.getItem("CardsTheme")) {

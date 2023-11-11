@@ -4,3 +4,4 @@ backend/venv
 backend/config.py
 backend/requirements.txt
 backend/Spacefile
+config.js

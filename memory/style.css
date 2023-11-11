@@ -52,6 +52,11 @@ TODO: Add more comments to explain specific styles and their effects in more det
   --green-glow: 0px 0px 10px 2px #e8ff83;
   --yellow-glow: 0px 0px 10px 2px #ffed4a;
   --dark-blue-glow: 0px 0px 10px 2px #3654ff;
+  --green-b-glow: 0px 0px 10px 2px #aeffab;
+  --red-b-glow: 0px 0px 10px 2px #ff8e8e;
+  --blue-b-glow: 0px 0px 10px 2px #747dff;
+  --orange-b-glow: 0px 0px 10px 2px #ffbb00;
+  --sunny-glow: 0px 0px 10px 2px #80ffd9;
 }
 * {
   padding: 0;
@@ -195,7 +200,8 @@ button:hover {
 }
 
 .menu,
-.OptionContainer {
+.OptionContainer,
+.categoriesContainer {
   width: fit-content;
   height: 100%;
   display: grid;
@@ -387,7 +393,8 @@ button:hover {
 .showColorsMenu,
 .neonOption,
 .closeColorsMenu,
-.Create {
+.Create,
+.keyboardOption {
   width: 115px;
   border-radius: 10px;
   border: 2px solid #ffffff;
@@ -403,10 +410,9 @@ button:hover {
 .card-reverse.Blue,
 .configOption:nth-child(1),
 .config,
-.start:nth-child(6),
+.start:nth-child(1),
 .check,
 .option:nth-child(4),
-.option:nth-child(9),
 .showColorsMenu {
   background: linear-gradient(#00d9ff, #6ba6ff);
   box-shadow: var(--blue-glow);
@@ -414,7 +420,7 @@ button:hover {
 .card-reverse.Aqua,
 .configOption:nth-child(2),
 .soundOption,
-.start:nth-child(7),
+.start:nth-child(2),
 .option:nth-child(2),
 .Hangman,
 #continue,
@@ -425,7 +431,7 @@ button:hover {
 }
 .card-reverse.Pink,
 .configOption:nth-child(3),
-.start:nth-child(9),
+.start:nth-child(3),
 .option:nth-child(3),
 .Memory,
 .neonOption {
@@ -434,37 +440,81 @@ button:hover {
 }
 .card-reverse.Orange,
 .configOption:nth-child(4),
-.start,
+.start:nth-child(4),
 .animationOption,
-.option:nth-child(7) {
+.option:nth-child(7),
+.option:nth-child(11) {
   background: linear-gradient(#ffa600, #ff4800);
   box-shadow: var(--orange-glow);
 }
 .card-reverse.Purple,
 .configOption:nth-child(5),
+.start:nth-child(5),
 .option:nth-child(6) {
   background: linear-gradient(#a883ff, #973bff);
   box-shadow: var(--purple-glow);
 }
 .card-reverse.Red,
 .configOption:nth-child(6),
-.start:nth-child(8),
+.start:nth-child(6),
 .option:nth-child(5),
+.option:nth-child(12),
 .hangman-stop {
   background: linear-gradient(#ff5454, #fa0000);
   box-shadow: var(--red-glow);
 }
 .card-reverse.Green,
 .configOption:nth-child(7),
+.start:nth-child(7),
 .option:nth-child(8) {
   background: linear-gradient(#e8ff83, #88ff00);
   box-shadow: var(--green-glow);
 }
 .card-reverse.Yellow,
 .configOption:nth-child(8),
+.start:nth-child(8),
 .option:nth-child(1) {
   background: linear-gradient(#ffed4a, #ffc400);
   box-shadow: var(--yellow-glow);
+}
+
+.configOption:nth-child(9),
+.option:nth-child(10),
+.card-reverse.Green-B {
+  background: linear-gradient(#aeffab, #1ae200);
+  box-shadow: var(--green-b-glow);
+}
+
+.configOption:nth-child(10),
+.card-reverse.Red-B,
+.keyboardOption {
+  background: linear-gradient(#ff5b9a, #fa0000);
+  box-shadow: var(--red-b-glow);
+}
+
+.configOption:nth-child(11),
+.option:nth-child(9),
+.card-reverse.Blue-B {
+  background: linear-gradient(#74ffff, #267dff);
+  box-shadow: var(--blue-b-glow);
+}
+
+.configOption:nth-child(12),
+.card-reverse.Orange-B {
+  background: linear-gradient(#ffd859, #ff9100);
+  box-shadow: var(--orange-b-glow);
+}
+
+.configOption:nth-child(13),
+.card-reverse.Night {
+  background: linear-gradient(#0004ff, #47d4ff);
+  box-shadow: var(--dark-blue-glow);
+}
+
+.configOption:nth-child(14),
+.card-reverse.Sunny {
+  background: linear-gradient(#80ffd9, #ffd900);
+  box-shadow: var(--sunny-glow);
 }
 
 .letter-checker {
@@ -491,6 +541,16 @@ button:hover {
   background: linear-gradient(#3654ff, #00d9ff);
   border-radius: 20px;
   box-shadow: var(--dark-blue-glow);
+}
+
+.Random,
+.Challenge {
+  width: 230px;
+  grid-column: span 2;
+}
+
+.Challenge {
+  box-shadow: 0px 0px 10px 5px #ff0000 !important;
 }
 
 /* ? Results Container */
@@ -782,7 +842,8 @@ button:hover {
     font-size: 0.8em;
   }
 
-  .OptionContainer {
+  .OptionContainer,
+  .categoriesContainer {
     grid-template-columns: repeat(2, 1fr);
   }
 }

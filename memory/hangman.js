@@ -24,6 +24,8 @@ import {
 
 import { hangmanMenu } from "./memory.js";
 
+import { urls } from "./config.js";
+
 /**
  * ? Hangman Game Variables and DOM Elements
  *
@@ -43,7 +45,8 @@ export const hangmanResults = document.querySelector(".hangman-results");
 const keyboardContainer = document.querySelector(".keyBoard");
 
 // ? The base URL for fetching Hangman words.
-let hangmanurl = "https://memory-1-u4335091.deta.app/get_word/";
+let hangmanurl = urls.HangmanWord;
+let alternativeHangmanUrl = urls.HangmanWords;
 
 // ? Variables for game state and data.
 let word = null;
@@ -61,7 +64,7 @@ const usedLetters = new Set();
 
 let strikeCounter = 0;
 
-export const keyBoard = async () => {
+export const keyBoard = () => {
   const keyboard = document.createDocumentFragment();
 
   for (let letter of keyBoardCharacters) {
@@ -121,6 +124,7 @@ const updateAttemps = () => {
  */
 
 const updateWord = () => {
+  console.log(hidden);
   wordContainer.textContent = hidden.join(" ");
 };
 
@@ -167,29 +171,15 @@ const createHangman = (data) => {
   maxAttemps = data.attemps;
   attempsCounter = data.attemps;
 
+  if (JSON.parse(localStorage.getItem("keyboard")) == true) {
+    keyboardContainer.innerHTML = ``;
+    keyBoard();
+  } else {
+    keyboardContainer.innerHTML = ``;
+  }
+
   updateWord();
   setHangmanPic();
-};
-
-const saveWords = (category, data) => {
-  data = JSON.stringify(data);
-  if (localStorage.getItem(category)) {
-    let dataSet = new Set(JSON.parse(localStorage.getItem(category)));
-    if (dataSet.has(data)) {
-      return;
-    }
-    dataSet.add(data);
-    localStorage.setItem(category, JSON.stringify(Array.from(dataSet)));
-  } else {
-    let dataSet = new Set();
-    dataSet.add(data);
-    localStorage.setItem(category, JSON.stringify(Array.from(dataSet)));
-  }
-};
-
-const getWordOffline = (category) => {
-  let words = JSON.parse(localStorage.getItem(category));
-  return words[Math.floor(Math.random() * words.length)];
 };
 
 /**
@@ -210,9 +200,10 @@ export const getWord = async (category) => {
   try {
     let response = await fetch(hangmanurl + category);
     data = await response.json();
-    saveWords(await category, await data);
   } catch (error) {
-    data = getWordOffline(category);
+    let response = await fetch(alternativeHangmanUrl + category);
+    data = await response.json();
+    data = await data[Math.round(Math.random() * data.length - 1)];
   }
 
   createHangman(await data);

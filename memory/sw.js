@@ -3,7 +3,7 @@
  *
  * ? The name of the cache used to store assets for the MiniGameBox web application.
  */
-const CACHE_NAME = "v0.0.11_MiniGameBox";
+const CACHE_NAME = "v0.0.12_MiniGameBox";
 
 /**
  * ? URLs to Cache
@@ -18,11 +18,26 @@ let urlsToCache = [
   "hangman.js",
   "script.js",
   "https://fonts.googleapis.com/css2?family=Poppins&display=swap",
-  "https://memory-1-u4335091.deta.app/category/Emociones",
-  "https://memory-1-u4335091.deta.app/category/Animales",
-  "https://memory-1-u4335091.deta.app/category/Colores",
-  "https://memory-1-u4335091.deta.app/category/Comidas",
-  "https://memory-1-u4335091.deta.app/category/Figuras",
+  "https://memory-1-u4335091.deta.app/memory/Emociones",
+  "https://memory-1-u4335091.deta.app/memory/Animales",
+  "https://memory-1-u4335091.deta.app/memory/Colores",
+  "https://memory-1-u4335091.deta.app/memory/Comidas",
+  "https://memory-1-u4335091.deta.app/memory/Figuras",
+  "https://memory-1-u4335091.deta.app/memory/Casa",
+  "https://memory-1-u4335091.deta.app/memory/Transportes",
+  "https://memory-1-u4335091.deta.app/memory/Colegio",
+  "https://memory-1-u4335091.deta.app/word/all/animales",
+  "https://memory-1-u4335091.deta.app/word/all/ciencia",
+  "https://memory-1-u4335091.deta.app/word/all/comics",
+  "https://memory-1-u4335091.deta.app/word/all/comidas",
+  "https://memory-1-u4335091.deta.app/word/all/dinosaurios",
+  "https://memory-1-u4335091.deta.app/word/all/musica",
+  "https://memory-1-u4335091.deta.app/word/all/paises",
+  "https://memory-1-u4335091.deta.app/word/all/profesiones",
+  "https://memory-1-u4335091.deta.app/word/all/transportes",
+  "https://memory-1-u4335091.deta.app/word/all/deportes",
+  "https://memory-1-u4335091.deta.app/word/all/random",
+  "https://memory-1-u4335091.deta.app/word/all/challenge",
 ];
 
 /**
@@ -33,7 +48,7 @@ let urlsToCache = [
 async function GetElementsToCache() {
   let response = await fetch("auto/elements.json");
   let data = await response.json();
-  urlsToCache = await [...urlsToCache, ...data.data];
+  urlsToCache = [...urlsToCache, ...(await data.data)];
   console.log(urlsToCache);
 }
 
