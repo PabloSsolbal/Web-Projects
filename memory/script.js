@@ -64,6 +64,33 @@ const audios = [bubble, failure, incorrect, correct, success, popUp, flip];
 
 const userDataTemplate = document.querySelector(".userDataTemplate");
 
+const addToHangmanUnlockedLEvels = (level) => {
+  let levels = JSON.parse(localStorage.getItem("hangmanUnlockedLevels"));
+  levels.push(level);
+  localStorage.setItem("hangmanUnlockedLevels", JSON.stringify(levels));
+};
+
+const addToMemoryUnlockedLevels = (level) => {
+  let levels = JSON.parse(localStorage.getItem("memoryUnlockedLevels"));
+  levels.push(level);
+  localStorage.setItem("memoryUnlockedLevels", JSON.stringify(levels));
+};
+
+const unlockLevel = (element) => {
+  let price = parseInt(element.getAttribute("data-cost"));
+  if (userGatoCoins >= price) {
+    modifyUserData("GatoCoins", -price);
+    element.classList.contains("option")
+      ? hangmanMenu.prepend(updateUserPointsAndCoins())
+      : app.prepend(updateUserPointsAndCoins());
+    element.classList.remove("locked");
+    element.setAttribute("data-cost", "0");
+    element.classList.contains("option")
+      ? addToHangmanUnlockedLEvels(element.textContent)
+      : addToMemoryUnlockedLevels(element.textContent);
+  }
+};
+
 export const updateUserPointsAndCoins = () => {
   let UserPointsAndCoinsContainer = userDataTemplate.content.cloneNode(true);
   UserPointsAndCoinsContainer.querySelector(
@@ -71,7 +98,7 @@ export const updateUserPointsAndCoins = () => {
   ).innerHTML = `<span>Puntos:</span> ${userPoints}`;
   UserPointsAndCoinsContainer.querySelector(
     ".gatoCoins"
-  ).innerHTML = `<span>gatoCoins:</span> ${userGatoCoins}`;
+  ).innerHTML = `<span>GatoCoins:</span> ${userGatoCoins}`;
   document.querySelectorAll(".itemsContainer").forEach((element) => {
     element.parentElement.removeChild(element);
   });
@@ -181,6 +208,47 @@ const changeAudioVolume = (value, button) => {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
+  if (!localStorage.getItem("hangmanUnlockedLevels")) {
+    let levels = [];
+    document.querySelectorAll(".option").forEach((option) => {
+      if (!option.classList.contains("locked")) {
+        levels.push(option.textContent);
+      }
+    });
+    localStorage.setItem("hangmanUnlockedLevels", JSON.stringify(levels));
+  }
+
+  if (!localStorage.getItem("memoryUnlockedLevels")) {
+    let levels = [];
+    document.querySelectorAll(".start").forEach((option) => {
+      if (!option.classList.contains("locked")) {
+        levels.push(option.textContent);
+      }
+    });
+    localStorage.setItem("memoryUnlockedLevels", JSON.stringify(levels));
+  }
+
+  if (localStorage.getItem("hangmanUnlockedLevels")) {
+    let levels = JSON.parse(localStorage.getItem("hangmanUnlockedLevels"));
+    document.querySelectorAll(".option").forEach((option) => {
+      for (let level of levels) {
+        if (option.textContent === level) {
+          option.classList.remove("locked");
+        }
+      }
+    });
+  }
+
+  if (localStorage.getItem("memoryUnlockedLevels")) {
+    let levels = JSON.parse(localStorage.getItem("memoryUnlockedLevels"));
+    document.querySelectorAll(".start").forEach((option) => {
+      for (let level of levels) {
+        if (option.textContent === level) {
+          option.classList.remove("locked");
+        }
+      }
+    });
+  }
   getUserData();
   greetUser();
   if (!localStorage.getItem("keyboard")) {
@@ -214,6 +282,10 @@ document.addEventListener("DOMContentLoaded", () => {
  * @param {MouseEvent} e - The mouse click event object.
  */
 document.addEventListener("click", (e) => {
+  if (e.target.matches(".locked")) {
+    e.preventDefault();
+    unlockLevel(e.target);
+  }
   if (e.target.matches(".Create")) {
     localStorage.setItem("Username", JSON.stringify(signUpInput.value));
     mainMenu.classList.remove("hidden");
@@ -246,9 +318,11 @@ document.addEventListener("click", (e) => {
   }
   // ? Options in the Hangman menu
   if (e.target.matches(".option")) {
-    let category = e.target.textContent;
-    getWord(category.toLowerCase());
-    usedLetter();
+    if (!e.target.classList.contains("locked")) {
+      let category = e.target.textContent;
+      getWord(category.toLowerCase());
+      usedLetter();
+    }
   }
   // ? Return to the main menu
   if (e.target.matches(".home")) {

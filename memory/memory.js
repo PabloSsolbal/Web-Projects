@@ -512,8 +512,10 @@ const starter = () => {
  */
 startBtns.forEach((Btn) => {
   Btn.addEventListener("click", async () => {
-    let category = Btn.textContent;
-    await getCategoryData(category);
+    if (!Btn.classList.contains("locked")) {
+      let category = Btn.textContent;
+      await getCategoryData(category);
+    }
   });
 });
 

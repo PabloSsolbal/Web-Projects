@@ -756,6 +756,13 @@ button:hover {
   display: flex;
 }
 
+.option.locked,
+.start.locked {
+  background: linear-gradient(#747474, #2e2e2e) !important;
+  color: #c2c2c2 !important;
+  box-shadow: 0px 0px 10px 2px #646464 !important;
+}
+
 /* ? Hidden Element */
 .hidden {
   display: none;
