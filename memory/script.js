@@ -16,7 +16,7 @@ if ("serviceWorker" in navigator) {
 }
 
 // ! import the necesary things
-import { getWord, usedLetter, hangmanHigscore, keyBoard } from "./hangman.js";
+import { getWord, usedLetter, hangmanHigscore } from "./hangman.js";
 import { app, mainMenu, hangmanMenu } from "./memory.js";
 
 const configMenu = document.querySelector(".Config");
@@ -26,6 +26,8 @@ const signUpMenu = document.querySelector(".Signup");
 const signUpInput = document.getElementById("Username");
 
 export let username = null;
+export let userPoints = null;
+export let userGatoCoins = null;
 
 // ? flip audio for the cards
 export const flip = new Audio();
@@ -59,6 +61,64 @@ export const failure = new Audio();
 failure.src = "sounds/fail.mp3";
 
 const audios = [bubble, failure, incorrect, correct, success, popUp, flip];
+
+const userDataTemplate = document.querySelector(".userDataTemplate");
+
+export const updateUserPointsAndCoins = () => {
+  let UserPointsAndCoinsContainer = userDataTemplate.content.cloneNode(true);
+  UserPointsAndCoinsContainer.querySelector(
+    ".points"
+  ).innerHTML = `<span>Puntos:</span> ${userPoints}`;
+  UserPointsAndCoinsContainer.querySelector(
+    ".gatoCoins"
+  ).innerHTML = `<span>gatoCoins:</span> ${userGatoCoins}`;
+  document.querySelectorAll(".itemsContainer").forEach((element) => {
+    element.parentElement.removeChild(element);
+  });
+  return UserPointsAndCoinsContainer;
+};
+
+export const modifyUserData = (element, ammount) => {
+  if (element === "Points") {
+    userPoints += ammount;
+    if (userPoints < 0) {
+      userPoints -= ammount;
+      return false;
+    }
+  } else if (element === "GatoCoins") {
+    userGatoCoins += ammount;
+    if (userGatoCoins < 0) {
+      userGatoCoins -= ammount;
+      return false;
+    }
+  }
+
+  localStorage.setItem(
+    "UserData",
+    JSON.stringify({
+      userPoints: userPoints,
+      userGatoCoins: userGatoCoins,
+    })
+  );
+};
+
+export const getUserData = () => {
+  let data = {};
+  if (!localStorage.getItem("UserData")) {
+    localStorage.setItem(
+      "UserData",
+      JSON.stringify({
+        userPoints: 0,
+        userGatoCoins: 0,
+      })
+    );
+  }
+
+  data = JSON.parse(localStorage.getItem("UserData"));
+
+  userPoints = data.userPoints;
+  userGatoCoins = data.userGatoCoins;
+};
 
 const greetUser = () => {
   if (localStorage.getItem("Username")) {
@@ -121,6 +181,7 @@ const changeAudioVolume = (value, button) => {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
+  getUserData();
   greetUser();
   if (!localStorage.getItem("keyboard")) {
     localStorage.setItem(JSON.stringify(true));
@@ -220,11 +281,13 @@ document.addEventListener("click", (e) => {
   if (e.target.matches(".Memory")) {
     mainMenu.classList.add("hidden");
     app.classList.remove("hidden");
+    app.prepend(updateUserPointsAndCoins());
   }
   // ? Start the Hangman game
   if (e.target.matches(".Hangman")) {
     mainMenu.classList.add("hidden");
     hangmanMenu.classList.remove("hidden");
+    hangmanMenu.prepend(updateUserPointsAndCoins());
   }
   // ? Play the bubble sound
   if (e.target.matches("button")) {

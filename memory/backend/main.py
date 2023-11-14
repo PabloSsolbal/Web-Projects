@@ -1,22 +1,19 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from pymongo.mongo_client import MongoClient
-from pymongo.server_api import ServerApi
-from config import MONGO_URL
 from file_manager import *
-# ! import the necesary modules
+from db_manager import *
+from config import get_allowed_origins, description
+
 # * FastAPI
 # * PyMongo
 # * random
 # * unidecode
 
 # ? Start the app with FastAPI
-app = FastAPI()
+app = FastAPI(title="MiniGameBox API", description=description,
+              summary="API for MiniGameBox.", version="0.0.12")
 
-#  ? Connect to the database with the mongoClient
-client = MongoClient(MONGO_URL, server_api=ServerApi('1'))
-
-origins = ["*"]
+origins = get_allowed_origins()
 
 app.add_middleware(
     CORSMiddleware,
@@ -27,86 +24,102 @@ app.add_middleware(
 )
 
 
-@app.get("/memory/{category}")
-async def get_category(category: str):
-    """
-    ? Retrieve data for a specific category.
-
-    * This route allows you to fetch data associated with a specific category
-    * from the database. It searches for the category in the database and
-    * returns its name and associated data if found.
-
-    * Args:
-        * category (str): The name of the category to retrieve.
-
-    * Returns:
-        * dict: A dictionary containing the name and data of the category.
-              * If the category is not found, an error message is returned.
-
-    * Raises:
-        ! Exception: If there's an issue with the database query or the server.
-
-    ? Example:
-        * To retrieve data for the "example_category" category, make a GET request to:
-        * /category/example_category
-    """
-
-    try:
-
-        for category in client.Categorys.Categories.find({"name": category}):
-            return {"name": category["name"], "data": category["data"]}
-
-    except Exception as e:
-        return {"error": str(e)}
+@app.get("/memory", tags=["Memory"])
+def memory():
+    return get_all()
 
 
-@app.post("/memory")
-def add_category(data: dict):
-    client.Categorys.Categories.insert_one(data)
-    return {"message": "Category added successfully."}
+@app.get("/memory/{category}", tags=["Memory"])
+def memory(category: str, number: int = 14):
+    return get_category(category, number)
 
 
-@app.get("/word/all/{category}")
-def get_all(category: str):
-    return get_all_words(category)
+@app.get("/memory/data/{category}", tags=["Memory"])
+def memory(category: str):
+    return get_only_data(category)
 
 
-@app.get("/word/random")
-def get_random_word():
+@app.post("/memory", tags=["Memory"])
+def memory(data: Category):
+    return add_category(data)
+
+
+@app.post("/memory/{category}", tags=["Memory"])
+def memory(category: str, data: Data):
+    return insert_data(category, data)
+
+
+@app.put("/memory/{category}", tags=["Memory"])
+def memory(category: str, data: Data):
+    return modify_data(category, data)
+
+
+@app.delete("/memory/one/{category}", tags=["Memory"])
+def memory(category: str, name: str):
+    print("si")
+    return delete_from_category(category, name)
+
+
+@app.delete("/memory/all/{category}", tags=["Memory"])
+def memory(category: str):
+    return delete_category(category)
+
+
+@app.get("/hangman", tags=["Hangman"])
+def hangman():
+    return all()
+
+
+@app.get("/hangman/categories", tags=["Hangman"])
+def hangman():
+    return get_category_names()
+
+
+@app.get("/hangman/random", tags=["Hangman"])
+def hangman():
     return get_words_random()
 
 
-@app.get("/word/challenge")
-def get_random_word_challenge():
+@app.get("/hangman/challenge", tags=["Hangman"])
+def hangman():
     return get_words_challenge()
 
 
-@app.get("/word/{category}")
-def get_word(category: str):
-    """
-        ? Retrieves a word from a specified category for a word guessing game.
-
-        Args:
-            * category (str): The category of words to choose from, used as a parameter in the route.
-
-        Returns:
-            * dict: A dictionary containing the following information:
-                * - 'word' (list): The selected word, represented as a list of characters.
-                * - 'hidden' (list): A list of underscores representing the hidden letters in the word.
-                * - 'attempts' (int): The number of attempts allowed for guessing the word.
-
-        Example:
-            * Assuming the category "animals" contains the word "elephant":
-            * GET request to "/get_word/animals" returns:
-            {
-                'word': ['e', 'l', 'e', 'p', 'h', 'a', 'n', 't'],
-                'hidden': ['_', '_', '_', '_', '_', '_', '_', '_'],
-                'attempts': 7
-            }
-    """
+@app.get("/hangman/{category}", tags=["Hangman"])
+def hangman(category: str):
     return word_selector(category)
 
 
-@app.post("/word/{category}")
-def new_word(category: str, word: str):
+@app.get("/hangman/all/{category}", tags=["Hangman"])
+def hangman(category: str):
+    return get_all_words(category)
+
+
+@app.post("/hangman/create/{category}", tags=["Hangman"])
+def hangman(category: str):
+    return create_category(category)
+
+
+@app.post("/hangman/add/{category}", tags=["Hangman"])
+def hangman(category: str, words: dict):
+    return add_words(category, words["words"])
+
+
+@app.post("/hangman/{category}", tags=["Hangman"])
+def hangman(category: str, word: str):
     return add_word(word, category)
+
+
+@app.put("/hangman/{category}", tags=["Hangman"])
+def hangman(category: str, old_word: str, new_word: str):
+    return update_word(category, old_word, new_word)
+
+
+@app.delete("/hangman/{category}", tags=["Hangman"])
+def hangman(category: str):
+    return delete_hangman_category(category)
+
+
+@app.delete("/hangman/delete/{category}", tags=["Hangman"])
+def hangman(category: str, word: str):
+    return delete_hangman_word(category, word)

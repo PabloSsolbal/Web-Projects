@@ -723,6 +723,39 @@ button:hover {
   outline-color: #ff0040;
 }
 
+.itemsContainer {
+  margin-top: 5px;
+  width: 80%;
+  border-radius: 15px;
+  background-color: #ffffff69;
+  box-shadow: 0px 0px 10px 3px #00000048;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.itemsContainer p {
+  font-size: 1.1em;
+  font-weight: bold;
+}
+
+.points span {
+  color: #0099ff;
+}
+
+.gatoCoins span {
+  color: #ff4800;
+}
+
+.app .itemsContainer {
+  display: none;
+}
+
+.app.before .itemsContainer {
+  display: flex;
+}
+
 /* ? Hidden Element */
 .hidden {
   display: none;

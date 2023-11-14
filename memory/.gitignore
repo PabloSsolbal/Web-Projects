@@ -4,4 +4,6 @@ backend/venv
 backend/config.py
 backend/requirements.txt
 backend/Spacefile
+backend/test.py
+backend/users.py
 config.js

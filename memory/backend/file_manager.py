@@ -13,25 +13,20 @@ def hangmand_data_creator(word):
     return {'word': word, 'hidden': hidden, 'attemps': 6 if attemps < 6 else attemps}
 
 
+def all():
+    all_data = {}
+    categories = os.listdir('archives')
+    for category in categories:
+        all_words = []
+        with open(f"archives/{category}", "r", encoding="utf-8") as f:
+            words = f.read().splitlines()
+            words = [word.replace("\n", "") for word in words]
+            all_words = [word.lower() for word in words]
+        all_data[category.replace(".txt", "")] = all_words
+    return all_data
+
+
 def word_selector(category):
-    """
-        ? Selects a random word from a category-specific text file and prepares a hidden version of it for a word guessing game.
-
-        Args:
-            * category (str): The category of words to choose from, corresponds to the name of the text file (without extension).
-
-        Returns:
-            * tuple: A tuple containing two elements:
-                - The selected word in lowercase.
-                - A list of underscores representing the hidden letters in the word.
-
-        Example:
-            >>> word, hidden = word_selector("animals")
-            >>> word
-            'elephant'
-            >>> hidden
-            ['_', '_', '_', '_', '_', '_', '_', '_']
-    """
     with open(f'archives/{category}.txt', 'r', encoding='utf-8') as f:
         words = f.read().splitlines()
         word = random.choice(words)
@@ -56,10 +51,11 @@ def get_words_challenge():
 
 def add_word(word, category):
     try:
-        with open(f"archives/{category}.txt", "r+") as file:
+        with open(f"archives/{category}.txt", "r+", encoding="utf-8") as file:
             file_data = file.read()
             if word not in file_data:
-                file.write(f"\n{word}")
+                file.write(f"\n{word}") if file_data.splitlines(
+                ) != [] else file.write(f"{word}")
                 file.close()
                 return {"message": "word added"}
             else:
@@ -73,4 +69,61 @@ def get_all_words(category):
         words = f.read().splitlines()
         words = sorted(set([unidecode.unidecode(word).lower()
                        for word in words]))
-        return [hangmand_data_creator(word) for word in words]
+        words = [hangmand_data_creator(word) for word in words]
+        if category == "challenge":
+            for word in words:
+                word["attemps"] = 6
+        return words
+
+
+def get_category_names():
+    categories = os.listdir('archives')
+    return [category.replace(".txt", "") for category in categories]
+
+
+def delete_hangman_category(category: str):
+    try:
+        os.remove(f"archives/{category}.txt")
+        return {"message": "category deleted"}
+    except:
+        return {"message": "something went wrong"}
+
+
+def create_category(category: str):
+    if category not in [category.replace(".txt", "") for category in os.listdir("archives")]:
+        try:
+            with open(os.path.join("archives/", f"{category}.txt"), "w", encoding="utf-8"):
+                pass
+            return {"message": "category created"}
+        except:
+            return {"message": "something went wrong"}
+
+
+def add_words(category: str, words: list):
+    for word in words:
+        add_word(word, category)
+    return {"message": "words added"}
+
+
+def update_word(category: str, old_word: str, new_word: str):
+    with open(f"archives/{category}.txt", "r+", encoding="utf-8") as file:
+        words = file.read().splitlines()
+        for word in words:
+            if word == old_word:
+                words[words.index(word)] = new_word
+        file.truncate(0)
+        file.close()
+    add_words(category, words)
+    return {"message": "word updated"}
+
+
+def delete_hangman_word(category: str, word: str):
+    with open(f"archives/{category}.txt", "r+", encoding="utf-8") as file:
+        words = file.read().splitlines()
+        for w in words:
+            if w == word:
+                del words[words.index(w)]
+        file.truncate(0)
+        file.close()
+    add_words(category, words)
+    return {"message": "word deleted"}

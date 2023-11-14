@@ -11,3 +11,6 @@ memory/backend/venv
 memory/backend/config.py
 memory/backend/requirements.txt
 memory/backend/Spacefile
+memory/backend/test.py
+memory/backend/users.py
+memory/config.js

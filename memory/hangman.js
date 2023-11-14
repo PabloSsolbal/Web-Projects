@@ -14,12 +14,13 @@
  * * These imports are used to access various elements and sound effects needed for the Hangman game.
  */
 import {
-  popUp,
   success,
   correct,
   incorrect,
   failure,
   UpdateStrike,
+  modifyUserData,
+  updateUserPointsAndCoins,
 } from "./script.js";
 
 import { hangmanMenu } from "./memory.js";
@@ -124,7 +125,6 @@ const updateAttemps = () => {
  */
 
 const updateWord = () => {
-  console.log(hidden);
   wordContainer.textContent = hidden.join(" ");
 };
 
@@ -237,9 +237,12 @@ const checkLetter = (letter) => {
       StrikeCounterAdd();
       SaveStrike();
       UpdateStrike();
+      modifyUserData("Points", Math.max(5 + attempsCounter * 2, 0));
+      modifyUserData("GatoCoins", Math.max(10 + attempsCounter * 2, 0));
       setTimeout(() => {
         hangmanApp.classList.add("hidden");
         hangmanMenu.classList.remove("hidden");
+        hangmanMenu.prepend(updateUserPointsAndCoins());
       }, 1250);
     }
   } else {
@@ -344,8 +347,7 @@ document.addEventListener("click", (e) => {
     }
 
     if (l == "⏎") {
-      checkLetter(letterInput.value);
-      letterInput.value = "";
+      document.querySelector(".check").click();
     } else if (l == "↩") {
       let actualWord = letterInput.value;
       console.log(actualWord);

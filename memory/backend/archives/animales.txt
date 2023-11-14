@@ -70,7 +70,6 @@ Calamar
 Gorgojo
 Pangolín
 Chita
-Nutria
 Faisán
 Jicotea
 Víbora
@@ -81,18 +80,15 @@ Cocuyo
 Róbalo
 Cabra
 Lémur
-Gorgojo
 Arce
 Salmón
-Delfín
 Caimán
 Pececillo
 Aguilucho
 Bisonte
 Gorgona
-Pez espada
+pezespada
 Tarántula
 Canario
 Lincesa
-Doncella
-Anguila
+Anguilas

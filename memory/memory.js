@@ -16,7 +16,15 @@
 
 // ? get the memory elements
 
-import { correct, flip, popUp, success, incorrect } from "./script.js";
+import {
+  correct,
+  flip,
+  popUp,
+  success,
+  incorrect,
+  modifyUserData,
+  updateUserPointsAndCoins,
+} from "./script.js";
 
 import { urls } from "./config.js";
 /**
@@ -106,7 +114,7 @@ const getCardTheme = () => {
  */
 const getCategoryData = async (CategoryName) => {
   try {
-    const response = await fetch(url + CategoryName);
+    const response = await fetch(url + CategoryName + "?number=10");
     const data = await response.json();
 
     modalElements = {};
@@ -309,6 +317,8 @@ const checkHighScore = (minutes, seconds, moves) => {
 
 // ? Win Function
 const Win = () => {
+  modifyUserData("Points", Math.max(50 - moveCount, 0));
+  modifyUserData("GatoCoins", Math.max(70 - moveCount * 2, 0));
   setTimeout(() => {
     let fseconds = seconds < 10 ? `0${seconds}` : seconds;
     let fminutes = minutes < 10 ? `0${minutes}` : minutes;
@@ -319,6 +329,7 @@ const Win = () => {
       result.classList.add("hidden");
       resultText.classList.add("hidden");
     }
+    app.prepend(updateUserPointsAndCoins());
   }, 1500);
 };
 
