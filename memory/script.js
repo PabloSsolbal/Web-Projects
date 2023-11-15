@@ -95,7 +95,7 @@ export const updateUserPointsAndCoins = () => {
   let UserPointsAndCoinsContainer = userDataTemplate.content.cloneNode(true);
   UserPointsAndCoinsContainer.querySelector(
     ".points"
-  ).innerHTML = `<span>Puntos:</span> ${userPoints}`;
+  ).innerHTML = `<span>Pts:</span> ${userPoints}`;
   UserPointsAndCoinsContainer.querySelector(
     ".gatoCoins"
   ).innerHTML = `<span>GatoCoins:</span> ${userGatoCoins}`;
