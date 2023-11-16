@@ -1,8 +1,14 @@
 import random
 from config import get_client
 from pydantic import BaseModel
+from pymongo import DESCENDING
 
 client = get_client()
+
+
+class User(BaseModel):
+    name: str
+    points: int
 
 
 class Data(BaseModel):
@@ -13,6 +19,35 @@ class Data(BaseModel):
 class Category(BaseModel):
     name: str
     data: dict
+
+
+def search_user(name: str):
+    user = client.Users.Users.find_one({"name": name}, {"_id": False})
+    user = {"name": user["name"], "points": user["points"]
+            } if user is not None else None
+    return user
+
+
+def create_user(user: User):
+    user = user.model_dump()
+    print(user)
+    if search_user(user["name"]) is not None:
+        return {"message": "user already exists"}
+    client.Users.Users.insert_one(user)
+    return {"message": "success"}
+
+
+def add_points(name: str, points: int):
+    client.Users.Users.find_one_and_update(
+        {"name": name}, {"$inc": {"points": points}})
+    return {"message": "success"}
+
+
+def get_top_users():
+    users = client.Users.Users.find().sort("points", DESCENDING).limit(10)
+    users = [{"name": user["name"], "points": user["points"]}
+             for user in users]
+    return users
 
 
 def get_random(data, number):

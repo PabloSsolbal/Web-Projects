@@ -1,8 +1,9 @@
 import os
+import sys
 import json
 
 
-def main():
+def generate_element_JSON():
     """
         ? Generate Elements JSON File
 
@@ -15,7 +16,7 @@ def main():
             * - The resulting "elements.json" file is created, containing the data necessary for chache the assets.
 
         Note:
-            ! - Ensure that this script is executed in the auto directory, outsite the "images," "imgs," and "sounds" directories are located.
+            * - Ensure that this script is executed in the auto directory, outsite the "images," "imgs," and "sounds" directories are located.
     """
     script_dir = os.path.dirname(os.path.abspath(__file__))
     carpetas = ["images", "imgs", "sounds"]
@@ -33,6 +34,37 @@ def main():
     with open("elements.json", "w") as f:
         json.dump({"data": elements}, f)
         f.close()
+
+
+def generate_links_JSON():
+    elements = []
+    with open("links.txt", "r+", encoding="utf-8") as f:
+        links = f.read().splitlines()
+        elements = [link for link in links]
+        f.close()
+    with open("links.json", "w+", encoding="utf-8") as f:
+        json.dump({"links": elements}, f, ensure_ascii=False)
+        f.close()
+
+
+def main():
+    while True:
+        print("elements - generate the elements JSON")
+        print("links - generate the links JSON")
+        print("exit - exit program")
+        opc = input("Enter an option: ")
+        match opc:
+            case "elements":
+                generate_element_JSON()
+                continue
+            case "links":
+                generate_links_JSON()
+                continue
+            case "exit":
+                sys.exit()
+            case default:
+                print("command not valid")
+                continue
 
 
 if __name__ == "__main__":

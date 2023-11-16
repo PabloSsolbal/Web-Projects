@@ -18,12 +18,14 @@ if ("serviceWorker" in navigator) {
 // ! import the necesary things
 import { getWord, usedLetter, hangmanHigscore } from "./hangman.js";
 import { app, mainMenu, hangmanMenu } from "./memory.js";
+import { urls } from "./config.js";
 
 const configMenu = document.querySelector(".Config");
 const colorsMenu = document.querySelector(".colorsOptionContainer");
 export const body = document.querySelector("body");
 const signUpMenu = document.querySelector(".Signup");
 const signUpInput = document.getElementById("Username");
+const notification = document.querySelector(".Notification");
 
 export let username = null;
 export let userPoints = null;
@@ -64,6 +66,95 @@ const audios = [bubble, failure, incorrect, correct, success, popUp, flip];
 
 const userDataTemplate = document.querySelector(".userDataTemplate");
 
+const creditsContainer = document.querySelector(".credits");
+const linksContainer = document.querySelector(".links");
+
+const topUsersContainer = document.querySelector(".Users");
+
+const createUsers = (users) => {
+  topUsersContainer.innerHTML = "";
+  let userFragment = document.createDocumentFragment();
+  let i = 1;
+  for (let user of users) {
+    const userdiv = document.createElement("div");
+    userdiv.classList.add("user");
+    userdiv.textContent = `${i} - ${user.name} - pts: ${user.points}`;
+    userFragment.appendChild(userdiv);
+    i++;
+  }
+  topUsersContainer.appendChild(userFragment);
+};
+
+const getUsers = async () => {
+  let response = await fetch(urls.usersTop);
+  let users = await response.json();
+  createUsers(await users);
+};
+
+const createUser = async () => {
+  const data = {
+    name: signUpInput.value,
+    points: 0,
+  };
+  const options = {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  };
+  let response = await fetch(`${urls.createUser}`, options);
+  let message = await response.json();
+  if (message.message !== "success") {
+    showNotification("Este usuario ya existe");
+    return;
+  }
+  console.log(message);
+  localStorage.setItem("Username", JSON.stringify(signUpInput.value));
+  mainMenu.classList.remove("hidden");
+  signUpMenu.classList.add("hidden");
+  greetUser();
+};
+
+const addPointsRemote = async (name, points) => {
+  let options = {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  let response = await fetch(
+    `${urls.addPoints}?name=${name}&points=${points}`,
+    options
+  );
+  let data = await response.json();
+  console.log(data);
+};
+
+const createLinks = (links) => {
+  for (let link of links) {
+    linksContainer.innerHTML += link;
+  }
+};
+
+const getLinks = async () => {
+  let response = await fetch("./auto/links.json");
+  let links = await response.json();
+  links = links.links;
+  console.log(links);
+  createLinks(await links);
+};
+getLinks();
+
+export const showNotification = (message) => {
+  notification.querySelector(".notificationMessage").textContent = message;
+  notification.classList.add("Display");
+  setTimeout(() => {
+    notification.classList.remove("Display");
+  }, 3000);
+};
+
 const addToHangmanUnlockedLEvels = (level) => {
   let levels = JSON.parse(localStorage.getItem("hangmanUnlockedLevels"));
   levels.push(level);
@@ -88,6 +179,7 @@ const unlockLevel = (element) => {
     element.classList.contains("option")
       ? addToHangmanUnlockedLEvels(element.textContent)
       : addToMemoryUnlockedLevels(element.textContent);
+    showNotification(`Has desbloqueado el nivel ${element.textContent}`);
   }
 };
 
@@ -112,6 +204,7 @@ export const modifyUserData = (element, ammount) => {
       userPoints -= ammount;
       return false;
     }
+    addPointsRemote(username, ammount);
   } else if (element === "GatoCoins") {
     userGatoCoins += ammount;
     if (userGatoCoins < 0) {
@@ -251,11 +344,12 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   getUserData();
   greetUser();
+  mainMenu.prepend(updateUserPointsAndCoins());
   if (!localStorage.getItem("keyboard")) {
     localStorage.setItem(JSON.stringify(true));
   }
   document.querySelector(".keyboardOption").textContent =
-    JSON.parse(localStorage.getItem("keyboard")) == true
+    JSON.parse(localStorage.getItem("keyboard")) === true
       ? "Desactivar"
       : "Activar";
   if (!localStorage.getItem("HangmanStrike")) {
@@ -267,7 +361,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelector(".soundOption")
   );
   let animationButton = document.querySelector(".animationOption");
-  if (localStorage.getItem("Animations") == "true") {
+  if (localStorage.getItem("Animations") === "true") {
     toggleAnimations("Activar", animationButton);
   } else {
     toggleAnimations("Desactivar", animationButton);
@@ -282,15 +376,25 @@ document.addEventListener("DOMContentLoaded", () => {
  * @param {MouseEvent} e - The mouse click event object.
  */
 document.addEventListener("click", (e) => {
+  if (e.target.matches(".Top")) {
+    getUsers();
+    mainMenu.classList.add("hidden");
+    document.querySelector(".TopUsers").classList.remove("hidden");
+  }
+  if (e.target.matches(".github") || e.target.matches(".portfolio")) {
+    let url = e.target.getAttribute("href");
+    window.open(url, "_blank");
+  }
+  if (e.target.matches(".Credits")) {
+    creditsContainer.classList.remove("hidden");
+    mainMenu.classList.add("hidden");
+  }
   if (e.target.matches(".locked")) {
     e.preventDefault();
     unlockLevel(e.target);
   }
   if (e.target.matches(".Create")) {
-    localStorage.setItem("Username", JSON.stringify(signUpInput.value));
-    mainMenu.classList.remove("hidden");
-    signUpMenu.classList.add("hidden");
-    greetUser();
+    createUser();
   }
 
   if (e.target.matches(".keyboardOption")) {
@@ -329,6 +433,9 @@ document.addEventListener("click", (e) => {
     app.classList.add("hidden");
     mainMenu.classList.remove("hidden");
     configMenu.classList.add("hidden");
+    creditsContainer.classList.add("hidden");
+    mainMenu.prepend(updateUserPointsAndCoins());
+    document.querySelector(".TopUsers").classList.add("hidden");
   }
   if (e.target.matches(".config")) {
     mainMenu.classList.add("hidden");

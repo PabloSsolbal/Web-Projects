@@ -22,9 +22,14 @@
     <title>MiniGameBox</title>
     <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/b466eb05ed.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
+    <section class="Notification">
+        <img src="./images/notification.png" alt="" class="notificationImg">
+        <p class="notificationMessage">Tienes una notificacion!</p>
+    </section>
     <!-- ? Lose modal for the Hangman game -->
     <section class="lose-modal glow hidden">
         <div class="modal-card">
@@ -63,9 +68,18 @@
         <button class="Hangman">Ahorcado</button>
         <p>Quieres cambiar la configuracion?</p>
         <button class="config">Config</button>
+        <button class="Credits">Creditos</button>
+        <button class="Top">Top Users</button>
     </section>
 
-    <section class="Signup hidden">
+    <section class="TopUsers hidden">
+        <p>Top Players</p>
+        <hr>
+        <div class="Users"></div>
+        <button class="home">Home</button>
+    </section>
+
+    <section class="Signup hidden glow">
         <label for="#Username">
             <p>Elige un nombre de usuario:</p>
         </label>
@@ -204,10 +218,15 @@
         </div>
     </main>
 
-    <!-- ? Attribution -->
-    <a href="https://www.flaticon.es/autores/freepik" title="human emotions icons">Icons created by Freepik -
-        Flaticon</a>
-    <a href="https://github.com/PabloSsolbal">Created by Pablo Solbal</a>
+    <section class="credits hidden glow">
+        <div><span>App Created By Pablo Solbal</span></div>
+        <p>Credits: </p>
+        <div class="links"></div>
+        <button class="github" href="https://github.com/PabloSsolbal">GitHub <i class="fa-brands fa-github"
+                style="color: #ffffff;"></i></button>
+        <button class="portfolio" href="https://pabloss.netlify.app">PabloSsolbal</button>
+        <button class="home">Home</button>
+    </section>
 
     <script src="script.js" type="module"></script>
 </body>

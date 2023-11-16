@@ -21,6 +21,7 @@ import {
   UpdateStrike,
   modifyUserData,
   updateUserPointsAndCoins,
+  showNotification,
 } from "./script.js";
 
 import { hangmanMenu } from "./memory.js";
@@ -171,7 +172,7 @@ const createHangman = (data) => {
   maxAttemps = data.attemps;
   attempsCounter = data.attemps;
 
-  if (JSON.parse(localStorage.getItem("keyboard")) == true) {
+  if (JSON.parse(localStorage.getItem("keyboard")) === true) {
     keyboardContainer.innerHTML = ``;
     keyBoard();
   } else {
@@ -237,12 +238,15 @@ const checkLetter = (letter) => {
       StrikeCounterAdd();
       SaveStrike();
       UpdateStrike();
-      modifyUserData("Points", Math.max(5 + attempsCounter * 2, 0));
-      modifyUserData("GatoCoins", Math.max(10 + attempsCounter * 2, 0));
+      modifyUserData("Points", Math.max(10 + attempsCounter * 2, 0));
+      modifyUserData("GatoCoins", Math.max(20 + attempsCounter * 2, 0));
       setTimeout(() => {
         hangmanApp.classList.add("hidden");
         hangmanMenu.classList.remove("hidden");
         hangmanMenu.prepend(updateUserPointsAndCoins());
+        showNotification(
+          `Ganaste ${Math.max(20 + attempsCounter * 2, 0)} Gatocoins`
+        );
       }, 1250);
     }
   } else {

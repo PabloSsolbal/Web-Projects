@@ -24,6 +24,7 @@ import {
   incorrect,
   modifyUserData,
   updateUserPointsAndCoins,
+  showNotification,
 } from "./script.js";
 
 import { urls } from "./config.js";
@@ -330,6 +331,7 @@ const Win = () => {
       resultText.classList.add("hidden");
     }
     app.prepend(updateUserPointsAndCoins());
+    showNotification(`Ganaste ${Math.max(70 - moveCount * 2, 0)} Gatocoins`);
   }, 1500);
 };
 
@@ -470,6 +472,8 @@ const stop = () => {
     result.classList.add("hidden");
     resultText.classList.add("hidden");
   }
+
+  window.scrollTo(0, 0);
 };
 
 // ? starter function

@@ -123,3 +123,23 @@ def hangman(category: str):
 @app.delete("/hangman/delete/{category}", tags=["Hangman"])
 def hangman(category: str, word: str):
     return delete_hangman_word(category, word)
+
+
+@app.get("/users/top", tags=["Users"])
+def users():
+    return get_top_users()
+
+
+@app.get("/users/{name}", tags=["Users"])
+def users(name: str):
+    return search_user(name)
+
+
+@app.post("/users/add", tags=["Users"])
+def users(user: User):
+    return create_user(user)
+
+
+@app.put("/users/addpoints", tags=["Users"])
+def users(name: str, points: int):
+    return add_points(name, points)

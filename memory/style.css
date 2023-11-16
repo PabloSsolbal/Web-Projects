@@ -99,12 +99,13 @@ button {
 
 a {
   all: unset;
-  color: #ff0040;
-  font-size: 12px;
-  font-weight: bolder;
+  color: #1d1d1d;
+  font-size: 13px;
+  font-weight: bold;
   padding-left: 5px;
   cursor: pointer;
   margin-top: 5px;
+  text-shadow: 0px 2px 2px #00000028;
 }
 
 img {
@@ -154,7 +155,9 @@ button:hover {
 .hangman-app,
 .Config,
 .colorsOptionContainer,
-.Signup {
+.Signup,
+.credits,
+.TopUsers {
   width: 80%;
   height: 95%;
   display: flex;
@@ -394,7 +397,11 @@ button:hover {
 .neonOption,
 .closeColorsMenu,
 .Create,
-.keyboardOption {
+.keyboardOption,
+.github,
+.portfolio,
+.Credits,
+.Top {
   width: 115px;
   border-radius: 10px;
   border: 2px solid #ffffff;
@@ -425,7 +432,8 @@ button:hover {
 .Hangman,
 #continue,
 #Close-hangman-modal,
-#stop {
+#stop,
+.portfolio {
   background: linear-gradient(#50ffc5, #00ff73);
   box-shadow: var(--aqua-glow);
 }
@@ -443,7 +451,8 @@ button:hover {
 .start:nth-child(4),
 .animationOption,
 .option:nth-child(7),
-.option:nth-child(11) {
+.option:nth-child(11),
+.Credits {
   background: linear-gradient(#ffa600, #ff4800);
   box-shadow: var(--orange-glow);
 }
@@ -459,7 +468,8 @@ button:hover {
 .start:nth-child(6),
 .option:nth-child(5),
 .option:nth-child(12),
-.hangman-stop {
+.hangman-stop,
+.Top {
   background: linear-gradient(#ff5454, #fa0000);
   box-shadow: var(--red-glow);
 }
@@ -506,7 +516,8 @@ button:hover {
 }
 
 .configOption:nth-child(13),
-.card-reverse.Night {
+.card-reverse.Night,
+.github {
   background: linear-gradient(#0004ff, #47d4ff);
   box-shadow: var(--dark-blue-glow);
 }
@@ -515,6 +526,16 @@ button:hover {
 .card-reverse.Sunny {
   background: linear-gradient(#80ffd9, #ffd900);
   box-shadow: var(--sunny-glow);
+}
+
+.github {
+  background: linear-gradient(#000, #727272);
+  box-shadow: 0px 0px 10px 2px #646464;
+}
+
+.portfolio {
+  background: linear-gradient(#c9c9c9, #4e4e4e);
+  box-shadow: 0px 0px 10px 2px #646464;
 }
 
 .letter-checker {
@@ -777,6 +798,122 @@ button:hover {
   margin: 2px;
 }
 
+.Notification {
+  display: none;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 90%;
+  position: absolute;
+  top: 0;
+  margin: 10px auto 0;
+  outline: 5px solid #ffffff;
+  border-radius: 15px;
+  box-shadow: 0px 0px 10px 5px #0000008a;
+  background-color: #ffffff70;
+  justify-self: start;
+  z-index: 10000;
+  margin-top: -100%;
+}
+
+.Notification.Display {
+  display: flex;
+  margin-top: 10px;
+  animation: pullDown 1s ease-in;
+}
+
+.Notification .notificationImg {
+  width: 3em;
+  height: 3em;
+}
+
+@keyframes pullDown {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.credits {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  overflow: hidden;
+  height: 75vh;
+  height: fit-content;
+  width: 90%;
+}
+
+.credits > * {
+  margin: 5px;
+}
+
+.links {
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow-y: scroll;
+  text-wrap: wrap;
+  word-wrap: break-word;
+  scroll-behavior: smooth;
+}
+
+.TopUsers {
+  height: fit-content;
+  text-align: center;
+}
+
+.Users {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.user {
+  display: flex;
+  align-items: space-evenly;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 10px;
+  width: 80%;
+  text-align: center;
+  outline: 3px solid #ffffff;
+  border-radius: 15px;
+  box-shadow: 0px 0px 10px 3px #0000008a;
+  background-color: #ffffff70;
+}
+
+.user:nth-child(1) {
+  color: #fff;
+  outline-color: #ffee00;
+  background: linear-gradient(#ffd859, #ff9100);
+  box-shadow: var(--orange-b-glow);
+}
+
+.user:nth-child(2) {
+  color: #fff;
+  outline-color: #9cf0ff;
+  background: linear-gradient(#00d9ff, #6ba6ff);
+  box-shadow: var(--blue-glow);
+}
+
+.user:nth-child(3) {
+  color: #fff;
+  outline-color: #94ffdb;
+  background: linear-gradient(#50ffc5, #00ff73);
+  box-shadow: var(--aqua-glow);
+}
 /* ? Hidden Element */
 .hidden {
   display: none;
@@ -812,7 +949,8 @@ button:hover {
   .app,
   .main-menu,
   .hangman-menu,
-  .Signup {
+  .Signup,
+  .TopUsers {
     width: 85%;
     height: 85vh;
   }
@@ -821,7 +959,8 @@ button:hover {
   .hangman-menu {
     width: 85%;
   }
-  .Signup {
+  .Signup,
+  .credits {
     height: fit-content;
   }
   .card {
@@ -899,5 +1038,9 @@ button:hover {
   .OptionContainer,
   .categoriesContainer {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .TopUsers {
+    height: fit-content;
   }
 }
