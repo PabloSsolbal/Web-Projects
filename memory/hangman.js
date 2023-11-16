@@ -45,6 +45,7 @@ const hangmanPic = document.querySelector(".hangman-pic");
 export const hangmanHigscore = document.querySelector(".hangman-highscore");
 export const hangmanResults = document.querySelector(".hangman-results");
 const keyboardContainer = document.querySelector(".keyBoard");
+const optionBtns = document.querySelectorAll(".option");
 
 // ? The base URL for fetching Hangman words.
 let hangmanurl = urls.HangmanWord;
@@ -415,4 +416,14 @@ document.addEventListener("keyup", (e) => {
       checkLetter(letter);
     }
   }
+});
+
+optionBtns.forEach((btn) => {
+  btn.addEventListener("click", async () => {
+    if (!btn.classList.contains("locked")) {
+      let category = btn.textContent;
+      await getWord(category.toLowerCase());
+      usedLetter();
+    }
+  });
 });

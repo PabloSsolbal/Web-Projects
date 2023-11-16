@@ -8,7 +8,9 @@ client = get_client()
 
 class User(BaseModel):
     name: str
+    email: str
     points: int
+    coins: int
 
 
 class Data(BaseModel):
@@ -21,18 +23,40 @@ class Category(BaseModel):
     data: dict
 
 
-def search_user(name: str):
+def delete_user(data: dict):
+    try:
+        client.Users.Users.find_one_and_delete(
+            {"$and": [{"name": data["name"]}, {"email": data["email"]}]})
+        return {"message": "success"}
+    except:
+        return {"message": "user don't exist"}
+
+
+def get_user(name: str):
     user = client.Users.Users.find_one({"name": name}, {"_id": False})
-    user = {"name": user["name"], "points": user["points"]
-            } if user is not None else None
+    return {"name": user["name"], "points": user["points"], "coins": user["coins"], "levels": user["levels"]} if user is not None else None
+
+
+def log_in_user(data: dict):
+    user = client.Users.Users.find_one(
+        {"$and": [{"name": data["name"]}, {"email": data["email"]}]}, {"_id": False})
+    return {"message": "success"} if user is not None else {"message": "User don't exist"}
+
+
+def search_user(name: str, email: str):
+    user = client.Users.Users.find_one(
+        {"$or": [{"name": name}, {"email": email}]}, {"_id": False})
+    return {"name": user["name"], "points": user["points"], "coins": user["coins"], "levels": user["levels"]} if user is not None else None
     return user
 
 
 def create_user(user: User):
     user = user.model_dump()
-    print(user)
-    if search_user(user["name"]) is not None:
+    if search_user(user["name"], user["email"]) is not None:
         return {"message": "user already exists"}
+    user["levels"] = dict()
+    user["levels"]["memory"] = ["Emociones", "Comidas", "Colores", "Animales"]
+    user["levels"]["hangman"] = ["Animales", "Ciencia", "Comics", "Comidas"]
     client.Users.Users.insert_one(user)
     return {"message": "success"}
 
@@ -40,6 +64,19 @@ def create_user(user: User):
 def add_points(name: str, points: int):
     client.Users.Users.find_one_and_update(
         {"name": name}, {"$inc": {"points": points}})
+    return {"message": "success"}
+
+
+def add_coins(name: str, coins: str):
+    client.Users.Users.find_one_and_update(
+        {"name": name}, {"$inc": {"coins": coins}}
+    )
+    return {"message": "success"}
+
+
+def unlock_level(name: str, game: str, level: str):
+    client.Users.Users.find_one_and_update(
+        {"name": name}, {"$push": {f"levels.{game}": level}})
     return {"message": "success"}
 
 

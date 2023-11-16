@@ -157,7 +157,8 @@ button:hover {
 .colorsOptionContainer,
 .Signup,
 .credits,
-.TopUsers {
+.TopUsers,
+.QuestionModal {
   width: 80%;
   height: 95%;
   display: flex;
@@ -176,7 +177,11 @@ button:hover {
   justify-content: space-evenly;
 }
 
-.Config > * {
+.Config:first-child {
+  margin: 5px;
+}
+
+.Config .home {
   margin: 5px;
 }
 
@@ -192,7 +197,8 @@ button:hover {
 .app.before,
 .main-menu,
 .hangman-menu,
-.Signup {
+.Signup,
+.QuestionModal {
   height: fit-content;
   width: 600px;
   margin: 0 auto;
@@ -401,7 +407,12 @@ button:hover {
 .github,
 .portfolio,
 .Credits,
-.Top {
+.Top,
+.Login,
+.Logout,
+.Delete,
+.Accept,
+.Cancel {
   width: 115px;
   border-radius: 10px;
   border: 2px solid #ffffff;
@@ -433,7 +444,8 @@ button:hover {
 #continue,
 #Close-hangman-modal,
 #stop,
-.portfolio {
+.portfolio,
+.Accept {
   background: linear-gradient(#50ffc5, #00ff73);
   box-shadow: var(--aqua-glow);
 }
@@ -442,7 +454,8 @@ button:hover {
 .start:nth-child(3),
 .option:nth-child(3),
 .Memory,
-.neonOption {
+.neonOption,
+.Login {
   background: linear-gradient(#ff3ebf, #ff0055);
   box-shadow: var(--pink-glow);
 }
@@ -459,7 +472,8 @@ button:hover {
 .card-reverse.Purple,
 .configOption:nth-child(5),
 .start:nth-child(5),
-.option:nth-child(6) {
+.option:nth-child(6),
+.Logout {
   background: linear-gradient(#a883ff, #973bff);
   box-shadow: var(--purple-glow);
 }
@@ -469,7 +483,9 @@ button:hover {
 .option:nth-child(5),
 .option:nth-child(12),
 .hangman-stop,
-.Top {
+.Top,
+.Delete,
+.Cancel {
   background: linear-gradient(#ff5454, #fa0000);
   box-shadow: var(--red-glow);
 }
@@ -638,7 +654,8 @@ button:hover {
 
 .modal .modal-img,
 .lose-modal .modal-img,
-.hangman-container .modal-img {
+.hangman-container .modal-img,
+.QuestionModal .modal-img {
   width: 7em;
   height: 7em;
   display: flex;
@@ -727,7 +744,9 @@ button:hover {
   font-size: 18px;
 }
 
-#Username {
+#Username,
+#Email,
+#DeleteEmail {
   border-radius: 15px;
   border: 2px solid #00ff73;
   box-shadow: 0px 0px 10px 6px #fffffff3;
@@ -739,7 +758,9 @@ button:hover {
   color: #00ff73;
 }
 
-#Username:focus {
+#Username:focus,
+#Email:focus,
+#DeleteEmail:focus {
   color: #ff2323;
   outline-color: #ff0040;
 }
@@ -914,6 +935,24 @@ button:hover {
   background: linear-gradient(#50ffc5, #00ff73);
   box-shadow: var(--aqua-glow);
 }
+
+.QuestionModal {
+  background-color: #ffffffe0;
+  justify-content: space-evenly;
+  align-items: center;
+  position: fixed;
+  z-index: 99999;
+  text-align: center;
+  min-height: 50vh;
+}
+
+.question {
+  margin: 5px;
+}
+
+.BuyOptions {
+  margin: 5px;
+}
 /* ? Hidden Element */
 .hidden {
   display: none;
@@ -956,7 +995,8 @@ button:hover {
   }
   .app.before,
   .main-menu,
-  .hangman-menu {
+  .hangman-menu,
+  .QuestionModal {
     width: 85%;
   }
   .Signup,

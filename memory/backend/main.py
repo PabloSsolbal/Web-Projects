@@ -130,9 +130,14 @@ def users():
     return get_top_users()
 
 
+@app.post("/users/login", tags=["Users"])
+def users(data: dict):
+    return log_in_user(data)
+
+
 @app.get("/users/{name}", tags=["Users"])
 def users(name: str):
-    return search_user(name)
+    return get_user(name)
 
 
 @app.post("/users/add", tags=["Users"])
@@ -143,3 +148,18 @@ def users(user: User):
 @app.put("/users/addpoints", tags=["Users"])
 def users(name: str, points: int):
     return add_points(name, points)
+
+
+@app.put("/users/addcoins", tags=["Users"])
+def users(name: str, coins: int):
+    return add_coins(name, coins)
+
+
+@app.put("/users/unlocklevel", tags=["Users"])
+def users(name: str, game: str, level: str):
+    return unlock_level(name, game, level)
+
+
+@app.delete("/users/delete", tags=["Users"])
+def users(data: dict):
+    return delete_user(data)

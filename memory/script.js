@@ -25,11 +25,16 @@ const colorsMenu = document.querySelector(".colorsOptionContainer");
 export const body = document.querySelector("body");
 const signUpMenu = document.querySelector(".Signup");
 const signUpInput = document.getElementById("Username");
+const signUpEmail = document.getElementById("Email");
 const notification = document.querySelector(".Notification");
+const questionModal = document.querySelector(".QuestionModal");
 
 export let username = null;
 export let userPoints = null;
 export let userGatoCoins = null;
+let hangmanLevels = [];
+let memoryLevels = [];
+let elementToBuy = null;
 
 // ? flip audio for the cards
 export const flip = new Audio();
@@ -71,6 +76,84 @@ const linksContainer = document.querySelector(".links");
 
 const topUsersContainer = document.querySelector(".Users");
 
+const confirmBuy = (price) => {
+  questionModal.querySelector("p").textContent =
+    "Estas seguro que quieres comprar este nivel?";
+  questionModal.querySelector(".Accept").textContent = "Comprar";
+  questionModal.classList.add("Buying");
+  let priceDiv = document.createElement("div");
+  priceDiv.classList.add("price");
+  priceDiv.innerHTML = `<span>Precio:</span> ${price}`;
+  questionModal.querySelector(".modal-img").before(priceDiv);
+  questionModal.classList.remove("hidden");
+};
+
+const deleteUserAccountConfirm = () => {
+  questionModal.querySelector("p").textContent =
+    "Estas seguro que quieres borrar tu cuenta?";
+  questionModal.querySelector(".Accept").textContent = "Confirmar";
+  let deleteEmailInput = document.createElement("input");
+  deleteEmailInput.setAttribute("type", "email");
+  deleteEmailInput.setAttribute("placeholder", "Your Email");
+  deleteEmailInput.setAttribute("id", "DeleteEmail");
+  questionModal.querySelector(".modal-img").after(deleteEmailInput);
+  let emailLabel = document.createElement("label");
+  emailLabel.setAttribute("for", "DeleteEmail");
+  emailLabel.innerHTML = "<p>confirm your Email</p>";
+  questionModal.querySelector("#DeleteEmail").before(emailLabel);
+  questionModal.classList.remove("hidden");
+};
+
+const deleteUserAccount = async () => {
+  let data = {
+    name: JSON.parse(localStorage.getItem("Username")),
+    email: document.getElementById("DeleteEmail").value,
+  };
+  let options = {
+    method: "DELETE",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  };
+  let response = await fetch(`${urls.deleteUser}`, options);
+  let message = await response.json();
+  if (message.message !== "success") {
+    showNotification("Ocurrio un error");
+    return;
+  }
+  localStorage.removeItem("Username");
+  window.location.reload();
+  showNotification("Cuenta eliminada");
+};
+
+const loginUser = async () => {
+  let data = {
+    name: signUpInput.value,
+    email: signUpEmail.value,
+  };
+  let options = {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  };
+  let response = await fetch(`${urls.loginUser}`, options);
+  let message = await response.json();
+  if (message.message !== "success") {
+    showNotification("Este usuario ya existe");
+    return;
+  }
+  localStorage.setItem("Username", JSON.stringify(signUpInput.value));
+  getUserData();
+  mainMenu.classList.remove("hidden");
+  signUpMenu.classList.add("hidden");
+  greetUser();
+};
+
 const createUsers = (users) => {
   topUsersContainer.innerHTML = "";
   let userFragment = document.createDocumentFragment();
@@ -94,7 +177,9 @@ const getUsers = async () => {
 const createUser = async () => {
   const data = {
     name: signUpInput.value,
+    email: signUpEmail.value,
     points: 0,
+    coins: 0,
   };
   const options = {
     method: "POST",
@@ -115,6 +200,22 @@ const createUser = async () => {
   mainMenu.classList.remove("hidden");
   signUpMenu.classList.add("hidden");
   greetUser();
+  getUserData();
+};
+
+const addCoinsRemote = async (name, coins) => {
+  let options = {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  let response = await fetch(
+    `${urls.addCoins}?name=${name}&coins=${coins}`,
+    options
+  );
+  let data = await response.json();
+  console.log(data);
 };
 
 const addPointsRemote = async (name, points) => {
@@ -155,22 +256,35 @@ export const showNotification = (message) => {
   }, 3000);
 };
 
+const UnlockLevel = async (level, game) => {
+  let options = {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  let response = await fetch(
+    `${urls.unlockLevel}?name=${username}&game=${game}&level=${level}`,
+    options
+  );
+  let message = await response.json();
+  console.log(message);
+};
+
 const addToHangmanUnlockedLEvels = (level) => {
-  let levels = JSON.parse(localStorage.getItem("hangmanUnlockedLevels"));
-  levels.push(level);
-  localStorage.setItem("hangmanUnlockedLevels", JSON.stringify(levels));
+  UnlockLevel(level, "hangman");
 };
 
 const addToMemoryUnlockedLevels = (level) => {
-  let levels = JSON.parse(localStorage.getItem("memoryUnlockedLevels"));
-  levels.push(level);
-  localStorage.setItem("memoryUnlockedLevels", JSON.stringify(levels));
+  UnlockLevel(level, "memory");
 };
 
-const unlockLevel = (element) => {
-  let price = parseInt(element.getAttribute("data-cost"));
+const unlockLevelconfirmate = (price) => {
+  let element = elementToBuy;
+  price = parseInt(price);
   if (userGatoCoins >= price) {
     modifyUserData("GatoCoins", -price);
+    showNotification(`Has desbloqueado el nivel ${element.textContent}`);
     element.classList.contains("option")
       ? hangmanMenu.prepend(updateUserPointsAndCoins())
       : app.prepend(updateUserPointsAndCoins());
@@ -179,8 +293,15 @@ const unlockLevel = (element) => {
     element.classList.contains("option")
       ? addToHangmanUnlockedLEvels(element.textContent)
       : addToMemoryUnlockedLevels(element.textContent);
-    showNotification(`Has desbloqueado el nivel ${element.textContent}`);
+  } else {
+    showNotification("GatoCoins insuficientes");
   }
+};
+
+const unlockLevel = (element) => {
+  let price = parseInt(element.getAttribute("data-cost"));
+  elementToBuy = element;
+  confirmBuy(price);
 };
 
 export const updateUserPointsAndCoins = () => {
@@ -211,33 +332,32 @@ export const modifyUserData = (element, ammount) => {
       userGatoCoins -= ammount;
       return false;
     }
+    addCoinsRemote(username, ammount);
   }
-
-  localStorage.setItem(
-    "UserData",
-    JSON.stringify({
-      userPoints: userPoints,
-      userGatoCoins: userGatoCoins,
-    })
-  );
 };
 
-export const getUserData = () => {
-  let data = {};
-  if (!localStorage.getItem("UserData")) {
-    localStorage.setItem(
-      "UserData",
-      JSON.stringify({
-        userPoints: 0,
-        userGatoCoins: 0,
-      })
-    );
-  }
+const getUnlockedLevels = (options, levels) => {
+  document.querySelectorAll(options).forEach((option) => {
+    for (let level of levels) {
+      if (option.textContent == level) {
+        option.classList.remove("locked");
+        option.setAttribute("data-cost", "0");
+      }
+    }
+  });
+};
 
-  data = JSON.parse(localStorage.getItem("UserData"));
-
-  userPoints = data.userPoints;
-  userGatoCoins = data.userGatoCoins;
+export const getUserData = async () => {
+  username = JSON.parse(localStorage.getItem("Username"));
+  let response = await fetch(urls.User + username);
+  let data = await response.json();
+  userGatoCoins = data.coins;
+  userPoints = data.points;
+  hangmanLevels = data.levels.hangman;
+  memoryLevels = data.levels.memory;
+  getUnlockedLevels(".option", hangmanLevels);
+  getUnlockedLevels(".start", memoryLevels);
+  mainMenu.prepend(updateUserPointsAndCoins());
 };
 
 const greetUser = () => {
@@ -246,6 +366,7 @@ const greetUser = () => {
     username = JSON.parse(localStorage.getItem("Username"));
     let greet = document.querySelector(".greet");
     greet.textContent = `Hola ${username} a que quieres jugar hoy?`;
+    getUserData();
   } else {
     mainMenu.classList.add("hidden");
     signUpMenu.classList.remove("hidden");
@@ -301,50 +422,7 @@ const changeAudioVolume = (value, button) => {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-  if (!localStorage.getItem("hangmanUnlockedLevels")) {
-    let levels = [];
-    document.querySelectorAll(".option").forEach((option) => {
-      if (!option.classList.contains("locked")) {
-        levels.push(option.textContent);
-      }
-    });
-    localStorage.setItem("hangmanUnlockedLevels", JSON.stringify(levels));
-  }
-
-  if (!localStorage.getItem("memoryUnlockedLevels")) {
-    let levels = [];
-    document.querySelectorAll(".start").forEach((option) => {
-      if (!option.classList.contains("locked")) {
-        levels.push(option.textContent);
-      }
-    });
-    localStorage.setItem("memoryUnlockedLevels", JSON.stringify(levels));
-  }
-
-  if (localStorage.getItem("hangmanUnlockedLevels")) {
-    let levels = JSON.parse(localStorage.getItem("hangmanUnlockedLevels"));
-    document.querySelectorAll(".option").forEach((option) => {
-      for (let level of levels) {
-        if (option.textContent === level) {
-          option.classList.remove("locked");
-        }
-      }
-    });
-  }
-
-  if (localStorage.getItem("memoryUnlockedLevels")) {
-    let levels = JSON.parse(localStorage.getItem("memoryUnlockedLevels"));
-    document.querySelectorAll(".start").forEach((option) => {
-      for (let level of levels) {
-        if (option.textContent === level) {
-          option.classList.remove("locked");
-        }
-      }
-    });
-  }
-  getUserData();
   greetUser();
-  mainMenu.prepend(updateUserPointsAndCoins());
   if (!localStorage.getItem("keyboard")) {
     localStorage.setItem(JSON.stringify(true));
   }
@@ -376,6 +454,38 @@ document.addEventListener("DOMContentLoaded", () => {
  * @param {MouseEvent} e - The mouse click event object.
  */
 document.addEventListener("click", (e) => {
+  if (e.target.matches(".Delete")) {
+    deleteUserAccountConfirm();
+  }
+  if (e.target.matches(".Accept")) {
+    if (questionModal.classList.contains("Buying")) {
+      unlockLevelconfirmate(
+        document.querySelector(".price").textContent.split(" ")[1]
+      );
+      questionModal.classList.add("hidden");
+      questionModal.removeChild(document.querySelector(".price"));
+    } else {
+      questionModal.classList.add("hidden");
+      deleteUserAccount();
+      questionModal.removeChild(questionModal.querySelector("label"));
+      questionModal.removeChild(questionModal.querySelector("#DeleteEmail"));
+    }
+  }
+  if (e.target.matches(".Cancel")) {
+    questionModal.classList.contains("Buying")
+      ? questionModal.removeChild(document.querySelector(".price"))
+      : (questionModal.removeChild(questionModal.querySelector("label")),
+        questionModal.removeChild(questionModal.querySelector("#DeleteEmail")));
+    questionModal.classList.remove("Buying");
+    questionModal.classList.add("hidden");
+  }
+  if (e.target.matches(".Logout")) {
+    localStorage.removeItem("Username");
+    window.location.reload();
+  }
+  if (e.target.matches(".Login")) {
+    loginUser();
+  }
   if (e.target.matches(".Top")) {
     getUsers();
     mainMenu.classList.add("hidden");
@@ -390,8 +500,8 @@ document.addEventListener("click", (e) => {
     mainMenu.classList.add("hidden");
   }
   if (e.target.matches(".locked")) {
-    e.preventDefault();
     unlockLevel(e.target);
+    e.preventDefault();
   }
   if (e.target.matches(".Create")) {
     createUser();
@@ -419,14 +529,6 @@ document.addEventListener("click", (e) => {
   if (e.target.matches(".closeColorsMenu")) {
     colorsMenu.classList.toggle("hidden");
     configMenu.classList.remove("hidden");
-  }
-  // ? Options in the Hangman menu
-  if (e.target.matches(".option")) {
-    if (!e.target.classList.contains("locked")) {
-      let category = e.target.textContent;
-      getWord(category.toLowerCase());
-      usedLetter();
-    }
   }
   // ? Return to the main menu
   if (e.target.matches(".home")) {

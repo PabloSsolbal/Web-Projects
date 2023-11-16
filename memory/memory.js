@@ -120,6 +120,7 @@ const getCategoryData = async (CategoryName) => {
 
     modalElements = {};
     modalElements = data.data;
+    console.log(modalElements);
 
     items = [];
 

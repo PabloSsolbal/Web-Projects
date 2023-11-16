@@ -3,7 +3,7 @@
  *
  * ? The name of the cache used to store assets for the MiniGameBox web application.
  */
-const CACHE_NAME = "v0.0.12_MiniGameBox_beta";
+const CACHE_NAME = "v0.0.13_MiniGameBox_beta";
 
 /**
  * ? URLs to Cache
