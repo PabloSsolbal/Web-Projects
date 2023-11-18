@@ -83,11 +83,11 @@
         <label for="#Username">
             <p>Elige un nombre de usuario:</p>
         </label>
-        <input type="text" id="Username" placeholder="your username">
+        <input type="text" id="Username" placeholder="your username" required>
         <label for="#Email">
             <p>Ingresa un correo electronico</p>
         </label>
-        <input type="email" id="Email" placeholder="your email">
+        <input type="email" id="Email" placeholder="your email" required>
         <button class="Create">Create</button>
         <button class="Login">LogIn</button>
     </section>
@@ -144,7 +144,7 @@
 
     <!-- ? Hangman game menu -->
     <article class="hangman-menu glow hidden">
-        <p class="hangman-highscore"><span>Racha Maxima:</span> 00</p>
+        <p class="hangman-highscore"><span class="Dlevel">Racha Maxima:</span> 00</p>
         <p class="hangman-results"><span>Racha Actual:</span> 00</p>
         <p>Selecciona una categoria</p>
         <!-- ? Categories for the game -->
@@ -222,6 +222,12 @@
             <p id="highscore" class="hidden"><span>Time: </span>00 <span>Moves: </span>00
             </p>
             <!-- ? Categories for the Memory game -->
+            <div class="dificults">
+                <p>Elige una dificultad</p>
+                <button class="Easy dificultBtn" data-cards="10">Facil</button>
+                <button class="Medium dificultBtn" data-cards="12">Intermedia</button>
+                <button class="Dificult dificultBtn" data-cards="14">Dificil</button>
+            </div>
             <p class="inst">Selecciona una categoria para empezar</p>
             <div class="categoriesContainer">
                 <button class="start">Emociones</button>

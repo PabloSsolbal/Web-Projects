@@ -25,6 +25,7 @@ import {
   modifyUserData,
   updateUserPointsAndCoins,
   showNotification,
+  addRecord,
 } from "./script.js";
 
 import { urls } from "./config.js";
@@ -57,6 +58,7 @@ const highscoreContainer = document.getElementById("highscore");
 const body = document.querySelector("body");
 export const mainMenu = document.querySelector(".main-menu");
 export const hangmanMenu = document.querySelector(".hangman-menu");
+const dificultButtons = document.querySelectorAll(".dificultBtn");
 
 // ? memory variables for move and time counts
 let moveCount = 0;
@@ -94,6 +96,8 @@ let modalElements = {};
 // ? url to get the necesary data
 let url = urls.MemoryData;
 
+let cardsQuantity = 10;
+
 const getCardTheme = () => {
   if (localStorage.getItem("CardsTheme")) {
     return localStorage.getItem("CardsTheme");
@@ -114,8 +118,10 @@ const getCardTheme = () => {
  * @param {string} CategoryName - The name or identifier of the category to fetch data for.
  */
 const getCategoryData = async (CategoryName) => {
+  const thisUrl = url + CategoryName + `?number=${cardsQuantity}`;
+  console.log(thisUrl);
   try {
-    const response = await fetch(url + CategoryName + "?number=10");
+    const response = await fetch(thisUrl);
     const data = await response.json();
 
     modalElements = {};
@@ -241,7 +247,7 @@ const showHighscore = (message) => {
   let fminutes =
     highscore.minutes < 10 ? `0${highscore.minutes}` : highscore.minutes;
 
-  highscoreContainer.innerHTML = `<span>Time: </span>${fminutes}:${fseconds}   <span>Moves: </span>${highscore.moves}`;
+  highscoreContainer.innerHTML = `<span class="Dlevel">${highscore.difficult} </span><span>Time: </span>${fminutes}:${fseconds}   <span>Moves: </span>${highscore.moves}`;
 
   highscoreText.classList.remove("hidden");
   highscoreContainer.classList.remove("hidden");
@@ -258,17 +264,46 @@ const showHighscore = (message) => {
  * @param {number} seconds - The number of seconds in the new highscore.
  * @param {number} moves - The number of moves in the new highscore.
  */
-const newRecord = (minutes, seconds, moves) => {
-  localStorage.setItem(
-    "highscore",
-    JSON.stringify({
-      minutes: minutes,
-      seconds: seconds,
-      moves: moves,
-    })
-  );
+const newRecord = (difficult, minutes, seconds, moves) => {
+  let record = {
+    difficult: difficult,
+    minutes: minutes,
+    seconds: seconds,
+    moves: moves,
+  };
+  localStorage.setItem("highscore", JSON.stringify(record));
+  addRecord(record, "memory");
 
   showHighscore("Nuevo Record!!");
+};
+
+const checkDifficult = (difficult) => {
+  if (typeof difficult == "number") {
+    switch (difficult) {
+      case 10:
+        difficult = "Facil";
+        break;
+      case 12:
+        difficult = "Intermedia";
+        break;
+      case 14:
+        difficult = "Dificil";
+        break;
+    }
+  } else {
+    switch (difficult) {
+      case "Facil":
+        difficult = 10;
+        break;
+      case "Intermedia":
+        difficult = 12;
+        break;
+      case "Dificil":
+        difficult = 14;
+    }
+  }
+
+  return difficult;
 };
 
 /**
@@ -287,44 +322,55 @@ const checkHighScore = (minutes, seconds, moves) => {
   if (localStorage.getItem("highscore")) {
     //
     let highScore = JSON.parse(localStorage.getItem("highscore"));
+    let difficult = highScore.difficult;
+    let difficultValue = checkDifficult(difficult);
 
-    if (minutes < highScore.minutes) {
-      //
-      newRecord(minutes, seconds, moves);
+    if (cardsQuantity > difficultValue) {
+      newRecord(checkDifficult(cardsQuantity), minutes, seconds, moves);
       newHighscore = true;
-      //
-    } else if (minutes == highScore.minutes) {
-      //
-      if (seconds < highScore.seconds) {
-        newRecord(minutes, seconds, moves);
+    } else if (cardsQuantity == difficultValue) {
+      if (minutes < highScore.minutes) {
+        //
+        newRecord(checkDifficult(cardsQuantity), minutes, seconds, moves);
         newHighscore = true;
         //
-      } else if (seconds == highScore.seconds) {
+      } else if (minutes == highScore.minutes) {
         //
-        if (moves < highScore.moves) {
-          newRecord(minutes, seconds, moves);
+        if (seconds < highScore.seconds) {
+          newRecord(checkDifficult(cardsQuantity), minutes, seconds, moves);
           newHighscore = true;
           //
-        } else {
-          showHighscore("Tu Record: ");
-          newHighscore = false;
+        } else if (seconds == highScore.seconds) {
+          //
+          if (moves < highScore.moves) {
+            newRecord(checkDifficult(cardsQuantity), minutes, seconds, moves);
+            newHighscore = true;
+            //
+          } else {
+            showHighscore("Tu Record: ");
+            newHighscore = false;
+          }
         }
       }
+    } else {
+      newHighscore = false;
     }
   } else {
-    newRecord(minutes, seconds, moves);
+    newRecord(checkDifficult(cardsQuantity), minutes, seconds, moves);
     newHighscore = true;
   }
 };
 
 // ? Win Function
 const Win = () => {
-  modifyUserData("Points", Math.max(50 - moveCount, 0));
-  modifyUserData("GatoCoins", Math.max(70 - moveCount * 2, 0));
+  modifyUserData("Points", Math.max(30 - moveCount, 0));
+  modifyUserData("GatoCoins", Math.max(cardsQuantity * 6 - moveCount * 2, 0));
   setTimeout(() => {
     let fseconds = seconds < 10 ? `0${seconds}` : seconds;
     let fminutes = minutes < 10 ? `0${minutes}` : minutes;
-    result.innerHTML = `<span>Time: </span>${fminutes}:${fseconds}   <span>Moves: </span>${moveCount}`;
+    result.innerHTML = `<span class="Dlevel">${checkDifficult(
+      cardsQuantity
+    )} </span><span>Time: </span>${fminutes}:${fseconds}   <span>Moves: </span>${moveCount}`;
     checkHighScore(minutes, seconds, moveCount);
     stop();
     if (newHighscore) {
@@ -585,4 +631,11 @@ document.addEventListener("DOMContentLoaded", () => {
   if (localStorage.getItem("highscore")) {
     showHighscore("Tu Record: ");
   }
+});
+
+dificultButtons.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    cardsQuantity = parseInt(btn.getAttribute("data-cards"));
+    showNotification(`Dificultad ${btn.textContent} establecida`);
+  });
 });

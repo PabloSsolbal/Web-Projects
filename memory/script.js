@@ -76,6 +76,30 @@ const linksContainer = document.querySelector(".links");
 
 const topUsersContainer = document.querySelector(".Users");
 
+const toggleBtns = (bool) => {
+  document.querySelectorAll("button").forEach((btn) => (btn.disabled = bool));
+  document.querySelector(".Cancel").disabled = false;
+  document.querySelector(".Accept").disabled = false;
+};
+
+export const addRecord = async (record, game) => {
+  let options = {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(record),
+  };
+
+  let thisUrl = `${urls.record}?name=${username}&game=${game}`;
+  let response = await fetch(thisUrl, options);
+  let message = await response.json();
+  if (message.message === "success") {
+    showNotification("Nuevo Record!");
+  }
+};
+
 const confirmBuy = (price) => {
   questionModal.querySelector("p").textContent =
     "Estas seguro que quieres comprar este nivel?";
@@ -86,6 +110,7 @@ const confirmBuy = (price) => {
   priceDiv.innerHTML = `<span>Precio:</span> ${price}`;
   questionModal.querySelector(".modal-img").before(priceDiv);
   questionModal.classList.remove("hidden");
+  toggleBtns(true);
 };
 
 const deleteUserAccountConfirm = () => {
@@ -96,15 +121,21 @@ const deleteUserAccountConfirm = () => {
   deleteEmailInput.setAttribute("type", "email");
   deleteEmailInput.setAttribute("placeholder", "Your Email");
   deleteEmailInput.setAttribute("id", "DeleteEmail");
+  deleteEmailInput.required = true;
   questionModal.querySelector(".modal-img").after(deleteEmailInput);
   let emailLabel = document.createElement("label");
   emailLabel.setAttribute("for", "DeleteEmail");
   emailLabel.innerHTML = "<p>confirm your Email</p>";
   questionModal.querySelector("#DeleteEmail").before(emailLabel);
   questionModal.classList.remove("hidden");
+  toggleBtns(true);
 };
 
 const deleteUserAccount = async () => {
+  if (document.getElementById("DeleteEmail").value == "") {
+    showNotification("Debes ingresar tu email");
+    return;
+  }
   let data = {
     name: JSON.parse(localStorage.getItem("Username")),
     email: document.getElementById("DeleteEmail").value,
@@ -129,6 +160,10 @@ const deleteUserAccount = async () => {
 };
 
 const loginUser = async () => {
+  if (signUpInput.value == "" || signUpEmail.value == "") {
+    showNotification("Datos no validos");
+    return;
+  }
   let data = {
     name: signUpInput.value,
     email: signUpEmail.value,
@@ -144,7 +179,7 @@ const loginUser = async () => {
   let response = await fetch(`${urls.loginUser}`, options);
   let message = await response.json();
   if (message.message !== "success") {
-    showNotification("Este usuario ya existe");
+    showNotification("Datos incorrectos");
     return;
   }
   localStorage.setItem("Username", JSON.stringify(signUpInput.value));
@@ -157,15 +192,20 @@ const loginUser = async () => {
 const createUsers = (users) => {
   topUsersContainer.innerHTML = "";
   let userFragment = document.createDocumentFragment();
-  let i = 1;
+
   for (let user of users) {
     const userdiv = document.createElement("div");
     userdiv.classList.add("user");
-    userdiv.textContent = `${i} - ${user.name} - pts: ${user.points}`;
+    userdiv.innerHTML = `<img src="" alt="" class="topImage"><div>${user.name} <img src="./images/gatopoints.png" alt="" class="gatoPointImg">
+    <p class="points"><span>Pts:</span> ${user.points}</p></div>`;
     userFragment.appendChild(userdiv);
-    i++;
   }
   topUsersContainer.appendChild(userFragment);
+  document.querySelectorAll(".user").forEach((user, index) => {
+    index >= 5
+      ? (user.querySelector(".topImage").src = `./imgs/top.png`)
+      : (user.querySelector(".topImage").src = `./imgs/top${index + 1}.png`);
+  });
 };
 
 const getUsers = async () => {
@@ -175,6 +215,10 @@ const getUsers = async () => {
 };
 
 const createUser = async () => {
+  if (signUpInput.value == "" || signUpEmail.value == "") {
+    showNotification("Datos no validos");
+    return;
+  }
   const data = {
     name: signUpInput.value,
     email: signUpEmail.value,
@@ -253,7 +297,7 @@ export const showNotification = (message) => {
   notification.classList.add("Display");
   setTimeout(() => {
     notification.classList.remove("Display");
-  }, 3000);
+  }, 1500);
 };
 
 const UnlockLevel = async (level, game) => {
@@ -357,6 +401,11 @@ export const getUserData = async () => {
   memoryLevels = data.levels.memory;
   getUnlockedLevels(".option", hangmanLevels);
   getUnlockedLevels(".start", memoryLevels);
+  localStorage.setItem(
+    "HangmanStrike",
+    JSON.stringify(data.records.hangman.strike)
+  );
+  localStorage.setItem("highscore", JSON.stringify(data.records.memory));
   mainMenu.prepend(updateUserPointsAndCoins());
 };
 
@@ -416,9 +465,9 @@ const changeAudioVolume = (value, button) => {
   } else {
     button.textContent = "Desactivar";
   }
-  for (let audio of audios) {
-    audio.volume = value;
-  }
+  value == 0
+    ? audios.forEach((audio) => (audio.muted = true))
+    : audios.forEach((audio) => (audio.muted = false));
 };
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -470,6 +519,7 @@ document.addEventListener("click", (e) => {
       questionModal.removeChild(questionModal.querySelector("label"));
       questionModal.removeChild(questionModal.querySelector("#DeleteEmail"));
     }
+    toggleBtns(false);
   }
   if (e.target.matches(".Cancel")) {
     questionModal.classList.contains("Buying")
@@ -478,6 +528,7 @@ document.addEventListener("click", (e) => {
         questionModal.removeChild(questionModal.querySelector("#DeleteEmail")));
     questionModal.classList.remove("Buying");
     questionModal.classList.add("hidden");
+    toggleBtns(false);
   }
   if (e.target.matches(".Logout")) {
     localStorage.removeItem("Username");
@@ -572,8 +623,13 @@ document.addEventListener("click", (e) => {
     hangmanMenu.classList.remove("hidden");
     hangmanMenu.prepend(updateUserPointsAndCoins());
   }
-  // ? Play the bubble sound
-  if (e.target.matches("button")) {
-    bubble.play();
-  }
+});
+
+document.querySelectorAll("button").forEach((btn) => {
+  btn.addEventListener("click", (e) => {
+    e.preventDefault();
+    if (localStorage.getItem("AudioVolume") == 1) {
+      bubble.play();
+    }
+  });
 });

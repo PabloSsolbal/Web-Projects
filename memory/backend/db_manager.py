@@ -34,7 +34,7 @@ def delete_user(data: dict):
 
 def get_user(name: str):
     user = client.Users.Users.find_one({"name": name}, {"_id": False})
-    return {"name": user["name"], "points": user["points"], "coins": user["coins"], "levels": user["levels"]} if user is not None else None
+    return {"name": user["name"], "points": user["points"], "coins": user["coins"], "levels": user["levels"], "records": user["records"]} if user is not None else None
 
 
 def log_in_user(data: dict):
@@ -47,7 +47,6 @@ def search_user(name: str, email: str):
     user = client.Users.Users.find_one(
         {"$or": [{"name": name}, {"email": email}]}, {"_id": False})
     return {"name": user["name"], "points": user["points"], "coins": user["coins"], "levels": user["levels"]} if user is not None else None
-    return user
 
 
 def create_user(user: User):
@@ -57,6 +56,7 @@ def create_user(user: User):
     user["levels"] = dict()
     user["levels"]["memory"] = ["Emociones", "Comidas", "Colores", "Animales"]
     user["levels"]["hangman"] = ["Animales", "Ciencia", "Comics", "Comidas"]
+    user["records"] = dict()
     client.Users.Users.insert_one(user)
     return {"message": "success"}
 
@@ -77,6 +77,12 @@ def add_coins(name: str, coins: str):
 def unlock_level(name: str, game: str, level: str):
     client.Users.Users.find_one_and_update(
         {"name": name}, {"$push": {f"levels.{game}": level}})
+    return {"message": "success"}
+
+
+def add_record(name: str, game: str, record: dict):
+    client.Users.Users.find_one_and_update(
+        {"name": name}, {"$set": {f"records.{game}": record}})
     return {"message": "success"}
 
 

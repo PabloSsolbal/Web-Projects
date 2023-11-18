@@ -22,6 +22,7 @@ import {
   modifyUserData,
   updateUserPointsAndCoins,
   showNotification,
+  addRecord,
 } from "./script.js";
 
 import { hangmanMenu } from "./memory.js";
@@ -82,6 +83,7 @@ export const keyBoard = () => {
 const SaveStrike = () => {
   if (JSON.parse(localStorage.getItem("HangmanStrike")) < strikeCounter) {
     localStorage.setItem("HangmanStrike", JSON.stringify(strikeCounter));
+    addRecord({ strike: strikeCounter }, "hangman");
   }
 };
 
@@ -239,7 +241,7 @@ const checkLetter = (letter) => {
       StrikeCounterAdd();
       SaveStrike();
       UpdateStrike();
-      modifyUserData("Points", Math.max(10 + attempsCounter * 2, 0));
+      modifyUserData("Points", Math.max(5 + attempsCounter * 2, 0));
       modifyUserData("GatoCoins", Math.max(20 + attempsCounter * 2, 0));
       setTimeout(() => {
         hangmanApp.classList.add("hidden");

@@ -145,6 +145,11 @@ def users(user: User):
     return create_user(user)
 
 
+@app.post("/users/record", tags=["Users"])
+def users(name: str, game: str, record: dict):
+    return add_record(name, game, record)
+
+
 @app.put("/users/addpoints", tags=["Users"])
 def users(name: str, points: int):
     return add_points(name, points)

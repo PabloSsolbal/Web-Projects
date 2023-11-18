@@ -281,7 +281,7 @@ button:hover {
   height: 100%;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(4, 1fr);
+  align-content: center;
   margin-top: 5px;
   justify-items: center;
   align-items: center;
@@ -412,7 +412,8 @@ button:hover {
 .Logout,
 .Delete,
 .Accept,
-.Cancel {
+.Cancel,
+.dificults > button {
   width: 115px;
   border-radius: 10px;
   border: 2px solid #ffffff;
@@ -485,21 +486,24 @@ button:hover {
 .hangman-stop,
 .Top,
 .Delete,
-.Cancel {
+.Cancel,
+.dificults .Dificult {
   background: linear-gradient(#ff5454, #fa0000);
   box-shadow: var(--red-glow);
 }
 .card-reverse.Green,
 .configOption:nth-child(7),
 .start:nth-child(7),
-.option:nth-child(8) {
+.option:nth-child(8),
+.dificults .Easy {
   background: linear-gradient(#e8ff83, #88ff00);
   box-shadow: var(--green-glow);
 }
 .card-reverse.Yellow,
 .configOption:nth-child(8),
 .start:nth-child(8),
-.option:nth-child(1) {
+.option:nth-child(1),
+.dificults .Medium {
   background: linear-gradient(#ffed4a, #ffc400);
   box-shadow: var(--yellow-glow);
 }
@@ -824,7 +828,7 @@ button:hover {
   justify-content: space-evenly;
   align-items: center;
   width: 90%;
-  position: absolute;
+  position: fixed;
   top: 0;
   margin: 10px auto 0;
   outline: 5px solid #ffffff;
@@ -865,17 +869,16 @@ button:hover {
   align-items: center;
   justify-content: space-evenly;
   overflow: hidden;
-  height: 75vh;
   height: fit-content;
-  width: 90%;
+  width: 85%;
 }
 
 .credits > * {
-  margin: 5px;
+  margin: 2.5px;
 }
 
 .links {
-  height: 50vh;
+  height: 40vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -884,6 +887,10 @@ button:hover {
   text-wrap: wrap;
   word-wrap: break-word;
   scroll-behavior: smooth;
+}
+
+.links > a {
+  word-wrap: break-word;
 }
 
 .TopUsers {
@@ -900,13 +907,21 @@ button:hover {
   text-align: center;
 }
 
+.TopUsers .home {
+  margin: 5px;
+}
+
+.TopUsers p {
+  font-size: 18px;
+}
+
 .user {
   display: flex;
-  align-items: space-evenly;
-  justify-content: center;
+  align-items: center;
+  justify-content: space-around;
   font-size: 16px;
   font-weight: bold;
-  margin: 10px;
+  margin: 5px;
   width: 80%;
   text-align: center;
   outline: 3px solid #ffffff;
@@ -915,25 +930,16 @@ button:hover {
   background-color: #ffffff70;
 }
 
-.user:nth-child(1) {
-  color: #fff;
-  outline-color: #ffee00;
-  background: linear-gradient(#ffd859, #ff9100);
-  box-shadow: var(--orange-b-glow);
+.user div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.user:nth-child(2) {
-  color: #fff;
-  outline-color: #9cf0ff;
-  background: linear-gradient(#00d9ff, #6ba6ff);
-  box-shadow: var(--blue-glow);
-}
-
-.user:nth-child(3) {
-  color: #fff;
-  outline-color: #94ffdb;
-  background: linear-gradient(#50ffc5, #00ff73);
-  box-shadow: var(--aqua-glow);
+.user .gatoPointImg,
+.user .topImage {
+  width: 2em;
+  height: 2em;
 }
 
 .QuestionModal {
@@ -952,6 +958,21 @@ button:hover {
 
 .BuyOptions {
   margin: 5px;
+}
+
+.price {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.price span {
+  color: #ff4800;
+}
+
+span.Dlevel,
+.hangman-highscore span.Dlevel {
+  font-size: 18px !important;
+  color: #973bff !important;
 }
 /* ? Hidden Element */
 .hidden {
@@ -999,6 +1020,9 @@ button:hover {
   .QuestionModal {
     width: 85%;
   }
+  .app {
+    height: fit-content;
+  }
   .Signup,
   .credits {
     height: fit-content;
@@ -1011,7 +1035,8 @@ button:hover {
   }
   .cards-container {
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(5, 1fr);
+    grid-template-rows: auto;
+    gap: 1em;
   }
   .card-front {
     background-color: #fff;
@@ -1029,7 +1054,8 @@ button:hover {
   }
   .modal {
     width: 80vw;
-    height: 85%;
+    height: fit-content;
+    min-height: 50vh;
     margin-top: 0;
   }
   .modal-card {
