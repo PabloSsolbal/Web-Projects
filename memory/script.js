@@ -132,8 +132,13 @@ const deleteUserAccountConfirm = () => {
 };
 
 const deleteUserAccount = async () => {
+  const emailRegex = /[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}/gim;
   if (document.getElementById("DeleteEmail").value == "") {
     showNotification("Debes ingresar tu email");
+    return;
+  }
+  if (!emailRegex.test(document.getElementById("DeleteEmail").value)) {
+    showNotification("Email no valido");
     return;
   }
   let data = {
@@ -151,6 +156,10 @@ const deleteUserAccount = async () => {
   let response = await fetch(`${urls.deleteUser}`, options);
   let message = await response.json();
   if (message.message !== "success") {
+    if (message.message === "user don't exist") {
+      showNotification("El usuario no existe");
+      return;
+    }
     showNotification("Ocurrio un error");
     return;
   }
@@ -160,8 +169,18 @@ const deleteUserAccount = async () => {
 };
 
 const loginUser = async () => {
+  const usernameRegex = /^[A-Za-z0-9]{4,12}$/;
+  const emailRegex = /[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}/gim;
   if (signUpInput.value == "" || signUpEmail.value == "") {
     showNotification("Datos no validos");
+    return;
+  }
+  if (!usernameRegex.test(signUpInput.value)) {
+    showNotification("Username no valido");
+    return;
+  }
+  if (!emailRegex.test(signUpEmail.value)) {
+    showNotification("Email no valido");
     return;
   }
   let data = {
@@ -215,8 +234,18 @@ const getUsers = async () => {
 };
 
 const createUser = async () => {
+  const usernameRegex = /^[a-zA-Z0-9]{4,12}$/;
+  const emailRegex = /[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}/gim;
   if (signUpInput.value == "" || signUpEmail.value == "") {
     showNotification("Datos no validos");
+    return;
+  }
+  if (!usernameRegex.test(signUpInput.value)) {
+    showNotification("Username no valido");
+    return;
+  }
+  if (!emailRegex.test(signUpEmail.value)) {
+    showNotification("Email no valido");
     return;
   }
   const data = {
@@ -431,6 +460,7 @@ export const UpdateStrike = () => {
 
 const changeCardsTheme = (theme) => {
   localStorage.setItem("CardsTheme", theme);
+  showNotification(`Color ${theme} establecido`);
 };
 
 const toggleAnimations = (value, button) => {
@@ -462,8 +492,10 @@ const changeAudioVolume = (value, button) => {
   localStorage.setItem("AudioVolume", value);
   if (value === 0) {
     button.textContent = "Activar";
+    showNotification("Sonido desactivado");
   } else {
     button.textContent = "Desactivar";
+    showNotification("Sonido activado");
   }
   value == 0
     ? audios.forEach((audio) => (audio.muted = true))
@@ -533,6 +565,7 @@ document.addEventListener("click", (e) => {
   if (e.target.matches(".Logout")) {
     localStorage.removeItem("Username");
     window.location.reload();
+    showNotification("Sesion cerrada");
   }
   if (e.target.matches(".Login")) {
     loginUser();
@@ -563,15 +596,20 @@ document.addEventListener("click", (e) => {
       "keyboard",
       JSON.stringify(e.target.textContent == "Desactivar" ? false : true)
     );
-
-    e.target.textContent =
-      e.target.textContent == "Desactivar" ? "Activar" : "Desactivar";
+    e.target.textContent == "Desactivar"
+      ? ((e.target.textContent = "Activar"),
+        showNotification("Teclado desactivado"))
+      : ((e.target.textContent = "Desactivar"),
+        showNotification("Teclado activado"));
   }
 
   if (e.target.matches(".neonOption")) {
     body.classList.toggle("NoGlow");
-    e.target.textContent =
-      e.target.textContent == "Desactivar" ? "Activar" : "Desactivar";
+    e.target.textContent == "Desactivar"
+      ? ((e.target.textContent = "Activar"),
+        showNotification("Neon desactivado"))
+      : ((e.target.textContent = "Desactivar"),
+        showNotification("Neon activado"));
   }
   if (e.target.matches(".showColorsMenu")) {
     colorsMenu.classList.toggle("hidden");
@@ -603,6 +641,9 @@ document.addEventListener("click", (e) => {
       value = "Desactivar";
     }
     toggleAnimations(value, e.target);
+    e.target.textContent == "Desactivar"
+      ? showNotification("Animaciones desactivadas")
+      : showNotification("Animaciones activadas");
   }
   if (e.target.matches(".soundOption")) {
     let value = 1;

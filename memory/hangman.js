@@ -84,6 +84,7 @@ const SaveStrike = () => {
   if (JSON.parse(localStorage.getItem("HangmanStrike")) < strikeCounter) {
     localStorage.setItem("HangmanStrike", JSON.stringify(strikeCounter));
     addRecord({ strike: strikeCounter }, "hangman");
+    showNotification("Nuevo record");
   }
 };
 

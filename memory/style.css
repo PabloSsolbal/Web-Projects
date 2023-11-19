@@ -57,6 +57,9 @@ TODO: Add more comments to explain specific styles and their effects in more det
   --blue-b-glow: 0px 0px 10px 2px #747dff;
   --orange-b-glow: 0px 0px 10px 2px #ffbb00;
   --sunny-glow: 0px 0px 10px 2px #80ffd9;
+  --gray-glow: 0px 0px 10px 2px #646464;
+  --rainbow-glow: 0px 0px 10px 2px #75ffdd;
+  --synth-glow: 0px 0px 10px 2px #fbff00;
 }
 * {
   padding: 0;
@@ -81,15 +84,23 @@ body {
 }
 
 body.NoGlow {
-  --blue-glow: 0px 0px 10px 2px #fff;
-  --aqua-glow: 0px 0px 10px 2px #fff;
-  --pink-glow: 0px 0px 10px 2px #fff;
-  --orange-glow: 0px 0px 10px 2px #fff;
-  --purple-glow: 0px 0px 10px 2px #fff;
-  --red-glow: 0px 0px 10px 2px #fff;
-  --green-glow: 0px 0px 10px 2px #fff;
-  --yellow-glow: 0px 0px 10px 2px #fff;
-  --dark-blue-glow: 0px 0px 10px 2px #fff;
+  --blue-glow: none;
+  --aqua-glow: none;
+  --pink-glow: none;
+  --orange-glow: none;
+  --purple-glow: none;
+  --red-glow: none;
+  --green-glow: none;
+  --yellow-glow: none;
+  --dark-blue-glow: none;
+  --green-b-glow: none;
+  --red-b-glow: none;
+  --blue-b-glow: none;
+  --orange-b-glow: none;
+  --sunny-glow: none;
+  --gray-glow: none;
+  --rainbow-glow: none;
+  --synth-glow: none;
 }
 
 button {
@@ -465,7 +476,6 @@ button:hover {
 .start:nth-child(4),
 .animationOption,
 .option:nth-child(7),
-.option:nth-child(11),
 .Credits {
   background: linear-gradient(#ffa600, #ff4800);
   box-shadow: var(--orange-glow);
@@ -511,7 +521,7 @@ button:hover {
 .configOption:nth-child(9),
 .option:nth-child(10),
 .card-reverse.Green-B {
-  background: linear-gradient(#aeffab, #1ae200);
+  background: linear-gradient(#7aff75, #00ff62);
   box-shadow: var(--green-b-glow);
 }
 
@@ -530,6 +540,7 @@ button:hover {
 }
 
 .configOption:nth-child(12),
+.option:nth-child(11),
 .card-reverse.Orange-B {
   background: linear-gradient(#ffd859, #ff9100);
   box-shadow: var(--orange-b-glow);
@@ -550,12 +561,32 @@ button:hover {
 
 .github {
   background: linear-gradient(#000, #727272);
-  box-shadow: 0px 0px 10px 2px #646464;
+  box-shadow: var(--gray-glow);
 }
 
 .portfolio {
   background: linear-gradient(#c9c9c9, #4e4e4e);
-  box-shadow: 0px 0px 10px 2px #646464;
+  box-shadow: var(--gray-glow);
+}
+
+.Rainbow,
+.configOption:nth-child(15) {
+  background: linear-gradient(
+    #ff0000,
+    #ff4800,
+    #ffa600,
+    #00ffea,
+    #32ff76,
+    #3654ff,
+    #973bff
+  );
+  box-shadow: var(--rainbow-glow);
+}
+
+.Synth,
+.configOption:nth-child(16) {
+  background: linear-gradient(to left, #fffebb, #ff78a5, #973bff, #9dffea);
+  box-shadow: var(--synth-glow);
 }
 
 .letter-checker {
@@ -943,13 +974,14 @@ button:hover {
 }
 
 .QuestionModal {
-  background-color: #ffffffe0;
+  background-color: #ffffff69;
   justify-content: space-evenly;
   align-items: center;
   position: fixed;
   z-index: 99999;
   text-align: center;
-  min-height: 50vh;
+  height: fit-content;
+  backdrop-filter: blur(5px);
 }
 
 .question {
@@ -970,7 +1002,7 @@ button:hover {
 }
 
 span.Dlevel,
-.hangman-highscore span.Dlevel {
+.hangman-highscore span {
   font-size: 18px !important;
   color: #973bff !important;
 }

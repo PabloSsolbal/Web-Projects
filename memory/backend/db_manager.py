@@ -25,8 +25,10 @@ class Category(BaseModel):
 
 def delete_user(data: dict):
     try:
-        client.Users.Users.find_one_and_delete(
+        user = client.Users.Users.find_one_and_delete(
             {"$and": [{"name": data["name"]}, {"email": data["email"]}]})
+        if user is None:
+            return {"message": "user don't exist"}
         return {"message": "success"}
     except:
         return {"message": "user don't exist"}
