@@ -3,7 +3,7 @@
  *
  * ? The name of the cache used to store assets for the MiniGameBox web application.
  */
-const CACHE_NAME = "v0.0.13_MiniGameBox_beta";
+const CACHE_NAME = "v1.0.1_MiniGameBox";
 
 /**
  * ? URLs to Cache
@@ -11,6 +11,7 @@ const CACHE_NAME = "v0.0.13_MiniGameBox_beta";
  * * An array of URLs representing the initial set of assets to be cached when the service worker is installed.
  */
 let urlsToCache = [
+  "./",
   "style.css",
   "index.html",
   "memory.js",
