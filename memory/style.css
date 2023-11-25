@@ -169,7 +169,8 @@ button:hover {
 .Signup,
 .credits,
 .TopUsers,
-.QuestionModal {
+.QuestionModal,
+.RiddlerApp {
   width: 80%;
   height: 95%;
   display: flex;
@@ -209,7 +210,8 @@ button:hover {
 .main-menu,
 .hangman-menu,
 .Signup,
-.QuestionModal {
+.QuestionModal,
+.RiddlerApp {
   height: fit-content;
   width: 600px;
   margin: 0 auto;
@@ -424,7 +426,8 @@ button:hover {
 .Delete,
 .Accept,
 .Cancel,
-.dificults > button {
+.dificults > button,
+.riddlerOption {
   width: 115px;
   border-radius: 10px;
   border: 2px solid #ffffff;
@@ -443,6 +446,7 @@ button:hover {
 .start:nth-child(1),
 .check,
 .option:nth-child(4),
+.riddlerOption:nth-child(1),
 .showColorsMenu {
   background: linear-gradient(#00d9ff, #6ba6ff);
   box-shadow: var(--blue-glow);
@@ -457,7 +461,8 @@ button:hover {
 #Close-hangman-modal,
 #stop,
 .portfolio,
-.Accept {
+.Accept,
+.riddlerOption:nth-child(7) {
   background: linear-gradient(#50ffc5, #00ff73);
   box-shadow: var(--aqua-glow);
 }
@@ -467,7 +472,8 @@ button:hover {
 .option:nth-child(3),
 .Memory,
 .neonOption,
-.Login {
+.Login,
+.riddlerOption:nth-child(2) {
   background: linear-gradient(#ff3ebf, #ff0055);
   box-shadow: var(--pink-glow);
 }
@@ -476,7 +482,8 @@ button:hover {
 .start:nth-child(4),
 .animationOption,
 .option:nth-child(7),
-.Credits {
+.Credits,
+.riddlerOption:nth-child(3) {
   background: linear-gradient(#ffa600, #ff4800);
   box-shadow: var(--orange-glow);
 }
@@ -484,7 +491,8 @@ button:hover {
 .configOption:nth-child(5),
 .start:nth-child(5),
 .option:nth-child(6),
-.Logout {
+.Logout,
+.riddlerOption:nth-child(4) {
   background: linear-gradient(#a883ff, #973bff);
   box-shadow: var(--purple-glow);
 }
@@ -520,14 +528,16 @@ button:hover {
 
 .configOption:nth-child(9),
 .option:nth-child(10),
-.card-reverse.Green-B {
+.card-reverse.Green-B,
+.riddlerOption:nth-child(8) {
   background: linear-gradient(#7aff75, #00ff62);
   box-shadow: var(--green-b-glow);
 }
 
 .configOption:nth-child(10),
 .card-reverse.Red-B,
-.keyboardOption {
+.keyboardOption,
+.riddlerOption:nth-child(6) {
   background: linear-gradient(#ff5b9a, #fa0000);
   box-shadow: var(--red-b-glow);
 }
@@ -541,7 +551,8 @@ button:hover {
 
 .configOption:nth-child(12),
 .option:nth-child(11),
-.card-reverse.Orange-B {
+.card-reverse.Orange-B,
+.riddlerOption:nth-child(5) {
   background: linear-gradient(#ffd859, #ff9100);
   box-shadow: var(--orange-b-glow);
 }
@@ -1006,6 +1017,19 @@ span.Dlevel,
   font-size: 18px !important;
   color: #973bff !important;
 }
+
+.RiddlerApp {
+  text-align: center;
+}
+
+.RiddlerApp > * {
+  margin: 5px;
+}
+
+.RiddlerMenu {
+  display: grid;
+  gap: 5px;
+}
 /* ? Hidden Element */
 .hidden {
   display: none;
@@ -1049,7 +1073,8 @@ span.Dlevel,
   .app.before,
   .main-menu,
   .hangman-menu,
-  .QuestionModal {
+  .QuestionModal,
+  .RiddlerApp {
     width: 85%;
   }
   .app {
@@ -1116,7 +1141,8 @@ span.Dlevel,
     height: fit-content;
   }
 
-  .menu {
+  .menu,
+  .RiddlerMenu {
     height: fit-content;
     grid-template-columns: repeat(2, 1fr);
   }
@@ -1134,7 +1160,8 @@ span.Dlevel,
   }
 
   .OptionContainer,
-  .categoriesContainer {
+  .categoriesContainer,
+  .RiddlerMenu {
     grid-template-columns: repeat(2, 1fr);
   }
 

@@ -23,6 +23,14 @@ class Category(BaseModel):
     data: dict
 
 
+class Riddle(BaseModel):
+    riddle: str
+    category: str
+    difficult: str
+    answer: str
+    attempts: int
+
+
 def delete_user(data: dict):
     try:
         user = client.Users.Users.find_one_and_delete(
@@ -163,3 +171,40 @@ def modify_data(category: str, data: Data):
     new_data["data"][data["name"]] = data["data"]
     insert_new_data(category, new_data)
     return {"message": "success"}
+
+
+def add_riddle(data: Riddle):
+    riddle = data.model_dump()
+    if get_riddle(riddle["riddle"]) is not None:
+        return {"message": "riddle already exists"}
+    client.Categorys.Riddles.insert_one(riddle)
+    return {"message": "success"}
+
+
+def add_riddles(data: dict):
+    data = data["list"]
+    for riddle in data:
+        add_riddle(Riddle.model_validate(riddle))
+    return {"message": "success"}
+
+
+def get_all_riddles():
+    return [riddle for riddle in client.Categorys.Riddles.find({}, {"_id": False})]
+
+
+def get_all_riddles_from(category: str):
+    return [riddle for riddle in client.Categorys.Riddles.find({"category": category}, {"_id": False})]
+
+
+def get_riddles(category: str, difficult: str):
+    return [riddle for riddle in client.Categorys.Riddles.find({"$and": [{"category": category}, {"difficult": difficult}]}, {"_id": False})]
+
+
+def get_riddle(riddle: str):
+    return client.Categorys.Riddles.find_one({"riddle": riddle}, {"_id": False})
+
+
+def get_riddle_categories():
+    categories = client.Categorys.Riddles.find(
+        {}, {"_id": False, "category": True})
+    return sorted(set([category["category"] for category in categories]))

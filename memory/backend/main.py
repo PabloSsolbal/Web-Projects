@@ -125,6 +125,36 @@ def hangman(category: str, word: str):
     return delete_hangman_word(category, word)
 
 
+@app.get("/riddles", tags=["Riddles"])
+def riddles():
+    return get_all_riddles()
+
+
+@app.get("/riddles/categories", tags=["Riddles"])
+def riddles():
+    return get_riddle_categories()
+
+
+@app.get("/riddles/{category}/{difficult}", tags=["Riddles"])
+def riddles(category: str, difficult: str):
+    return get_riddles(category, difficult)
+
+
+@app.get("/riddles/{category}", tags=["Riddles"])
+def riddles(category: str):
+    return get_all_riddles_from(category)
+
+
+@app.post("/riddles", tags=["Riddles"])
+def riddles(data: Riddle):
+    return add_riddle(data)
+
+
+@app.post("/riddles/all", tags=["Riddles"])
+def riddles(data: dict):
+    return add_riddles(data)
+
+
 @app.get("/users/top", tags=["Users"])
 def users():
     return get_top_users()
