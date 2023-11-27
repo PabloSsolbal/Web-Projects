@@ -168,6 +168,8 @@ button:hover {
 .hangman-app,
 .Config,
 .colorsOptionContainer,
+.gameConfigContainer,
+.themesConfigContainer,
 .Signup,
 .credits,
 .TopUsers,
@@ -236,7 +238,9 @@ button:hover {
   justify-items: center;
 }
 
-.colorsOptionContainer {
+.colorsOptionContainer,
+.gameConfigContainer,
+.themesConfigContainer {
   height: fit-content;
   display: flex;
   justify-content: space-evenly;
@@ -436,7 +440,12 @@ button:hover {
 .VeryDificult,
 .Riddler,
 .riddler-check,
-.riddler-stop {
+.riddler-stop,
+.gameConfig,
+.closeConfigMenu,
+.showThemesMenu,
+.closeThemesMenu,
+.themeOption {
   width: 115px;
   border-radius: 10px;
   border: 2px solid #ffffff;
@@ -447,6 +456,11 @@ button:hover {
   color: #fff;
   background-color: #ff7b00;
   text-align: center;
+}
+
+.themeOption {
+  height: 52px;
+  border-radius: 20px;
 }
 
 .card-reverse.Blue,
@@ -473,7 +487,8 @@ button:hover {
 #stop,
 .portfolio,
 .Accept,
-.riddlerOption:nth-child(7) {
+.riddlerOption:nth-child(7),
+.showThemesMenu {
   background: linear-gradient(#50ffc5, #00ff73);
   box-shadow: var(--aqua-glow);
 }
@@ -485,7 +500,8 @@ button:hover {
 .neonOption,
 .Login,
 .riddlerOption:nth-child(2),
-.riddler-stop {
+.riddler-stop,
+.gameConfig {
   background: linear-gradient(#ff3ebf, #ff0055);
   box-shadow: var(--pink-glow);
 }
@@ -636,6 +652,8 @@ button:hover {
 
 .home,
 .closeColorsMenu,
+.closeConfigMenu,
+.closeThemesMenu,
 .Create {
   background: linear-gradient(#3654ff, #00d9ff);
   border-radius: 20px;
@@ -777,7 +795,8 @@ button:hover {
   padding-bottom: 5px;
 }
 
-.keyBoard {
+.keyBoard,
+.riddlerKeyBoard {
   display: none;
   width: 100%;
   height: fit-content;
@@ -803,9 +822,9 @@ button:hover {
   box-shadow: 0px 0px 2px 1px #fff;
 }
 
-.letter-container p {
+.letter-container {
   text-align: center;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 #Username,
@@ -968,7 +987,8 @@ button:hover {
   text-align: center;
 }
 
-.TopUsers .home {
+.TopUsers .home,
+.closeThemesMenu {
   margin: 5px;
 }
 
@@ -1033,7 +1053,8 @@ button:hover {
 
 span.Dlevel,
 .hangman-highscore span,
-.riddler-highscore span {
+.riddler-highscore span,
+.DLevel {
   font-size: 18px !important;
   color: #973bff !important;
 }
@@ -1042,7 +1063,8 @@ span.Dlevel,
   text-align: center;
 }
 
-.RiddlerApp > * {
+.RiddlerApp > *,
+.closeConfigMenu {
   margin: 5px;
 }
 
@@ -1079,7 +1101,8 @@ span.Dlevel,
   body.displayed {
     justify-content: center;
   }
-  .keyBoard {
+  .keyBoard,
+  .riddlerKeyBoard {
     display: flex;
   }
   .card img {

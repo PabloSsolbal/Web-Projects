@@ -68,16 +68,16 @@ const usedLetters = new Set();
 
 let strikeCounter = 0;
 
-export const keyBoard = () => {
+export const keyBoard = (Characters) => {
   const keyboard = document.createDocumentFragment();
 
-  for (let letter of keyBoardCharacters) {
+  for (let letter of Characters) {
     const letterContainer = document.createElement("div");
     letterContainer.classList.add("letter-container");
-    letterContainer.innerHTML = `<p>${letter}</p>`;
+    letterContainer.textContent = `${letter}`;
     keyboard.appendChild(letterContainer);
   }
-  keyboardContainer.appendChild(keyboard);
+  return keyboard;
 };
 
 const SaveStrike = () => {
@@ -178,7 +178,7 @@ const createHangman = (data) => {
 
   if (JSON.parse(localStorage.getItem("keyboard")) === true) {
     keyboardContainer.innerHTML = ``;
-    keyBoard();
+    keyboardContainer.appendChild(keyBoard(keyBoardCharacters));
   } else {
     keyboardContainer.innerHTML = ``;
   }
@@ -343,27 +343,21 @@ const getLetter = () => {
  */
 
 document.addEventListener("click", (e) => {
-  if (
-    e.target.matches(".letter-container") |
-    e.target.matches(".letter-container p")
-  ) {
-    let l = "";
-    if (e.target.matches(".letter-container")) {
-      l = e.target.querySelector("p").textContent;
-    } else {
-      l = e.target.textContent;
-    }
+  if (e.target.matches(".letter-container")) {
+    if (e.target.parentElement.matches(".keyBoard")) {
+      let l = e.target.textContent;
 
-    if (l == "⏎") {
-      document.querySelector(".check").click();
-    } else if (l == "↩") {
-      let actualWord = letterInput.value;
-      console.log(actualWord);
-      let changedWord = Array.from(actualWord);
-      changedWord.pop(actualWord.length - 1);
-      letterInput.value = changedWord.join("");
-    } else {
-      letterInput.value += l;
+      if (l == "⏎") {
+        document.querySelector(".check").click();
+      } else if (l == "↩") {
+        let actualWord = letterInput.value;
+        console.log(actualWord);
+        let changedWord = Array.from(actualWord);
+        changedWord.pop(actualWord.length - 1);
+        letterInput.value = changedWord.join("");
+      } else {
+        letterInput.value += l;
+      }
     }
   }
   if (e.target == continueBtn) {

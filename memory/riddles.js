@@ -9,13 +9,16 @@ import {
   addRecord,
   updateUserPointsAndCoins,
 } from "./script.js";
-import { loseModal } from "./hangman.js";
+import { loseModal, keyBoard } from "./hangman.js";
 
 export const riddlerMenu = document.querySelector(".RiddlermainMenu");
 const riddlerOptions = document.querySelectorAll(".riddlerOption");
 const riddlerDifficultBtns = document.querySelectorAll(".dificultBtnRiddler");
 const riddlerLoseModal = loseModal.cloneNode(true);
 const riddlerResults = document.querySelector(".riddler-results");
+const riddlerMaxRecord = document.querySelector(".riddler-highscore");
+const riddlerKeyboard = document.querySelector(".riddlerKeyBoard");
+let Attemp = document.getElementById("AnswersInput");
 
 let difficult = "facil";
 let riddlerUrl = urls.RiddlerData;
@@ -24,12 +27,12 @@ let Attempts = 0;
 let basePoints = 0;
 let record = 0;
 
+const keyBoardCharacters = "qwertyuiopasdfghjklzxcvbnm ↩⏎";
+
 export const updateRiddlerRecord = () => {
   let maxrecord = JSON.parse(localStorage.getItem("RiddlerStrike"));
   let formatedRecord = maxrecord < 10 ? `0${maxrecord}` : maxrecord;
-  document.querySelector(
-    ".riddler-highscore"
-  ).innerHTML = `<span class="DLevel">Racha Maxima:<span/> ${formatedRecord}`;
+  riddlerMaxRecord.innerHTML = `<span>Racha Maxima:</span> ${formatedRecord}`;
 };
 
 const saveRecord = () => {
@@ -53,7 +56,6 @@ const updateAttempts = () => {
 };
 
 const checkAnswer = () => {
-  let Attemp = document.getElementById("AnswersInput");
   if (Attemp.value === Answer) {
     Attemp.value = "";
     win();
@@ -91,6 +93,12 @@ const buildRiddleGame = ({ riddle, answer, attempts }) => {
   Answer = answer;
   Attempts = attempts;
   setBasePointsValue();
+  if (JSON.parse(localStorage.getItem("keyboard")) === true) {
+    riddlerKeyboard.innerHTML = ``;
+    riddlerKeyboard.appendChild(keyBoard(keyBoardCharacters));
+  } else {
+    riddlerKeyboard.innerHTML = ``;
+  }
   app.classList.remove("hidden");
   riddlerMenu.classList.add("hidden");
 };
@@ -158,6 +166,23 @@ document.addEventListener("click", (e) => {
   if (e.target.matches("#Close-riddler-modal")) {
     body.removeChild(riddlerLoseModal);
     stop();
+  }
+
+  if (e.target.matches(".riddlerKeyBoard .letter-container")) {
+    if (e.target.parentElement.matches(".riddlerKeyBoard")) {
+      let l = e.target.textContent;
+      if (l == "⏎") {
+        document.querySelector(".riddler-check").click();
+      } else if (l == "↩") {
+        let actualWord = Attemp.value;
+        console.log(actualWord);
+        let changedWord = Array.from(actualWord);
+        changedWord.pop(actualWord.length - 1);
+        Attemp.value = changedWord.join("");
+      } else {
+        Attemp.value += l;
+      }
+    }
   }
 });
 

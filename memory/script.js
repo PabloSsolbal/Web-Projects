@@ -29,6 +29,8 @@ const signUpInput = document.getElementById("Username");
 const signUpEmail = document.getElementById("Email");
 const notification = document.querySelector(".Notification");
 const questionModal = document.querySelector(".QuestionModal");
+const gameConfigMenu = document.querySelector(".gameConfigContainer");
+const themeConfigMenu = document.querySelector(".themesConfigContainer");
 
 export let username = null;
 export let userPoints = null;
@@ -207,7 +209,7 @@ const loginUser = async () => {
   mainMenu.classList.remove("hidden");
   signUpMenu.classList.add("hidden");
   greetUser();
-  getUserData();
+  await getUserData().then(() => window.location.reload());
 };
 
 const createUsers = (users) => {
@@ -629,6 +631,22 @@ document.addEventListener("click", (e) => {
         showNotification("Neon desactivado"))
       : ((e.target.textContent = "Desactivar"),
         showNotification("Neon activado"));
+  }
+  if (e.target.matches(".showThemesMenu")) {
+    themeConfigMenu.classList.toggle("hidden");
+    configMenu.classList.add("hidden");
+  }
+  if (e.target.matches(".closeThemesMenu")) {
+    themeConfigMenu.classList.toggle("hidden");
+    configMenu.classList.remove("hidden");
+  }
+  if (e.target.matches(".gameConfig")) {
+    gameConfigMenu.classList.toggle("hidden");
+    configMenu.classList.add("hidden");
+  }
+  if (e.target.matches(".closeConfigMenu")) {
+    gameConfigMenu.classList.toggle("hidden");
+    configMenu.classList.remove("hidden");
   }
   if (e.target.matches(".showColorsMenu")) {
     colorsMenu.classList.toggle("hidden");

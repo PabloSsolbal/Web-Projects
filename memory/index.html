@@ -135,6 +135,7 @@
             <p></p>
         </div>
         <input type="text" id="AnswersInput">
+        <div class="riddlerKeyBoard"></div>
         <button class="riddler-check">Revisar</button>
         <button class="riddler-stop">Stop Game</button>
     </section>
@@ -162,10 +163,7 @@
         <button class="closeColorsMenu">Close</button>
     </div>
 
-    <section class="Config glow hidden">
-        <p>Que quieres cambiar?</p>
-        <p>Colores de las cartas</p>
-        <button class="showColorsMenu">Colores</button>
+    <div class="gameConfigContainer glow hidden">
         <p>Desactivar animaciones</p>
         <button class="animationOption">Desactivar</button>
         <p>Quitar Neon</p>
@@ -174,6 +172,32 @@
         <button class="soundOption">Desactivar</button>
         <p>Teclado integrado</p>
         <button class="keyboardOption">Desactivar</button>
+        <button class="closeConfigMenu">Close</button>
+    </div>
+
+    <div class="themesConfigContainer glow hidden">
+        <p>Elige un tema para la aplicacion</p>
+        <div class="OptionContainer">
+            <button class="themeOption">Blue</button>
+            <button class="themeOption">Aqua</button>
+            <button class="themeOption">Pink</button>
+            <button class="themeOption">Orange</button>
+            <button class="themeOption">Purple</button>
+            <button class="themeOption">Red</button>
+            <button class="themeOption">Green</button>
+            <button class="themeOption">Yellow</button>
+        </div>
+        <button class="closeThemesMenu">Close</button>
+    </div>
+
+    <section class="Config glow hidden">
+        <p class="DLevel">Que quieres cambiar?</p>
+        <p>Colores de las cartas</p>
+        <button class="showColorsMenu">Colores</button>
+        <p>Cambiar tema</p>
+        <button class="showThemesMenu">Themes</button>
+        <p>Configuracion del Juego</p>
+        <button class="gameConfig">Config</button>
         <p>Opciones de cuenta</p>
         <button class="Logout">LogOut</button>
         <button class="Delete">Delete</button>
