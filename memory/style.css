@@ -60,6 +60,7 @@ TODO: Add more comments to explain specific styles and their effects in more det
   --gray-glow: 0px 0px 10px 2px #646464;
   --rainbow-glow: 0px 0px 10px 2px #75ffdd;
   --synth-glow: 0px 0px 10px 2px #fbff00;
+  --very-d-glow: 0px 0px 10px 2px #970a00;
 }
 * {
   padding: 0;
@@ -101,6 +102,7 @@ body.NoGlow {
   --gray-glow: none;
   --rainbow-glow: none;
   --synth-glow: none;
+  --very-d-glow: none;
 }
 
 button {
@@ -170,6 +172,7 @@ button:hover {
 .credits,
 .TopUsers,
 .QuestionModal,
+.RiddlermainMenu,
 .RiddlerApp {
   width: 80%;
   height: 95%;
@@ -211,7 +214,8 @@ button:hover {
 .hangman-menu,
 .Signup,
 .QuestionModal,
-.RiddlerApp {
+.RiddlerApp,
+.RiddlermainMenu {
   height: fit-content;
   width: 600px;
   margin: 0 auto;
@@ -250,7 +254,8 @@ button:hover {
 }
 
 .main-menu,
-.hangman-menu {
+.hangman-menu,
+.RiddlermainMenu {
   padding: 5px;
 }
 
@@ -427,7 +432,11 @@ button:hover {
 .Accept,
 .Cancel,
 .dificults > button,
-.riddlerOption {
+.riddlerOption,
+.VeryDificult,
+.Riddler,
+.riddler-check,
+.riddler-stop {
   width: 115px;
   border-radius: 10px;
   border: 2px solid #ffffff;
@@ -447,7 +456,8 @@ button:hover {
 .check,
 .option:nth-child(4),
 .riddlerOption:nth-child(1),
-.showColorsMenu {
+.showColorsMenu,
+.riddler-check {
   background: linear-gradient(#00d9ff, #6ba6ff);
   box-shadow: var(--blue-glow);
 }
@@ -459,6 +469,7 @@ button:hover {
 .Hangman,
 #continue,
 #Close-hangman-modal,
+#Close-riddler-modal,
 #stop,
 .portfolio,
 .Accept,
@@ -473,7 +484,8 @@ button:hover {
 .Memory,
 .neonOption,
 .Login,
-.riddlerOption:nth-child(2) {
+.riddlerOption:nth-child(2),
+.riddler-stop {
   background: linear-gradient(#ff3ebf, #ff0055);
   box-shadow: var(--pink-glow);
 }
@@ -492,7 +504,9 @@ button:hover {
 .start:nth-child(5),
 .option:nth-child(6),
 .Logout,
-.riddlerOption:nth-child(4) {
+.riddlerOption:nth-child(4),
+.Riddler,
+.dificults .VeryDificult {
   background: linear-gradient(#a883ff, #973bff);
   box-shadow: var(--purple-glow);
 }
@@ -600,7 +614,8 @@ button:hover {
   box-shadow: var(--synth-glow);
 }
 
-.letter-checker {
+.letter-checker,
+#AnswersInput {
   border-radius: 16px;
   border: none;
   outline: 2px solid #55f4ff;
@@ -613,7 +628,8 @@ button:hover {
   color: #23f0ff;
 }
 
-.letter-checker:focus {
+.letter-checker:focus,
+#AnswersInput:focus {
   color: #ff2323;
   outline-color: #ff0040;
 }
@@ -650,7 +666,8 @@ button:hover {
 
 .results-container #result span,
 .hangman-highscore span,
-.hangman-results span {
+.hangman-results span,
+.riddler-results span {
   color: #ff2323;
 }
 
@@ -741,7 +758,8 @@ button:hover {
 
 /* ? Continue game btn*/
 #continue,
-#Close-hangman-modal {
+#Close-hangman-modal,
+#Close-riddler-modal {
   width: 115px;
   border-radius: 10px;
   border: 2px solid #ffffff;
@@ -845,7 +863,8 @@ button:hover {
 }
 
 .option.locked,
-.start.locked {
+.start.locked,
+.riddlerOption.locked {
   background: linear-gradient(#747474, #2e2e2e) !important;
   color: #c2c2c2 !important;
   box-shadow: 0px 0px 10px 2px #646464 !important;
@@ -1013,12 +1032,13 @@ button:hover {
 }
 
 span.Dlevel,
-.hangman-highscore span {
+.hangman-highscore span,
+.riddler-highscore span {
   font-size: 18px !important;
   color: #973bff !important;
 }
 
-.RiddlerApp {
+.RiddlermainMenu {
   text-align: center;
 }
 
@@ -1029,6 +1049,10 @@ span.Dlevel,
 .RiddlerMenu {
   display: grid;
   gap: 5px;
+}
+
+.RiddlerApp {
+  text-align: center;
 }
 /* ? Hidden Element */
 .hidden {
@@ -1066,7 +1090,8 @@ span.Dlevel,
   .main-menu,
   .hangman-menu,
   .Signup,
-  .TopUsers {
+  .TopUsers,
+  .RiddlermainMenu {
     width: 85%;
     height: 85vh;
   }
@@ -1074,7 +1099,8 @@ span.Dlevel,
   .main-menu,
   .hangman-menu,
   .QuestionModal,
-  .RiddlerApp {
+  .RiddlerApp,
+  .RiddlermainMenu {
     width: 85%;
   }
   .app {
@@ -1137,7 +1163,8 @@ span.Dlevel,
   }
 
   .hangman-menu,
-  .main-menu {
+  .main-menu,
+  .RiddlermainMenu {
     height: fit-content;
   }
 

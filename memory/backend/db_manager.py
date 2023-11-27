@@ -66,7 +66,12 @@ def create_user(user: User):
     user["levels"] = dict()
     user["levels"]["memory"] = ["Emociones", "Comidas", "Colores", "Animales"]
     user["levels"]["hangman"] = ["Animales", "Ciencia", "Comics", "Comidas"]
+    user["levels"]["riddles"] = [
+        "Animales", "Comidas", "Objetos", "Transportes"]
     user["records"] = dict()
+    user["records"]["hangman"] = {"strike": 0}
+    user["records"]["riddles"] = {"record": 0}
+    user["records"]["memory"] = None
     client.Users.Users.insert_one(user)
     return {"message": "success"}
 
@@ -175,7 +180,7 @@ def modify_data(category: str, data: Data):
 
 def add_riddle(data: Riddle):
     riddle = data.model_dump()
-    if get_riddle(riddle["riddle"]) is not None:
+    if check_riddle(riddle["riddle"]) is not None:
         return {"message": "riddle already exists"}
     client.Categorys.Riddles.insert_one(riddle)
     return {"message": "success"}
@@ -200,7 +205,11 @@ def get_riddles(category: str, difficult: str):
     return [riddle for riddle in client.Categorys.Riddles.find({"$and": [{"category": category}, {"difficult": difficult}]}, {"_id": False})]
 
 
-def get_riddle(riddle: str):
+def get_riddle(category: str, difficult: str):
+    return random.choice(get_riddles(category, difficult))
+
+
+def check_riddle(riddle: str):
     return client.Categorys.Riddles.find_one({"riddle": riddle}, {"_id": False})
 
 

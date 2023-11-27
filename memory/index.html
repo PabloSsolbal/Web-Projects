@@ -62,10 +62,11 @@
         <img src="images/banner-title.png" alt="" class="game-title">
     </section>
     <!-- ? Main menu for the app -->
-    <section class="main-menu glow hidden">
+    <section class="main-menu glow">
         <p class="greet">A que quieres jugar hoy?</p>
         <button class="Memory">Memoria</button>
         <button class="Hangman">Ahorcado</button>
+        <button class="Riddler">Adivinanzas</button>
         <p>Quieres cambiar la configuracion?</p>
         <button class="config">Config</button>
         <button class="Credits">Creditos</button>
@@ -103,20 +104,40 @@
         </div>
     </section>
 
-    <div class="RiddlerApp glow">
+    <div class="RiddlermainMenu glow hidden">
+        <p class="riddler-highscore"></p>
+        <p class="riddler-results"><span>Racha Actual:</span> 00</p>
+        <div class="dificults">
+            <p>Elige una dificultad</p>
+            <button class="Easy dificultBtnRiddler" data-difficult="facil">Facil</button>
+            <button class="Medium dificultBtnRiddler" data-difficult="media">Intermedia</button>
+            <button class="Dificult dificultBtnRiddler" data-difficult="dificil">Dificil</button>
+            <button class="VeryDificult dificultBtnRiddler" data-difficult="muy_dificil">Muy Dificil</button>
+        </div>
         <p>Selecciona una categoria para empezar</p>
         <div class="RiddlerMenu">
             <button class="riddlerOption">Animales</button>
             <button class="riddlerOption">Comidas</button>
-            <button class="riddlerOption">Cuentos</button>
-            <button class="riddlerOption">Transportes</button>
             <button class="riddlerOption">Objetos</button>
-            <button class="riddlerOption">Animales</button>
-            <button class="riddlerOption">Animales</button>
-            <button class="riddlerOption">Naturaleza</button>
+            <button class="riddlerOption">Transportes</button>
+            <button class="riddlerOption locked" data-cost="400">Colegio</button>
+            <button class="riddlerOption locked" data-cost="800">Cuentos</button>
+            <button class="riddlerOption locked" data-cost="600">Juegos</button>
+            <button class="riddlerOption locked" data-cost="600">Naturaleza</button>
         </div>
         <button class="home">Home</button>
     </div>
+
+    <section class="RiddlerApp glow hidden">
+        <div class="riddlerAttemps"><span>Intentos:</span> 00</div>
+        <div class="hint"></div>
+        <div class="riddleContainer">
+            <p></p>
+        </div>
+        <input type="text" id="AnswersInput">
+        <button class="riddler-check">Revisar</button>
+        <button class="riddler-stop">Stop Game</button>
+    </section>
 
     <div class="colorsOptionContainer glow hidden">
         <p>Elige un color</p>

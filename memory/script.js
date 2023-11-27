@@ -19,6 +19,7 @@ if ("serviceWorker" in navigator) {
 import { getWord, usedLetter, hangmanHigscore } from "./hangman.js";
 import { app, mainMenu, hangmanMenu } from "./memory.js";
 import { urls } from "./config.js";
+import { riddlerMenu, updateRiddlerRecord } from "./riddles.js";
 
 const configMenu = document.querySelector(".Config");
 const colorsMenu = document.querySelector(".colorsOptionContainer");
@@ -34,6 +35,7 @@ export let userPoints = null;
 export let userGatoCoins = null;
 let hangmanLevels = [];
 let memoryLevels = [];
+let riddlesLevels = [];
 let elementToBuy = null;
 
 // ? flip audio for the cards
@@ -202,10 +204,10 @@ const loginUser = async () => {
     return;
   }
   localStorage.setItem("Username", JSON.stringify(signUpInput.value));
-  getUserData();
   mainMenu.classList.remove("hidden");
   signUpMenu.classList.add("hidden");
   greetUser();
+  getUserData();
 };
 
 const createUsers = (users) => {
@@ -270,10 +272,11 @@ const createUser = async () => {
   }
   console.log(message);
   localStorage.setItem("Username", JSON.stringify(signUpInput.value));
+
   mainMenu.classList.remove("hidden");
   signUpMenu.classList.add("hidden");
-  greetUser();
   getUserData();
+  greetUser();
 };
 
 const addCoinsRemote = async (name, coins) => {
@@ -352,20 +355,28 @@ const addToMemoryUnlockedLevels = (level) => {
   UnlockLevel(level, "memory");
 };
 
+const addToRiddlesUnlockLevels = (level) => {
+  UnlockLevel(level, "riddles");
+};
+
 const unlockLevelconfirmate = (price) => {
   let element = elementToBuy;
   price = parseInt(price);
   if (userGatoCoins >= price) {
     modifyUserData("GatoCoins", -price);
     showNotification(`Has desbloqueado el nivel ${element.textContent}`);
-    element.classList.contains("option")
-      ? hangmanMenu.prepend(updateUserPointsAndCoins())
-      : app.prepend(updateUserPointsAndCoins());
+    if (element.classList.contains("option")) {
+      hangmanMenu.prepend(updateUserPointsAndCoins());
+      addToHangmanUnlockedLEvels(element.textContent);
+    } else if (element.classList.contains("start")) {
+      app.prepend(updateUserPointsAndCoins());
+      addToMemoryUnlockedLevels(element.textContent);
+    } else if (element.classList.contains("riddlerOption")) {
+      riddlerMenu.prepend(updateUserPointsAndCoins());
+      addToRiddlesUnlockLevels(element.textContent);
+    }
     element.classList.remove("locked");
     element.setAttribute("data-cost", "0");
-    element.classList.contains("option")
-      ? addToHangmanUnlockedLEvels(element.textContent)
-      : addToMemoryUnlockedLevels(element.textContent);
   } else {
     showNotification("GatoCoins insuficientes");
   }
@@ -428,13 +439,19 @@ export const getUserData = async () => {
   userPoints = data.points;
   hangmanLevels = data.levels.hangman;
   memoryLevels = data.levels.memory;
+  riddlesLevels = data.levels.riddles;
   getUnlockedLevels(".option", hangmanLevels);
   getUnlockedLevels(".start", memoryLevels);
+  getUnlockedLevels(".riddlerOption", riddlesLevels);
   localStorage.setItem(
     "HangmanStrike",
     JSON.stringify(data.records.hangman.strike)
   );
   localStorage.setItem("highscore", JSON.stringify(data.records.memory));
+  localStorage.setItem(
+    "RiddlerStrike",
+    JSON.stringify(data.records.riddles.record)
+  );
   mainMenu.prepend(updateUserPointsAndCoins());
 };
 
@@ -503,9 +520,10 @@ const changeAudioVolume = (value, button) => {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
+  mainMenu.prepend(updateUserPointsAndCoins());
   greetUser();
   if (!localStorage.getItem("keyboard")) {
-    localStorage.setItem(JSON.stringify(true));
+    localStorage.setItem("keyboard", JSON.stringify(true));
   }
   document.querySelector(".keyboardOption").textContent =
     JSON.parse(localStorage.getItem("keyboard")) === true
@@ -515,6 +533,7 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("HangmanStrike", JSON.stringify(0));
   }
   UpdateStrike();
+  updateRiddlerRecord();
   changeAudioVolume(
     localStorage.getItem("AudioVolume"),
     document.querySelector(".soundOption")
@@ -627,6 +646,7 @@ document.addEventListener("click", (e) => {
     creditsContainer.classList.add("hidden");
     mainMenu.prepend(updateUserPointsAndCoins());
     document.querySelector(".TopUsers").classList.add("hidden");
+    riddlerMenu.classList.add("hidden");
   }
   if (e.target.matches(".config")) {
     mainMenu.classList.add("hidden");
@@ -663,6 +683,11 @@ document.addEventListener("click", (e) => {
     mainMenu.classList.add("hidden");
     hangmanMenu.classList.remove("hidden");
     hangmanMenu.prepend(updateUserPointsAndCoins());
+  }
+  if (e.target.matches(".Riddler")) {
+    mainMenu.classList.add("hidden");
+    riddlerMenu.classList.remove("hidden");
+    riddlerMenu.prepend(updateUserPointsAndCoins());
   }
 });
 

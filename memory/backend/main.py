@@ -135,14 +135,19 @@ def riddles():
     return get_riddle_categories()
 
 
-@app.get("/riddles/{category}/{difficult}", tags=["Riddles"])
-def riddles(category: str, difficult: str):
-    return get_riddles(category, difficult)
+@app.get("/riddles/from/{category}", tags=["Riddles"])
+def riddles(category: str):
+    return get_all_riddles_from(category)
 
 
 @app.get("/riddles/{category}", tags=["Riddles"])
-def riddles(category: str):
-    return get_all_riddles_from(category)
+def riddles(category: str, difficult: str):
+    return get_riddle(category, difficult)
+
+
+@app.get("/riddles/all/{category}", tags=["Riddles"])
+def riddles(category: str, difficult: str):
+    return get_riddles(category, difficult)
 
 
 @app.post("/riddles", tags=["Riddles"])

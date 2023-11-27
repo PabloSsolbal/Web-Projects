@@ -238,7 +238,12 @@ const cardsRandomGenerator = () => {
  * @param {string} message - The message to be displayed alongside the highscore data.
  */
 const showHighscore = (message) => {
-  let highscore = JSON.parse(localStorage.getItem("highscore"));
+  let highscore = null;
+  if (JSON.parse(localStorage.getItem("highscore")) !== null) {
+    highscore = JSON.parse(localStorage.getItem("highscore"));
+  } else {
+    return;
+  }
 
   highscoreText.textContent = message;
 
@@ -319,7 +324,7 @@ const checkDifficult = (difficult) => {
  * @param {number} moves - The number of moves in the current game.
  */
 const checkHighScore = (minutes, seconds, moves) => {
-  if (localStorage.getItem("highscore")) {
+  if (JSON.parse(localStorage.getItem("highscore")) !== null) {
     //
     let highScore = JSON.parse(localStorage.getItem("highscore"));
     let difficult = highScore.difficult;
