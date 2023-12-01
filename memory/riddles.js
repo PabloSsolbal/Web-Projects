@@ -341,6 +341,12 @@ document.addEventListener("click", (e) => {
   }
 });
 
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    document.querySelector(".riddler-check").click();
+  }
+});
+
 /**
  * ? Adds event listeners to the Riddler difficulty buttons.
  *
