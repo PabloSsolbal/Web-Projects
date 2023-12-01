@@ -8,6 +8,7 @@ import {
   greetUser,
   signUpEmail,
   signUpInput,
+  signUpMenu,
 } from "./script.js";
 import { urls } from "./config.js";
 import { mainMenu } from "./memory.js";
