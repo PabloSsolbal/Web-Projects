@@ -25,9 +25,8 @@ import {
   modifyUserData,
   updateUserPointsAndCoins,
   showNotification,
-  addRecord,
 } from "./script.js";
-
+import { addRecord } from "./user.js";
 import { urls } from "./config.js";
 /**
  * * the app container
@@ -98,6 +97,10 @@ let url = urls.MemoryData;
 
 let cardsQuantity = 10;
 
+/**
+ * ? Retrieves the selected card theme from local storage. If not found, sets it to "Blue" and returns it.
+ * @returns {string} The selected card theme.
+ */
 const getCardTheme = () => {
   if (localStorage.getItem("CardsTheme")) {
     return localStorage.getItem("CardsTheme");
@@ -631,13 +634,15 @@ continueGameBtn.addEventListener("click", () => {
 });
 
 // ? Load the record of the user when the page is loaded
-
 document.addEventListener("DOMContentLoaded", () => {
   if (localStorage.getItem("highscore")) {
     showHighscore("Tu Record: ");
   }
 });
 
+/**
+ * ? Event listener for difficulty buttons to set the number of cards based on the selected difficulty.
+ */
 dificultButtons.forEach((btn) => {
   btn.addEventListener("click", () => {
     cardsQuantity = parseInt(btn.getAttribute("data-cards"));

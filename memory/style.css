@@ -61,6 +61,8 @@ TODO: Add more comments to explain specific styles and their effects in more det
   --rainbow-glow: 0px 0px 10px 2px #75ffdd;
   --synth-glow: 0px 0px 10px 2px #fbff00;
   --very-d-glow: 0px 0px 10px 2px #970a00;
+  --d-level: #973bff;
+  --text-shadow: #0000003b;
 }
 * {
   padding: 0;
@@ -73,7 +75,6 @@ body {
   height: 100vh;
   max-height: 100vh;
   width: 100vw;
-  background: url(images/background.png);
   background-size: cover;
   transition: all 0.8s;
   overflow: hidden;
@@ -105,6 +106,42 @@ body.NoGlow {
   --very-d-glow: none;
 }
 
+body[data-bg="Color-Pixel"] {
+  background: url(images/background2.jpg);
+  background-size: cover;
+  filter: brightness(1.25);
+  --text-shadow: #0000007a;
+}
+
+body[data-bg="Paint"] {
+  background: url(images/background.png) center;
+  background-size: cover;
+  color: #000;
+  --d-level: #973bff;
+  --text-shadow: #0000003b;
+}
+
+body[data-bg="Cats"],
+.themeOption:nth-child(3) {
+  background: url(images/background-cats.png) center;
+  background-size: cover;
+  /* filter: saturate(0.6) contrast(1.25); */
+  filter: sepia(50%) contrast(150%) saturate(200%) brightness(100%)
+    hue-rotate(-15deg);
+  --d-level: rgb(19, 0, 194);
+  color: #333333;
+}
+
+body[data-bg="Dark"],
+.themeOption:nth-child(4) {
+  background: #0c0c0c;
+  background-size: cover;
+  filter: grayscale(0.2);
+  color: #fff;
+  --d-level: rgb(56, 34, 255);
+  --text-shadow: #0000008c;
+}
+
 button {
   all: unset;
   cursor: pointer;
@@ -134,7 +171,7 @@ span {
 p,
 span {
   font-weight: bold;
-  text-shadow: 0px 2px 3px #0000003b;
+  text-shadow: 0px 2px 3px var(--text-shadow);
 }
 button {
   transition: transform 0.5s;
@@ -187,6 +224,7 @@ button:hover {
   border-radius: 15px;
   box-shadow: 0px 0px 10px 5px #0000008a;
   background-color: #ffffff70;
+  backdrop-filter: blur(5px) !important;
 }
 
 .Config {
@@ -221,6 +259,7 @@ button:hover {
   height: fit-content;
   width: 600px;
   margin: 0 auto;
+  backdrop-filter: blur(2.5px) !important;
 }
 
 .Signup > * {
@@ -445,7 +484,8 @@ button:hover {
 .closeConfigMenu,
 .showThemesMenu,
 .closeThemesMenu,
-.themeOption {
+.themeOption,
+.TicTacToe {
   width: 115px;
   border-radius: 10px;
   border: 2px solid #ffffff;
@@ -582,7 +622,8 @@ button:hover {
 .configOption:nth-child(12),
 .option:nth-child(11),
 .card-reverse.Orange-B,
-.riddlerOption:nth-child(5) {
+.riddlerOption:nth-child(5),
+.TicTacToe {
   background: linear-gradient(#ffd859, #ff9100);
   box-shadow: var(--orange-b-glow);
 }
@@ -668,6 +709,16 @@ button:hover {
 
 .Challenge {
   box-shadow: 0px 0px 10px 5px #ff0000 !important;
+}
+
+.themeOption:first-child {
+  background: url(./images/background.png) center;
+  background-size: cover;
+}
+
+.themeOption:nth-child(2) {
+  background: url(./images/background2.jpg) center;
+  background-size: cover;
 }
 
 /* ? Results Container */
@@ -883,7 +934,8 @@ button:hover {
 
 .option.locked,
 .start.locked,
-.riddlerOption.locked {
+.riddlerOption.locked,
+.optionDisabled {
   background: linear-gradient(#747474, #2e2e2e) !important;
   color: #c2c2c2 !important;
   box-shadow: 0px 0px 10px 2px #646464 !important;
@@ -918,6 +970,8 @@ button:hover {
   justify-self: start;
   z-index: 10000;
   margin-top: -100%;
+  text-align: center;
+  backdrop-filter: blur(5px);
 }
 
 .Notification.Display {
@@ -1056,7 +1110,7 @@ span.Dlevel,
 .riddler-highscore span,
 .DLevel {
   font-size: 18px !important;
-  color: #973bff !important;
+  color: var(--d-level) !important;
 }
 
 .RiddlermainMenu {

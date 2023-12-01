@@ -18,15 +18,12 @@ import {
   correct,
   incorrect,
   failure,
-  UpdateStrike,
   modifyUserData,
   updateUserPointsAndCoins,
   showNotification,
-  addRecord,
 } from "./script.js";
-
+import { addRecord } from "./user.js";
 import { hangmanMenu } from "./memory.js";
-
 import { urls } from "./config.js";
 
 /**
@@ -43,7 +40,7 @@ export const loseModal = document.querySelector(".lose-modal");
 const continueBtn = document.getElementById("Close-hangman-modal");
 const showWordContainer = document.querySelector(".show-word-container");
 const hangmanPic = document.querySelector(".hangman-pic");
-export const hangmanHigscore = document.querySelector(".hangman-highscore");
+const hangmanHigscore = document.querySelector(".hangman-highscore");
 export const hangmanResults = document.querySelector(".hangman-results");
 const keyboardContainer = document.querySelector(".keyBoard");
 const optionBtns = document.querySelectorAll(".option");
@@ -57,17 +54,22 @@ let word = null;
 let hidden = null;
 let maxAttemps;
 let attempsCounter = null;
-
-// ? Valid characters for the Hangman game.
-const validCharacters = "abcdefghijklmnñopqrstuvwxyz";
-
-const keyBoardCharacters = "qwertyuiopasdfghjklzxcvbnm↩⏎";
-
-// ? Array to store used letters in the game.
-const usedLetters = new Set();
-
 let strikeCounter = 0;
 
+const validCharacters = "abcdefghijklmnñopqrstuvwxyz";
+const keyBoardCharacters = "qwertyuiopasdfghjklzxcvbnm↩⏎";
+const usedLetters = new Set();
+
+/**
+ * ? Generates a virtual keyboard with specified characters.
+ *
+ * @param {string[]} characters - An array of characters for the virtual keyboard.
+ * @returns {DocumentFragment} - A document fragment containing the virtual keyboard.
+ *
+ * @example
+ * * const keyboard = keyBoard(["A", "B", "C", "D"]);
+ * * document.querySelector(".keyboard-container").appendChild(keyboard);
+ */
 export const keyBoard = (Characters) => {
   const keyboard = document.createDocumentFragment();
 
@@ -80,17 +82,43 @@ export const keyBoard = (Characters) => {
   return keyboard;
 };
 
+/**
+ * ? Update the displayed strike counter in the Hangman game.
+ * * Retrieves the strike counter from local storage, formats it, and updates the HTML element.
+ *
+ * @function
+ *
+ * @example
+ * * UpdateStrike();
+ */
+export const UpdateStrike = () => {
+  let strikeCounter = JSON.parse(localStorage.getItem("HangmanStrike"));
+
+  let formatedStrikeCounter =
+    strikeCounter < 10 ? `0${strikeCounter}` : strikeCounter;
+
+  hangmanHigscore.innerHTML = `<span>Racha Maxima: </span>${formatedStrikeCounter}`;
+};
+
+/**
+ * ? Saves the current hangman strike counter as a new record if it's higher than the existing record.
+ */
 const SaveStrike = () => {
   if (JSON.parse(localStorage.getItem("HangmanStrike")) < strikeCounter) {
     localStorage.setItem("HangmanStrike", JSON.stringify(strikeCounter));
+
     addRecord({ strike: strikeCounter }, "hangman");
     showNotification("Nuevo record");
   }
 };
 
+/**
+ * ? Updates the displayed hangman strike counter on the UI.
+ */
 const StrikeCounterAdd = () => {
   let formatedStrikeCounter =
     strikeCounter < 10 ? `0${strikeCounter}` : strikeCounter;
+
   hangmanResults.innerHTML = `<span>Racha Actual: </span>${formatedStrikeCounter}`;
 };
 
@@ -145,6 +173,7 @@ export const usedLetter = (letter = null) => {
   } else {
     usedLetters.add(letter);
   }
+
   usedLetterContainer.innerHTML = `<span>Letras Usadas:</span> ${Array.from(
     usedLetters
   ).join("")}`;
@@ -202,6 +231,7 @@ const createHangman = (data) => {
 
 export const getWord = async (category) => {
   let data = null;
+
   try {
     let response = await fetch(hangmanurl + category);
     data = await response.json();
@@ -228,22 +258,28 @@ export const getWord = async (category) => {
 
 const checkLetter = (letter) => {
   usedLetter(letter);
+
   if (word.includes(letter)) {
     for (let a in word) {
       if (word[a] == letter) {
         hidden[a] = letter;
       }
     }
+
     correct.play();
     updateWord();
+
     if (hidden.join("") == word.join("")) {
       success.play();
       strikeCounter += 1;
+
       StrikeCounterAdd();
       SaveStrike();
       UpdateStrike();
+
       modifyUserData("Points", Math.max(5 + attempsCounter * 2, 0));
       modifyUserData("GatoCoins", Math.max(20 + attempsCounter * 2, 0));
+
       setTimeout(() => {
         hangmanApp.classList.add("hidden");
         hangmanMenu.classList.remove("hidden");
@@ -257,15 +293,19 @@ const checkLetter = (letter) => {
     incorrect.play();
     updateAttemps();
     setHangmanPic();
+
     if (attempsCounter == 0) {
       failure.play();
+
       SaveStrike();
       strikeCounter = 0;
       StrikeCounterAdd();
       UpdateStrike();
+
       showWordContainer.innerHTML = `<span>La palabra era:</span> ${word.join(
         ""
       )}`;
+
       setTimeout(() => {
         loseModal.classList.remove("hidden");
       }, 1000);
@@ -343,47 +383,63 @@ const getLetter = () => {
  */
 
 document.addEventListener("click", (e) => {
+  // ? Handle clicks in the integrated keyboard
   if (e.target.matches(".letter-container")) {
+    //
     if (e.target.parentElement.matches(".keyBoard")) {
       let l = e.target.textContent;
 
       if (l == "⏎") {
         document.querySelector(".check").click();
+        //
       } else if (l == "↩") {
         let actualWord = letterInput.value;
         console.log(actualWord);
+
         let changedWord = Array.from(actualWord);
         changedWord.pop(actualWord.length - 1);
+
         letterInput.value = changedWord.join("");
+        //
       } else {
         letterInput.value += l;
       }
     }
   }
+
+  // ? Handle click on the continue button in the lose modal.
   if (e.target == continueBtn) {
     loseModal.classList.add("hidden");
     hangmanApp.classList.add("hidden");
     hangmanMenu.classList.remove("hidden");
+
     SaveStrike();
     strikeCounter = 0;
     StrikeCounterAdd();
     UpdateStrike();
   }
+
+  // ? Check the letter input
   if (e.target.matches(".check")) {
     let letter = getLetter();
     if (letter == "success") {
       return;
     }
+
     if (letter != "empty") {
       checkLetter(letter);
     }
   }
+
   if (e.target.matches(".home")) {
     hangmanMenu.classList.add("hidden");
   }
+
+  // ? Stop the game
   if (e.target.matches(".hangman-stop")) {
     hangmanApp.classList.add("hidden");
     hangmanMenu.classList.remove("hidden");
+
     SaveStrike();
     strikeCounter = 0;
     StrikeCounterAdd();
@@ -409,12 +465,16 @@ document.addEventListener("keyup", (e) => {
     if (letter == "success") {
       return;
     }
+
     if (letter != "empty") {
       checkLetter(letter);
     }
   }
 });
 
+/**
+ * ? Event listener for option buttons. Fetches a word for the selected category and updates the UI.
+ */
 optionBtns.forEach((btn) => {
   btn.addEventListener("click", async () => {
     if (!btn.classList.contains("locked")) {
